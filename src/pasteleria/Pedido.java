@@ -104,7 +104,7 @@ public class Pedido extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Dirección:");
+        jLabel4.setText("Teléfono:");
 
         JtextCodigoCliente.setMaximumSize(new java.awt.Dimension(180, 20));
         JtextCodigoCliente.setMinimumSize(new java.awt.Dimension(180, 20));
@@ -135,7 +135,7 @@ public class Pedido extends javax.swing.JFrame {
                     .addComponent(JtextCodigoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,14 +408,21 @@ public class Pedido extends javax.swing.JFrame {
         jLabel5.setText("Precio total:");
 
         jTextField5.setEditable(false);
+        jTextField5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 162, 213)));
         jTextField5.setMaximumSize(new java.awt.Dimension(140, 34));
         jTextField5.setMinimumSize(new java.awt.Dimension(140, 34));
         jTextField5.setPreferredSize(new java.awt.Dimension(140, 34));
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField5ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(212, 34, 135));
         jLabel6.setText("Por pagar:");
 
+        jTextField6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 162, 213)));
         jTextField6.setMaximumSize(new java.awt.Dimension(140, 34));
         jTextField6.setMinimumSize(new java.awt.Dimension(140, 34));
         jTextField6.setPreferredSize(new java.awt.Dimension(140, 34));
@@ -425,12 +432,15 @@ public class Pedido extends javax.swing.JFrame {
         jLabel7.setText("Abono:");
 
         jTextField14.setEditable(false);
+        jTextField14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 162, 213)));
         jTextField14.setMaximumSize(new java.awt.Dimension(140, 34));
         jTextField14.setMinimumSize(new java.awt.Dimension(140, 34));
         jTextField14.setPreferredSize(new java.awt.Dimension(140, 34));
 
         jButton5.setText("Eliminar");
 
+        jButton6.setBackground(new java.awt.Color(173, 240, 38));
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Volver");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -510,6 +520,10 @@ public class Pedido extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
 
    
 
