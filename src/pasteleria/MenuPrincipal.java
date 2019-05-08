@@ -31,7 +31,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(995, 700));
         setMinimumSize(new java.awt.Dimension(995, 700));
-        setPreferredSize(new java.awt.Dimension(995, 700));
 
         jButton1.setText("jButton1");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
