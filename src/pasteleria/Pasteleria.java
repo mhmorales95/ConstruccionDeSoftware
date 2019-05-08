@@ -15,8 +15,8 @@ public class Pasteleria {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MenuPrincipal m = new MenuPrincipal();
-        m.setVisible(true);
+        MenuPrincipal iniciar = new MenuPrincipal();
+        iniciar.setVisible(true);
         
     }
     
