@@ -51,7 +51,7 @@ public class Pedido extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        seleccionFecha = new com.toedter.calendar.JDateChooser();
         Date date = new Date();
         SpinnerDateModel sm = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
         jSpinner1 = new javax.swing.JSpinner(sm);
@@ -210,9 +210,9 @@ public class Pedido extends javax.swing.JFrame {
         jTextField9.setMaximumSize(new java.awt.Dimension(59, 20));
         jTextField9.setMinimumSize(new java.awt.Dimension(59, 20));
 
-        jDateChooser1.setMaximumSize(new java.awt.Dimension(59, 20));
-        jDateChooser1.setMinimumSize(new java.awt.Dimension(59, 20));
-        jDateChooser1.setPreferredSize(new java.awt.Dimension(59, 20));
+        seleccionFecha.setMaximumSize(new java.awt.Dimension(59, 20));
+        seleccionFecha.setMinimumSize(new java.awt.Dimension(59, 20));
+        seleccionFecha.setPreferredSize(new java.awt.Dimension(59, 20));
 
         JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1, "HH:mm:ss");
         jSpinner1.setEditor(de);
@@ -233,7 +233,7 @@ public class Pedido extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(seleccionFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -261,7 +261,7 @@ public class Pedido extends javax.swing.JFrame {
                         .addComponent(jLabel9)
                         .addComponent(jLabel12)
                         .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(seleccionFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
@@ -507,7 +507,6 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -542,5 +541,6 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField9;
+    private com.toedter.calendar.JDateChooser seleccionFecha;
     // End of variables declaration//GEN-END:variables
 }
