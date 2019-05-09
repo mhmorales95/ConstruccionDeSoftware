@@ -35,32 +35,40 @@ public class Usuario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Iniciar Sesión");
+        setMinimumSize(new java.awt.Dimension(400, 300));
+        setPreferredSize(new java.awt.Dimension(400, 300));
+        setResizable(false);
         getContentPane().setLayout(null);
 
-        jPasswordField1.setText("Password");
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
             }
         });
         getContentPane().add(jPasswordField1);
-        jPasswordField1.setBounds(150, 170, 130, 20);
+        jPasswordField1.setBounds(150, 166, 130, 22);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione usuario...", "USUARIO 1", "USUARIO 2", "USUARIO 3" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "USUARIO 1", "USUARIO 2", "USUARIO 3" }));
+        jComboBox1.setBorder(null);
         jComboBox1.setMaximumSize(new java.awt.Dimension(130, 20));
         jComboBox1.setName(""); // NOI18N
         jComboBox1.setPreferredSize(new java.awt.Dimension(130, 20));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(150, 110, 140, 20);
+        jComboBox1.setBounds(150, 112, 130, 22);
 
         jButton1.setText("Entrar");
         getContentPane().add(jButton1);
-        jButton1.setBounds(110, 210, 180, 40);
+        jButton1.setBounds(112, 208, 184, 40);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/uno.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 380, 300);
+        jLabel1.setBounds(0, 0, 400, 300);
 
         pack();
         setLocationRelativeTo(null);
@@ -69,6 +77,10 @@ public class Usuario extends javax.swing.JDialog {
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField1ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
