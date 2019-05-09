@@ -31,9 +31,11 @@ public class Usuario extends javax.swing.JDialog {
         jPasswordField1 = new javax.swing.JPasswordField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Iniciar Sesión");
+        getContentPane().setLayout(null);
 
         jPasswordField1.setText("Password");
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
@@ -41,41 +43,24 @@ public class Usuario extends javax.swing.JDialog {
                 jPasswordField1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jPasswordField1);
+        jPasswordField1.setBounds(150, 170, 130, 20);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione usuario...", "USUARIO 1", "USUARIO 2", "USUARIO 3" }));
         jComboBox1.setMaximumSize(new java.awt.Dimension(130, 20));
         jComboBox1.setName(""); // NOI18N
         jComboBox1.setPreferredSize(new java.awt.Dimension(130, 20));
+        getContentPane().add(jComboBox1);
+        jComboBox1.setBounds(150, 110, 140, 20);
 
         jButton1.setText("Entrar");
+        getContentPane().add(jButton1);
+        jButton1.setBounds(110, 210, 180, 40);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(129, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(120, 120, 120))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(154, 154, 154))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(127, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addGap(81, 81, 81))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/uno.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 380, 300);
 
         pack();
         setLocationRelativeTo(null);
@@ -89,6 +74,7 @@ public class Usuario extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField jPasswordField1;
     // End of variables declaration//GEN-END:variables
 }
