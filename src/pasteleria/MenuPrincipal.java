@@ -21,6 +21,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         boton2.setVisible(false);
         boton3.setVisible(false);
         boton4.setVisible(false);
+        
+        java.awt.Color a = new java.awt.Color(242,189,219);
+        this.getContentPane().setBackground(a);
     }
 
     /** This method is called from within the constructor to
@@ -183,6 +186,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel1.setText("Pasteleria Amado Palominos");
 
         jButton6.setText("Salir");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setBackground(new java.awt.Color(255, 204, 255));
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
@@ -353,6 +361,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_boton2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
