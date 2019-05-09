@@ -15,8 +15,8 @@ public class Pasteleria {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        MenuPrincipal iniciar = new MenuPrincipal();
-        iniciar.setVisible(true);
+        MySQL m = new MySQL();
+        m.getConnection();
         
     }
     
