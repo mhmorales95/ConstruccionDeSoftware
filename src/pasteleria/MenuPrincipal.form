@@ -45,7 +45,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jPanel4" min="-2" pref="230" max="-2" attributes="0"/>
                   <Component id="jPanel5" pref="230" max="32767" attributes="0"/>
-                  <Component id="jPanel7" alignment="1" pref="0" max="32767" attributes="0"/>
+                  <Component id="jPanel7" alignment="1" pref="230" max="32767" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
@@ -146,9 +146,6 @@
           <Dimension value="[310, 150]"/>
         </Property>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Principal"/>
-      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
