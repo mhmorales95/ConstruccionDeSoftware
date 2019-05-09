@@ -346,6 +346,7 @@
     <Component class="javax.swing.JButton" name="boton2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Informe Anulaciones"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton2ActionPerformed"/>
@@ -354,11 +355,13 @@
     <Component class="javax.swing.JButton" name="boton1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Informe Ventas"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="boton3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Productos"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="boton4">

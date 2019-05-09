@@ -17,9 +17,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     /** Creates new form MenuPrincipal */
     public MenuPrincipal() {
         initComponents();
-        //boton1.setVisible(false);
-     
-        
+        boton1.setVisible(false);
+        boton2.setVisible(false);
+        boton3.setVisible(false);
+        boton4.setVisible(false);
     }
 
     /** This method is called from within the constructor to
@@ -188,6 +189,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel2.setText("Logo.png 1 link");
 
         boton2.setText("Informe Anulaciones");
+        boton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         boton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boton2ActionPerformed(evt);
@@ -195,8 +197,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
 
         boton1.setText("Informe Ventas");
+        boton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         boton3.setText("Productos");
+        boton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         boton4.setText("Modificar Stock");
 
@@ -289,7 +293,34 @@ public class MenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void nombrarBotones(String proviene){
+        if (proviene.equals("Inventario")){
+            boton1.setVisible(true);
+            boton1.setText("<html>Administrar<br>productos</html>");
+            boton2.setVisible(true);
+            boton2.setText("<html>Administrar<br>inventario</html>");
+            boton3.setVisible(false);
+            boton4.setVisible(false);
+        }
+        if (proviene.equals("Informes")){
+            boton1.setVisible(true);
+            boton1.setText("Informe de venta");
+            boton2.setVisible(true);
+            boton2.setText("<html>Informe<br>de anulaciones</html>");
+            boton3.setVisible(true);
+            boton3.setText("<html>Informe<br>de Inventario</html>");
+            boton4.setVisible(false);
+        }
+    }
+    
+    public void ocultarBotones(){
+        boton1.setVisible(false);
+        boton2.setVisible(false);
+        boton3.setVisible(false);
+        boton4.setVisible(false);
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ocultarBotones();
         Usuario u = new Usuario(this, true);
         u.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -299,19 +330,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        ocultarBotones();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
+        nombrarBotones(jButton9.getText());
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        ocultarBotones();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
+        nombrarBotones(jButton11.getText());
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
