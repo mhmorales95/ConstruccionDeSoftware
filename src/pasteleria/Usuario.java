@@ -5,6 +5,15 @@
  */
 package pasteleria;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mauricio
@@ -17,6 +26,7 @@ public class Usuario extends javax.swing.JDialog {
     public Usuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarUsuarios();
     }
 
     /**
@@ -28,8 +38,8 @@ public class Usuario extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        contrasena = new javax.swing.JPasswordField();
+        usuario = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -40,26 +50,31 @@ public class Usuario extends javax.swing.JDialog {
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        contrasena.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                contrasenaActionPerformed(evt);
             }
         });
-        getContentPane().add(jPasswordField1);
-        jPasswordField1.setBounds(150, 166, 130, 22);
+        getContentPane().add(contrasena);
+        contrasena.setBounds(150, 166, 130, 22);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "USUARIO 1", "USUARIO 2", "USUARIO 3" }));
-        jComboBox1.setBorder(null);
-        jComboBox1.setMaximumSize(new java.awt.Dimension(130, 20));
-        jComboBox1.setName(""); // NOI18N
-        jComboBox1.setPreferredSize(new java.awt.Dimension(130, 20));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario" }));
+        usuario.setBorder(null);
+        usuario.setMaximumSize(new java.awt.Dimension(130, 20));
+        usuario.setName(""); // NOI18N
+        usuario.setPreferredSize(new java.awt.Dimension(130, 20));
+        usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                usuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(150, 112, 130, 22);
+        usuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                usuarioKeyTyped(evt);
+            }
+        });
+        getContentPane().add(usuario);
+        usuario.setBounds(150, 112, 130, 22);
 
         jButton1.setText("Entrar");
         getContentPane().add(jButton1);
@@ -74,19 +89,55 @@ public class Usuario extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void contrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contrasenaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_contrasenaActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
+        
+    }//GEN-LAST:event_usuarioActionPerformed
 
+    private void usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyTyped
+        contrasena.requestFocus();
+    }//GEN-LAST:event_usuarioKeyTyped
+
+    private void cargarUsuarios() {
+        if (true) {
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+
+            try {
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios");
+                String s = String.valueOf(contrasena.getPassword());
+                
+                ResultSet rs;
+                rs = stmt.executeQuery();
+                boolean r = rs.next();
+                 
+                    while (r) {
+                        String n = rs.getString("nombre");
+                        usuario.addItem(n);
+                    
+
+                        r = rs.next();
+
+                    }
+
+                
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField contrasena;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JComboBox<String> usuario;
     // End of variables declaration//GEN-END:variables
 }
