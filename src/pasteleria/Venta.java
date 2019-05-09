@@ -67,15 +67,11 @@ public class Venta extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jRadioButtonBoleta = new javax.swing.JRadioButton();
-        jRadioButtonTransbank = new javax.swing.JRadioButton();
-        jRadioButtonFacBol = new javax.swing.JRadioButton();
-        jRadioButtonFacTrans = new javax.swing.JRadioButton();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        jButton8 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -89,11 +85,15 @@ public class Venta extends javax.swing.JFrame {
         jTextField7 = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jRadioButtonBoleta = new javax.swing.JRadioButton();
+        jRadioButtonTransbank = new javax.swing.JRadioButton();
+        jRadioButtonFacBol = new javax.swing.JRadioButton();
+        jRadioButtonFacTrans = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
 
@@ -318,49 +318,32 @@ public class Venta extends javax.swing.JFrame {
         );
 
         jPanel3.setBackground(new java.awt.Color(212, 34, 135));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Método de pago", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(252, 162, 213))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(252, 162, 213))); // NOI18N
         jPanel3.setMaximumSize(new java.awt.Dimension(358, 131));
         jPanel3.setMinimumSize(new java.awt.Dimension(358, 131));
         jPanel3.setPreferredSize(new java.awt.Dimension(358, 131));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Fecha:");
+        jButton8.setText("Buscar pedido");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Número pedido:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Tipo:");
+        jTextField8.setEditable(false);
+        jTextField8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTextField8.setMaximumSize(new java.awt.Dimension(59, 20));
+        jTextField8.setMinimumSize(new java.awt.Dimension(59, 20));
+        jTextField8.setPreferredSize(new java.awt.Dimension(59, 20));
 
-        jRadioButtonBoleta.setBackground(new java.awt.Color(212, 34, 135));
-        jRadioButtonBoleta.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButtonBoleta.setText("Boleta");
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setText("Detalle:");
 
-        jRadioButtonTransbank.setBackground(new java.awt.Color(212, 34, 135));
-        jRadioButtonTransbank.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButtonTransbank.setText("Transbank");
-
-        jRadioButtonFacBol.setBackground(new java.awt.Color(212, 34, 135));
-        jRadioButtonFacBol.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButtonFacBol.setText("Factura boleta");
-        jRadioButtonFacBol.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonFacBolActionPerformed(evt);
-            }
-        });
-
-        jRadioButtonFacTrans.setBackground(new java.awt.Color(212, 34, 135));
-        jRadioButtonFacTrans.setForeground(new java.awt.Color(255, 255, 255));
-        jRadioButtonFacTrans.setText("Factura transbank");
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("Correlativo:");
-
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("12345");
+        jTextField9.setEditable(false);
+        jTextField9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jTextField9.setMaximumSize(new java.awt.Dimension(260, 20));
+        jTextField9.setMinimumSize(new java.awt.Dimension(260, 20));
+        jTextField9.setPreferredSize(new java.awt.Dimension(260, 20));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -370,46 +353,29 @@ public class Venta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(45, 45, 45)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButtonBoleta)
-                            .addComponent(jRadioButtonTransbank))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jRadioButtonFacTrans)
-                            .addComponent(jRadioButtonFacBol))
-                        .addContainerGap(50, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel19)
+                        .addComponent(jButton8)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
+                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel20))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel6))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButtonBoleta)
-                            .addComponent(jRadioButtonFacBol))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jRadioButtonTransbank)
-                            .addComponent(jRadioButtonFacTrans))))
+                    .addComponent(jButton8)
+                    .addComponent(jLabel14)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -479,59 +445,94 @@ public class Venta extends javax.swing.JFrame {
         jButton6.setPreferredSize(new java.awt.Dimension(146, 37));
 
         jPanel4.setBackground(new java.awt.Color(212, 34, 135));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(252, 162, 213))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo documento", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(252, 162, 213))); // NOI18N
         jPanel4.setMaximumSize(new java.awt.Dimension(700, 90));
         jPanel4.setMinimumSize(new java.awt.Dimension(700, 90));
         jPanel4.setPreferredSize(new java.awt.Dimension(700, 90));
 
-        jButton8.setText("Buscar pedido");
-        jButton8.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Tipo:");
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Número pedido:");
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setText("Correlativo:");
 
-        jTextField8.setEditable(false);
-        jTextField8.setMaximumSize(new java.awt.Dimension(59, 20));
-        jTextField8.setMinimumSize(new java.awt.Dimension(59, 20));
-        jTextField8.setPreferredSize(new java.awt.Dimension(59, 20));
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setText("12345");
 
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel18.setText("Detalle:");
+        jRadioButtonBoleta.setBackground(new java.awt.Color(212, 34, 135));
+        jRadioButtonBoleta.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonBoleta.setText("Boleta");
 
-        jTextField9.setEditable(false);
-        jTextField9.setMaximumSize(new java.awt.Dimension(270, 20));
-        jTextField9.setMinimumSize(new java.awt.Dimension(270, 20));
-        jTextField9.setPreferredSize(new java.awt.Dimension(270, 20));
+        jRadioButtonTransbank.setBackground(new java.awt.Color(212, 34, 135));
+        jRadioButtonTransbank.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonTransbank.setText("Transbank");
+
+        jRadioButtonFacBol.setBackground(new java.awt.Color(212, 34, 135));
+        jRadioButtonFacBol.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonFacBol.setText("Factura boleta");
+        jRadioButtonFacBol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonFacBolActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonFacTrans.setBackground(new java.awt.Color(212, 34, 135));
+        jRadioButtonFacTrans.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonFacTrans.setText("Factura transbank");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Fecha:");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton8)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel14)
+                .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel6)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonBoleta)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonTransbank)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonFacBol)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButtonFacTrans)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8)
-                    .addComponent(jLabel14)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jRadioButtonBoleta)
+                    .addComponent(jRadioButtonTransbank)
+                    .addComponent(jRadioButtonFacBol)
+                    .addComponent(jRadioButtonFacTrans))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jButton9.setText("E");
