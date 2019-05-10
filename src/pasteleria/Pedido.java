@@ -619,7 +619,7 @@ public class Pedido extends javax.swing.JFrame {
             anadir.requestFocus();
             totalProducto.setText("" + Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
         }else{
-            JOptionPane.showMessageDialog(this, "Reserva no encontrada.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
         
     }//GEN-LAST:event_cantidadActionPerformed
