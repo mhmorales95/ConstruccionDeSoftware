@@ -17,6 +17,7 @@ public class Pasteleria {
     public static void main(String[] args) {
         MySQL m = new MySQL();
         m.getConnection();
+        
         MenuPrincipal mp = new MenuPrincipal();
         mp.setVisible(true);
         

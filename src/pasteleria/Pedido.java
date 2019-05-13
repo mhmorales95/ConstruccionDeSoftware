@@ -473,6 +473,11 @@ public class Pedido extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(173, 240, 38));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Volver");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(212, 34, 135));
         jButton7.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
@@ -649,6 +654,10 @@ public class Pedido extends javax.swing.JFrame {
             cargarProductoATabla();
         }
     }//GEN-LAST:event_anadirKeyPressed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     public void cargarProductoATabla() {
         
