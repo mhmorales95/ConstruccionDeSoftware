@@ -183,7 +183,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Pasteleria Amado Palominos");
+        jLabel1.setText("Pasteleria Amada J&M");
 
         jButton6.setText("Salir");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +231,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(226, 226, 226)
+                .addGap(131, 131, 131)
                 .addComponent(jLabel4)
                 .addGap(137, 137, 137))
             .addGroup(layout.createSequentialGroup()
