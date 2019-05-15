@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -83,9 +84,9 @@ public class Pedido extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         totalPedido = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        abono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
+        porPagar = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
@@ -454,22 +455,46 @@ public class Pedido extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(212, 34, 135));
         jLabel6.setText("Por pagar:");
 
-        jTextField6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 162, 213)));
-        jTextField6.setMaximumSize(new java.awt.Dimension(140, 34));
-        jTextField6.setMinimumSize(new java.awt.Dimension(140, 34));
-        jTextField6.setPreferredSize(new java.awt.Dimension(140, 34));
+        abono.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        abono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 162, 213)));
+        abono.setMaximumSize(new java.awt.Dimension(140, 34));
+        abono.setMinimumSize(new java.awt.Dimension(140, 34));
+        abono.setPreferredSize(new java.awt.Dimension(140, 34));
+        abono.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                abonoInputMethodTextChanged(evt);
+            }
+        });
+        abono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abonoActionPerformed(evt);
+            }
+        });
+        abono.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                abonoPropertyChange(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(212, 34, 135));
         jLabel7.setText("Abono:");
 
-        jTextField14.setEditable(false);
-        jTextField14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 162, 213)));
-        jTextField14.setMaximumSize(new java.awt.Dimension(140, 34));
-        jTextField14.setMinimumSize(new java.awt.Dimension(140, 34));
-        jTextField14.setPreferredSize(new java.awt.Dimension(140, 34));
+        porPagar.setEditable(false);
+        porPagar.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
+        porPagar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 162, 213)));
+        porPagar.setMaximumSize(new java.awt.Dimension(140, 34));
+        porPagar.setMinimumSize(new java.awt.Dimension(140, 34));
+        porPagar.setPreferredSize(new java.awt.Dimension(140, 34));
 
         jButton5.setText("Eliminar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setBackground(new java.awt.Color(173, 240, 38));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
@@ -538,11 +563,11 @@ public class Pedido extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(abono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(66, 66, 66)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(porPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
@@ -576,9 +601,9 @@ public class Pedido extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel5)
                         .addComponent(totalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(porPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(abono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(39, 39, 39)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -660,6 +685,41 @@ public class Pedido extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void abonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abonoActionPerformed
+        // TODO add your handling code here:
+        verRestante();
+    }//GEN-LAST:event_abonoActionPerformed
+
+    private void abonoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_abonoPropertyChange
+
+    }//GEN-LAST:event_abonoPropertyChange
+
+    private void abonoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_abonoInputMethodTextChanged
+
+    }//GEN-LAST:event_abonoInputMethodTextChanged
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        eliminarFilaDeTabla(jTable1);
+
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    public void eliminarFilaDeTabla(JTable tblDetalle) {
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
+        int fila = tblDetalle.getSelectedRow();
+        if (fila >= 0) {
+            int[] filasselec = tblDetalle.getSelectedRows();
+            for (int i = 0; i < filasselec.length; i++) {
+                modelo.removeRow(filasselec[i]);
+                double total = sumarTotal();
+                totalPedido.setText("" + total);
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No Selecciono Ninguna Fila", "Aviso", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     public void cargarProductoATabla() {
 
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -677,14 +737,31 @@ public class Pedido extends javax.swing.JFrame {
 
             jTable1.setModel(modelo);
             comentario = "";
-            sumarTotal();
+            double total = sumarTotal();
+            totalPedido.setText("" + total);
         } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
 
-    public void sumarTotal() {
+    public void verRestante() {
+        if (!this.abono.getText().equals("")) {
+            String a = this.abono.getText();
+            double abono = Double.parseDouble(a);
+            double total = sumarTotal();
+
+            double precioFinal = total - abono;
+
+            this.porPagar.setText("" + precioFinal);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }
+
+    public double sumarTotal() {
         DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
 
         int filas = jTable1.getRowCount();
@@ -697,8 +774,8 @@ public class Pedido extends javax.swing.JFrame {
 
         //int tot = suma;    
         //  tot = ((int) (Math.round((tot) / 10))) * 10;
-        totalPedido.setText("" + suma);
-
+        //totalPedido.setText("" + suma);
+        return suma;
     }
 
     public void llamarCliente(String cod) throws SQLException {
@@ -730,6 +807,7 @@ public class Pedido extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField abono;
     private javax.swing.JButton anadir;
     private javax.swing.JTextField cantidad;
     private javax.swing.JTextField codigoCliente;
@@ -763,12 +841,11 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel nombreCliente;
     private javax.swing.JTextField nombreProducto;
+    private javax.swing.JTextField porPagar;
     private javax.swing.JTextField precioProducto;
     private com.toedter.calendar.JDateChooser seleccionFecha;
     private javax.swing.JTextField totalPedido;

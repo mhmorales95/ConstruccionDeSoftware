@@ -41,30 +41,30 @@ public class BusquedaProducto extends javax.swing.JDialog {
     private String precio;
     private String stock;
     private static final String solve = "Solve";
-    
+
     public BusquedaProducto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        
-KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
-tabla.getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(enter, solve);
-tabla.getActionMap().put(solve, new EnterAction());
+
+        KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+        tabla.getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(enter, solve);
+        tabla.getActionMap().put(solve, new EnterAction());
     }
 
     private class EnterAction extends AbstractAction {
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel(); 
-        System.out.println(dtm.getValueAt(tabla.getSelectedRow(), 0));
-        codigo =""+ dtm.getValueAt(tabla.getSelectedRow(), 0);
-        nombre =""+ dtm.getValueAt(tabla.getSelectedRow(), 1);
-        precio =""+ dtm.getValueAt(tabla.getSelectedRow(), 2);
-        stock =""+ dtm.getValueAt(tabla.getSelectedRow(), 3);
-        dispose();
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
+            System.out.println(dtm.getValueAt(tabla.getSelectedRow(), 0));
+            codigo = "" + dtm.getValueAt(tabla.getSelectedRow(), 0);
+            nombre = "" + dtm.getValueAt(tabla.getSelectedRow(), 1);
+            precio = "" + dtm.getValueAt(tabla.getSelectedRow(), 2);
+            stock = "" + dtm.getValueAt(tabla.getSelectedRow(), 3);
+            dispose();
+        }
     }
-}
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -145,11 +145,11 @@ tabla.getActionMap().put(solve, new EnterAction());
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel(); 
-        codigo =""+ dtm.getValueAt(tabla.getSelectedRow(), 0);
-        nombre =""+ dtm.getValueAt(tabla.getSelectedRow(), 1);
-        precio =""+ dtm.getValueAt(tabla.getSelectedRow(), 2);
-        stock =""+ dtm.getValueAt(tabla.getSelectedRow(), 3);
+        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
+        codigo = "" + dtm.getValueAt(tabla.getSelectedRow(), 0);
+        nombre = "" + dtm.getValueAt(tabla.getSelectedRow(), 1);
+        precio = "" + dtm.getValueAt(tabla.getSelectedRow(), 2);
+        stock = "" + dtm.getValueAt(tabla.getSelectedRow(), 3);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -158,109 +158,109 @@ tabla.getActionMap().put(solve, new EnterAction());
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
-        
+
         try {
             sql = con.createStatement();
-        
-        
-             PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE nombre LIKE ?");
-             stmt.setString(1,"%"+buscartxt.getText()+"%");
-				ResultSet rs;
-                                rs = stmt.executeQuery();
-				System.out.println("CONSULTA EJECUTADA");
-                                eliminar();
-				boolean r=rs.next();
-				while (r) {
-                                    
-                                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
 
-                                       
-                                    Object [] fila=new Object[4];
-                                    
-                                    fila[0]=rs.getString("codigo");
-                                    fila[1]=rs.getString("nombre");
-                                    fila[2]=rs.getInt("total");
-                                    fila[3]=rs.getInt("stock");
-                                    modelo.addRow(fila);
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE nombre LIKE ?");
+            stmt.setString(1, "%" + buscartxt.getText() + "%");
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            System.out.println("CONSULTA EJECUTADA");
+            eliminar();
+            boolean r = rs.next();
+            while (r) {
 
-                                    tabla.setModel(modelo); 
-                                    
-                                    r=rs.next();
-                                    }
+                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+                Object[] fila = new Object[4];
+
+                fila[0] = rs.getString("codigo");
+                fila[1] = rs.getString("nombre");
+                fila[2] = rs.getInt("total");
+                fila[3] = rs.getInt("stock");
+                modelo.addRow(fila);
+
+                tabla.setModel(modelo);
+
+                r = rs.next();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void buscartxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscartxtKeyTyped
-        
-        
-        
+
+
     }//GEN-LAST:event_buscartxtKeyTyped
 
     private void buscartxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscartxtKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-           tabla.requestFocus();
-           
-           tabla.changeSelection(0,0,false, false);
-        } else{
-        eliminar();
-        MySQL my = new MySQL();
-        Connection con = my.getConnection();
-        Statement sql;
-        
-        try {
-            sql = con.createStatement();
-        
-        
-             PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE nombre LIKE ? ORDER BY nombre");
-             stmt.setString(1,"%"+buscartxt.getText()+"%");
-				ResultSet rs;
-                                rs = stmt.executeQuery();
-                                eliminar();
-				boolean r=rs.next();
-				while (r) {
-                                  
-                                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            tabla.requestFocus();
 
-                                       
-                                    Object [] fila=new Object[4];
-                                    
-                                    fila[0]=rs.getString("codigo");
-                                    fila[1]=rs.getString("nombre");
-                                    fila[2]=rs.getInt("total");
-                                    fila[3]=rs.getInt("stock");
-                                    modelo.addRow(fila);
+            tabla.changeSelection(0, 0, false, false);
+        } else {
+            eliminar();
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
 
-                                    tabla.setModel(modelo); 
-                                    
-                                    r=rs.next();
-                                    }
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                sql = con.createStatement();
+
+                PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE nombre LIKE ? ORDER BY nombre");
+                stmt.setString(1, "%" + buscartxt.getText() + "%");
+                ResultSet rs;
+                rs = stmt.executeQuery();
+                eliminar();
+                boolean r = rs.next();
+                while (r) {
+
+                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+                    Object[] fila = new Object[4];
+
+                    fila[0] = rs.getString("codigo");
+                    fila[1] = rs.getString("nombre");
+                    fila[2] = rs.getInt("total");
+                    fila[3] = rs.getInt("stock");
+                    modelo.addRow(fila);
+
+                    tabla.setModel(modelo);
+
+                    r = rs.next();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_buscartxtKeyReleased
 
-    public void eliminar(){
+    public void eliminar() {
         DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
-        int a = tabla.getRowCount()-1;
-        for (int i = a; i >= 0; i--) {           
-        tb.removeRow(tb.getRowCount()-1);
-        } 
+        int a = tabla.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            tb.removeRow(tb.getRowCount() - 1);
+        }
     }
-    public String obtenerCodigo(){ 
-        return codigo; 
+
+    public String obtenerCodigo() {
+        return codigo;
     }
-    public String obtenerNombre(){ 
-        return nombre; 
+
+    public String obtenerNombre() {
+        return nombre;
     }
-    public String obtenerPrecio(){ 
-        return precio; 
+
+    public String obtenerPrecio() {
+        return precio;
     }
-    public String obtenerStock(){ 
-        return stock; 
+
+    public String obtenerStock() {
+        return stock;
     }
+
     /**
      * @param args the command line arguments
      */
@@ -303,9 +303,7 @@ tabla.getActionMap().put(solve, new EnterAction());
             }
         });
     }
-   
- 
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField buscartxt;
