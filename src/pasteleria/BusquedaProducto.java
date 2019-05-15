@@ -79,9 +79,12 @@ public class BusquedaProducto extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        getContentPane().setLayout(null);
+        setMaximumSize(new java.awt.Dimension(709, 564));
+        setMinimumSize(new java.awt.Dimension(709, 564));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         buscartxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -91,8 +94,7 @@ public class BusquedaProducto extends javax.swing.JDialog {
                 buscartxtKeyTyped(evt);
             }
         });
-        getContentPane().add(buscartxt);
-        buscartxt.setBounds(33, 38, 352, 28);
+        getContentPane().add(buscartxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 352, 28));
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -100,8 +102,7 @@ public class BusquedaProducto extends javax.swing.JDialog {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(391, 38, 80, 28);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 100, 80, 28));
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -128,17 +129,22 @@ public class BusquedaProducto extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tabla);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(33, 77, 627, 407);
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 627, 340));
 
+        jButton2.setBackground(new java.awt.Color(123, 101, 122));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Enviar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(571, 495, 89, 52);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(559, 500, 100, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Buscar.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         setSize(new java.awt.Dimension(725, 603));
         setLocationRelativeTo(null);
@@ -309,6 +315,7 @@ public class BusquedaProducto extends javax.swing.JDialog {
     private javax.swing.JTextField buscartxt;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables

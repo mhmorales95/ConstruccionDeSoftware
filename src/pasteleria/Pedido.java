@@ -36,6 +36,7 @@ public class Pedido extends javax.swing.JFrame {
     public Pedido() {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
+        this.abono.setText("0");
     }
 
     /**
@@ -54,7 +55,6 @@ public class Pedido extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         nombreCliente = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -81,17 +81,19 @@ public class Pedido extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         anadir = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
-        totalPedido = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        abono = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        porPagar = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        totalPedido = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        abono = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        porPagar = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pedidos");
@@ -99,9 +101,10 @@ public class Pedido extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(1024, 700));
         setMinimumSize(new java.awt.Dimension(1024, 700));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(212, 34, 135));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(252, 162, 213))); // NOI18N
+        jPanel1.setBackground(new java.awt.Color(211, 80, 97));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos cliente", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel1.setToolTipText("");
         jPanel1.setMaximumSize(new java.awt.Dimension(310, 150));
         jPanel1.setMinimumSize(new java.awt.Dimension(310, 150));
@@ -177,11 +180,10 @@ public class Pedido extends javax.swing.JFrame {
                 .addGap(24, 24, 24))
         );
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setText("ESPACIO PARA LOGO");
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 85, -1, -1));
 
-        jPanel3.setBackground(new java.awt.Color(212, 34, 135));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(252, 162, 213))); // NOI18N
+        jPanel3.setBackground(new java.awt.Color(211, 80, 97));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos pedido", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel3.setForeground(new java.awt.Color(255, 255, 255));
         jPanel3.setMaximumSize(new java.awt.Dimension(678, 148));
         jPanel3.setMinimumSize(new java.awt.Dimension(678, 148));
@@ -266,12 +268,15 @@ public class Pedido extends javax.swing.JFrame {
                 .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(212, 34, 135));
-        jLabel14.setText("Resumen:");
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 85, -1, -1));
 
-        jPanel4.setBackground(new java.awt.Color(212, 34, 135));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Añadir ítem", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(252, 162, 213))); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(243, 148, 51));
+        jLabel14.setText("Resumen:");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 352, -1, -1));
+
+        jPanel4.setBackground(new java.awt.Color(211, 80, 97));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Añadir ítem", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel4.setMaximumSize(new java.awt.Dimension(998, 100));
         jPanel4.setMinimumSize(new java.awt.Dimension(998, 100));
         jPanel4.setPreferredSize(new java.awt.Dimension(998, 100));
@@ -435,8 +440,64 @@ public class Pedido extends javax.swing.JFrame {
                 .addGap(19, 19, 19))
         );
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(212, 34, 135));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 246, -1, -1));
+
+        jButton5.setText("Eliminar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(925, 403, -1, -1));
+
+        jButton6.setBackground(new java.awt.Color(123, 101, 122));
+        jButton6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
+        jButton6.setText("Volver");
+        jButton6.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 650, -1, -1));
+
+        jButton7.setBackground(new java.awt.Color(123, 101, 122));
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton7.setForeground(new java.awt.Color(255, 255, 255));
+        jButton7.setText("Guardar");
+        jButton7.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        jButton7.setMaximumSize(new java.awt.Dimension(146, 37));
+        jButton7.setMinimumSize(new java.awt.Dimension(146, 37));
+        jButton7.setPreferredSize(new java.awt.Dimension(146, 37));
+        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 650, 90, -1));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Descripción", "Cantidad", "Comentario", "Precio unitario", "Precio total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 372, 909, 185));
+
+        jPanel2.setBackground(new java.awt.Color(211, 80, 97));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 255, 255))); // NOI18N
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Precio total:");
 
         totalPedido.setEditable(false);
@@ -451,9 +512,9 @@ public class Pedido extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(212, 34, 135));
-        jLabel6.setText("Por pagar:");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Abono:");
 
         abono.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         abono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 162, 213)));
@@ -478,9 +539,9 @@ public class Pedido extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 28)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(212, 34, 135));
-        jLabel7.setText("Abono:");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Por pagar:");
 
         porPagar.setEditable(false);
         porPagar.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
@@ -489,126 +550,47 @@ public class Pedido extends javax.swing.JFrame {
         porPagar.setMinimumSize(new java.awt.Dimension(140, 34));
         porPagar.setPreferredSize(new java.awt.Dimension(140, 34));
 
-        jButton5.setText("Eliminar");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jButton6.setBackground(new java.awt.Color(173, 240, 38));
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Volver");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        jButton7.setBackground(new java.awt.Color(212, 34, 135));
-        jButton7.setFont(new java.awt.Font("Tahoma", 1, 25)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setText("Guardar");
-        jButton7.setMaximumSize(new java.awt.Dimension(146, 37));
-        jButton7.setMinimumSize(new java.awt.Dimension(146, 37));
-        jButton7.setPreferredSize(new java.awt.Dimension(146, 37));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Código", "Descripción", "Cantidad", "Comentario", "Precio unitario", "Precio total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(jTable1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jButton6)
-                        .addGap(324, 324, 324)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel14)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton5)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(totalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(abono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(66, 66, 66)
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(porPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton6)))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(jButton5)))
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(55, 55, 55)
+                .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5)
-                        .addComponent(totalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(porPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(abono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(39, 39, 39)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addComponent(totalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(abono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(porPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84))
         );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel5)
+                    .addComponent(totalPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(abono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(porPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 570, 1000, 60));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pedido.jpg"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        jLabel4.setMaximumSize(new java.awt.Dimension(1024, 700));
+        jLabel4.setMinimumSize(new java.awt.Dimension(1024, 700));
+        jLabel4.setPreferredSize(new java.awt.Dimension(1024, 700));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -831,13 +813,14 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;

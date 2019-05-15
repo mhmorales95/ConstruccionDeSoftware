@@ -80,7 +80,7 @@ public class Usuario extends javax.swing.JDialog {
         getContentPane().add(jButton1);
         jButton1.setBounds(112, 208, 184, 40);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/uno.jpg"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Login.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 400, 300);
