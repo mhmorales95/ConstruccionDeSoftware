@@ -439,6 +439,7 @@ public class Pedido extends javax.swing.JFrame {
         jLabel5.setText("Precio total:");
 
         totalPedido.setEditable(false);
+        totalPedido.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         totalPedido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 162, 213)));
         totalPedido.setMaximumSize(new java.awt.Dimension(140, 34));
         totalPedido.setMinimumSize(new java.awt.Dimension(140, 34));
@@ -620,13 +621,13 @@ public class Pedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
-        if (!cantidad.getText().equals("")){
+        if (!cantidad.getText().equals("")) {
             anadir.requestFocus();
             totalProducto.setText("" + Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_cantidadActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -646,7 +647,7 @@ public class Pedido extends javax.swing.JFrame {
     }//GEN-LAST:event_nombreProductoActionPerformed
 
     private void anadirKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anadirKeyTyped
-   
+
     }//GEN-LAST:event_anadirKeyTyped
 
     private void anadirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anadirKeyPressed
@@ -660,24 +661,29 @@ public class Pedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     public void cargarProductoATabla() {
-        
+
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 
-        Object[] fila = new Object[6];
+        if (!this.cantidad.getText().equals("")) {
+            Object[] fila = new Object[6];
 
-        fila[0] = codigoProducto.getText();
-        fila[1] = nombreProducto.getText();;
-        fila[2] = cantidad.getText();
-        fila[3] = comentario;
-        fila[4] = precioProducto.getText();
-        fila[5] = totalProducto.getText();
-        modelo.addRow(fila);
+            fila[0] = codigoProducto.getText();
+            fila[1] = nombreProducto.getText();;
+            fila[2] = cantidad.getText();
+            fila[3] = comentario;
+            fila[4] = precioProducto.getText();
+            fila[5] = totalProducto.getText();
+            modelo.addRow(fila);
 
-        jTable1.setModel(modelo);
-        comentario = "";
-        sumarTotal();
+            jTable1.setModel(modelo);
+            comentario = "";
+            sumarTotal();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
+
     }
-    
+
     public void sumarTotal() {
         DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
 
@@ -687,15 +693,14 @@ public class Pedido extends javax.swing.JFrame {
             String dato = String.valueOf(tm.getValueAt(i, 5));
             suma += Double.parseDouble(dato);
         }
-       // suma = (int) (Math.round((suma) / 10.0) * 10);
+        // suma = (int) (Math.round((suma) / 10.0) * 10);
 
         //int tot = suma;    
-
-      //  tot = ((int) (Math.round((tot) / 10))) * 10;
+        //  tot = ((int) (Math.round((tot) / 10))) * 10;
         totalPedido.setText("" + suma);
 
     }
-    
+
     public void llamarCliente(String cod) throws SQLException {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
