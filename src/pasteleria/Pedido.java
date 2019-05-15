@@ -701,6 +701,8 @@ public class Pedido extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         eliminarFilaDeTabla(jTable1);
+        this.abono.setText("");
+        this.porPagar.setText("");
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
