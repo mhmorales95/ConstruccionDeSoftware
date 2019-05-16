@@ -620,11 +620,13 @@ public class Pedido extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         BusquedaProducto b = new BusquedaProducto(this, true);
         b.setVisible(true);
-
+        
+        limpiarVentana();
         codigoProducto.setText(b.obtenerCodigo());
         nombreProducto.setText(b.obtenerNombre());
         precioProducto.setText(b.obtenerPrecio());
         cantidad.requestFocus();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
@@ -704,6 +706,13 @@ public class Pedido extends javax.swing.JFrame {
         }
     }
 
+    public void limpiarVentana(){
+        this.cantidad.setText("");
+        this.codigoProducto.setText("");
+        this.nombreProducto.setText("");
+        this.precioProducto.setText("");
+        this.totalProducto.setText("");
+    }
     public void cargarProductoATabla() {
 
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
