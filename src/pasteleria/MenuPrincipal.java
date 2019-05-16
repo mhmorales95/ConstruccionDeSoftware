@@ -266,6 +266,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         boton1.setText("Informe Ventas");
         boton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(boton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 150, 82));
 
         boton3.setText("Productos");
@@ -360,6 +365,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
         Usuario u = new Usuario(this, true);
         u.setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton1ActionPerformed
+        if (boton1.getText().equals("<html>Administrar<br>productos</html>")){
+            Producto p = new Producto();
+            p.setVisible(true);
+        }
+    }//GEN-LAST:event_boton1ActionPerformed
 
     /**
      * @param args the command line arguments
