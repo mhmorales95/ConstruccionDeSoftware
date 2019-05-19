@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -37,6 +39,7 @@ public class Pedido extends javax.swing.JFrame {
         initComponents();
         this.getContentPane().setBackground(Color.WHITE);
         this.abono.setText("0");
+        fechaActual();
     }
 
     /**
@@ -61,11 +64,11 @@ public class Pedido extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
         seleccionFecha = new com.toedter.calendar.JDateChooser();
         Date date = new Date();
         SpinnerDateModel sm = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
         jSpinner1 = new javax.swing.JSpinner(sm);
+        jLabel3 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -210,10 +213,6 @@ public class Pedido extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Hora entrega:");
 
-        jTextField9.setEditable(false);
-        jTextField9.setMaximumSize(new java.awt.Dimension(59, 20));
-        jTextField9.setMinimumSize(new java.awt.Dimension(59, 20));
-
         seleccionFecha.setMaximumSize(new java.awt.Dimension(59, 20));
         seleccionFecha.setMinimumSize(new java.awt.Dimension(59, 20));
         seleccionFecha.setPreferredSize(new java.awt.Dimension(59, 20));
@@ -223,6 +222,12 @@ public class Pedido extends javax.swing.JFrame {
         jSpinner1.setMaximumSize(new java.awt.Dimension(160, 20));
         jSpinner1.setMinimumSize(new java.awt.Dimension(160, 20));
         jSpinner1.setPreferredSize(new java.awt.Dimension(160, 20));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setMaximumSize(new java.awt.Dimension(77, 14));
+        jLabel3.setMinimumSize(new java.awt.Dimension(77, 14));
+        jLabel3.setPreferredSize(new java.awt.Dimension(77, 14));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -242,7 +247,7 @@ public class Pedido extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -257,7 +262,7 @@ public class Pedido extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -608,7 +613,15 @@ public class Pedido extends javax.swing.JFrame {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton8ActionPerformed
-
+    
+    public void fechaActual() {
+        Date date = new Date();
+        Format dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        jLabel3.setText(dateFormat.format(date));
+        
+    }
+    
+    
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         BusquedaCliente b = new BusquedaCliente(this, true);
         b.setVisible(true);
@@ -822,6 +835,7 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -836,7 +850,6 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JLabel nombreCliente;
     private javax.swing.JTextField nombreProducto;
     private javax.swing.JTextField porPagar;

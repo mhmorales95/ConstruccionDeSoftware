@@ -699,7 +699,7 @@ public class Venta extends javax.swing.JFrame {
 
     public void fechaActual() {
         Date date = new Date();
-        Format dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Format dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         jLabel5.setText(dateFormat.format(date));
 
     }

@@ -74,9 +74,15 @@ public class Producto extends javax.swing.JFrame {
         iva = new javax.swing.JTextField();
         borrar = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Producto");
+        setMaximumSize(new java.awt.Dimension(1024, 700));
+        setMinimumSize(new java.awt.Dimension(1024, 700));
+        setPreferredSize(new java.awt.Dimension(1024, 700));
+        setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         botonBuscar.setText("Buscar");
         botonBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -84,12 +90,14 @@ public class Producto extends javax.swing.JFrame {
                 botonBuscarActionPerformed(evt);
             }
         });
+        getContentPane().add(botonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, -1, -1));
 
         codigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 codigoActionPerformed(evt);
             }
         });
+        getContentPane().add(codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 311, -1));
 
         jButton1.setText("Cargar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -97,6 +105,7 @@ public class Producto extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
 
         jButton2.setText("Generar Código");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -104,11 +113,17 @@ public class Producto extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, -1, -1));
 
+        jButton3.setBackground(new java.awt.Color(123, 101, 122));
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Volver");
+        jButton3.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, -1, -1));
 
-        jPanel5.setBackground(new java.awt.Color(212, 34, 135));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(252, 162, 213))); // NOI18N
+        jPanel5.setBackground(new java.awt.Color(211, 80, 97));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(255, 255, 255))); // NOI18N
         jPanel5.setToolTipText("");
         jPanel5.setMaximumSize(new java.awt.Dimension(310, 150));
         jPanel5.setMinimumSize(new java.awt.Dimension(310, 150));
@@ -121,7 +136,10 @@ public class Producto extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Familia:");
 
-        familias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        familias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar familia", " " }));
+        familias.setMaximumSize(new java.awt.Dimension(160, 20));
+        familias.setMinimumSize(new java.awt.Dimension(160, 20));
+        familias.setPreferredSize(new java.awt.Dimension(160, 20));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -209,8 +227,8 @@ public class Producto extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(familias, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(199, 199, 199)
+                        .addComponent(familias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(179, 179, 179)
                         .addComponent(medida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -299,12 +317,15 @@ public class Producto extends javax.swing.JFrame {
                 .addGap(0, 14, Short.MAX_VALUE))
         );
 
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
+
         borrar.setText("Borrar");
         borrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 borrarActionPerformed(evt);
             }
         });
+        getContentPane().add(borrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 490, -1, -1));
 
         guardar.setText("Guardar");
         guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -312,52 +333,11 @@ public class Producto extends javax.swing.JFrame {
                 guardarActionPerformed(evt);
             }
         });
+        getContentPane().add(guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 490, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton3)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(borrar)
-                        .addGap(126, 126, 126)
-                        .addComponent(guardar))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonBuscar)
-                        .addGap(18, 18, 18)
-                        .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
-                .addContainerGap(149, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton3)
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botonBuscar)
-                    .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(38, 38, 38)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(borrar)
-                    .addComponent(guardar))
-                .addContainerGap(313, Short.MAX_VALUE))
-        );
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/FondoProducto.jpg"))); // NOI18N
+        jLabel11.setText("jLabel11");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 700));
 
         pack();
         setLocationRelativeTo(null);
@@ -797,6 +777,7 @@ public class Producto extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
