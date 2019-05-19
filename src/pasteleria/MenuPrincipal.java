@@ -6,7 +6,9 @@
 
 package pasteleria;
 
-import javafx.scene.paint.Color;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -21,6 +23,12 @@ public class MenuPrincipal extends javax.swing.JFrame {
         boton2.setVisible(false);
         boton3.setVisible(false);
         boton4.setVisible(false);
+        boton5.setVisible(false);
+        
+        java.util.Date date = new Date();
+        DateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
+        java.sql.Date fechaActual = new java.sql.Date(date.getTime());
+        fecha.setText("Fecha: "+fmt.format(fechaActual));
         
         java.awt.Color a = new java.awt.Color(242,189,219);
         this.getContentPane().setBackground(a);
@@ -47,7 +55,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        fecha = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         boton2 = new javax.swing.JButton();
@@ -55,6 +63,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         boton3 = new javax.swing.JButton();
         boton4 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        boton5 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -192,9 +201,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Usuario: XXXXX");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Fecha: XX-XX-XXXX");
+        fecha.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        fecha.setForeground(new java.awt.Color(255, 255, 255));
+        fecha.setText("Fecha: XX-XX-XXXX");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -220,7 +229,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addComponent(fecha)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,7 +250,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(fecha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -275,9 +284,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         boton3.setText("Productos");
         boton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        boton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(boton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 80, 150, 82));
 
         boton4.setText("Modificar Stock");
+        boton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(boton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 80, 150, 82));
 
         jButton7.setText("Cambiar Usuario");
@@ -287,6 +306,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(799, 589, 155, 61));
+
+        boton5.setText("Modificar Stock");
+        boton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(boton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 170, 150, 82));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/PantallaPrincipal.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
@@ -304,15 +331,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
             boton2.setText("<html>Administrar<br>inventario</html>");
             boton3.setVisible(false);
             boton4.setVisible(false);
+            boton5.setVisible(false);
         }
         if (proviene.equals("Informes")){
             boton1.setVisible(true);
             boton1.setText("Informe de venta");
             boton2.setVisible(true);
-            boton2.setText("<html>Informe<br>de anulaciones</html>");
+            boton2.setText("<html>Informe<br>de Pedidos</html>");
             boton3.setVisible(true);
             boton3.setText("<html>Informe<br>de Inventario</html>");
-            boton4.setVisible(false);
+            boton4.setVisible(true);
+            boton4.setText("<html>Informe<br>de Movimiento de Stock</html>");
+            boton5.setVisible(true);
+            boton5.setText("<html>Informe<br>de anulaciones</html>");
+           
         }
     }
     
@@ -321,6 +353,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         boton2.setVisible(false);
         boton3.setVisible(false);
         boton4.setVisible(false);
+        boton5.setVisible(false);
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ocultarBotones();
@@ -329,12 +362,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ocultarBotones();
         Venta v = new Venta();
         v.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         ocultarBotones();
+        Clientes c = new Clientes();
+        c.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -350,11 +386,20 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        ocultarBotones();
+        Configuracion c = new Configuracion();
+        c.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton2ActionPerformed
-        // TODO add your handling code here:
+        if (boton2.getText().equals("<html>Administrar<br>inventario</html>")){
+            Inventario i = new Inventario();
+            i.setVisible(true);
+        }
+        else if (boton2.getText().equals("<html>Informe<br>de Pedidos</html>")){
+            InformeDePedidos i = new InformeDePedidos();
+            i.setVisible(true);
+        }
     }//GEN-LAST:event_boton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -371,7 +416,32 @@ public class MenuPrincipal extends javax.swing.JFrame {
             Producto p = new Producto();
             p.setVisible(true);
         }
+        else if (boton1.getText().equals("Informe de venta")){
+            InformeDeVentas i = new InformeDeVentas();
+            i.setVisible(true);
+        }
     }//GEN-LAST:event_boton1ActionPerformed
+
+    private void boton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton3ActionPerformed
+        if (boton3.getText().equals("<html>Informe<br>de Inventario</html>")){
+           InformeDeInventario i = new InformeDeInventario();
+           i.setVisible(true);
+        }
+    }//GEN-LAST:event_boton3ActionPerformed
+
+    private void boton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton4ActionPerformed
+        if (boton4.getText().equals("<html>Informe<br>de Movimiento de Stock</html>")){
+            InformeDeMovimientoDeStock i = new InformeDeMovimientoDeStock();
+            i.setVisible(true);
+        }
+    }//GEN-LAST:event_boton4ActionPerformed
+
+    private void boton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton5ActionPerformed
+        if (boton5.getText().equals("<html>Informe<br>de anulaciones</html>")){
+            InformeDeAnulaciones i = new InformeDeAnulaciones();
+            i.setVisible(true);
+        }
+    }//GEN-LAST:event_boton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -413,6 +483,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton boton2;
     private javax.swing.JButton boton3;
     private javax.swing.JButton boton4;
+    private javax.swing.JButton boton5;
+    private javax.swing.JLabel fecha;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -424,7 +496,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
