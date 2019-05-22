@@ -12,16 +12,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 import javax.swing.JTable;
-import javax.swing.SpinnerDateModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -65,10 +63,8 @@ public class Pedido extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         seleccionFecha = new com.toedter.calendar.JDateChooser();
-        Date date = new Date();
-        SpinnerDateModel sm = new SpinnerDateModel(date, null, null, Calendar.HOUR_OF_DAY);
-        jSpinner1 = new javax.swing.JSpinner(sm);
         jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -217,17 +213,16 @@ public class Pedido extends javax.swing.JFrame {
         seleccionFecha.setMinimumSize(new java.awt.Dimension(59, 20));
         seleccionFecha.setPreferredSize(new java.awt.Dimension(59, 20));
 
-        JSpinner.DateEditor de = new JSpinner.DateEditor(jSpinner1, "HH:mm:ss");
-        jSpinner1.setEditor(de);
-        jSpinner1.setMaximumSize(new java.awt.Dimension(160, 20));
-        jSpinner1.setMinimumSize(new java.awt.Dimension(160, 20));
-        jSpinner1.setPreferredSize(new java.awt.Dimension(160, 20));
-
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setMaximumSize(new java.awt.Dimension(77, 14));
         jLabel3.setMinimumSize(new java.awt.Dimension(77, 14));
         jLabel3.setPreferredSize(new java.awt.Dimension(77, 14));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar hora", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00", "20:00 - 21:00", " " }));
+        jComboBox1.setMaximumSize(new java.awt.Dimension(129, 20));
+        jComboBox1.setMinimumSize(new java.awt.Dimension(129, 20));
+        jComboBox1.setPreferredSize(new java.awt.Dimension(129, 20));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -243,7 +238,7 @@ public class Pedido extends javax.swing.JFrame {
                     .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(seleccionFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -251,8 +246,8 @@ public class Pedido extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(78, Short.MAX_VALUE))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(109, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,7 +263,7 @@ public class Pedido extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel9)
                         .addComponent(jLabel12)
-                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(seleccionFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -475,6 +470,11 @@ public class Pedido extends javax.swing.JFrame {
         jButton7.setMaximumSize(new java.awt.Dimension(146, 37));
         jButton7.setMinimumSize(new java.awt.Dimension(146, 37));
         jButton7.setPreferredSize(new java.awt.Dimension(146, 37));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 650, 90, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -613,15 +613,15 @@ public class Pedido extends javax.swing.JFrame {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton8ActionPerformed
-    
+
     public void fechaActual() {
         Date date = new Date();
         Format dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         jLabel3.setText(dateFormat.format(date));
-        
+
     }
-    
-    
+
+
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         BusquedaCliente b = new BusquedaCliente(this, true);
         b.setVisible(true);
@@ -633,13 +633,13 @@ public class Pedido extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         BusquedaProducto b = new BusquedaProducto(this, true);
         b.setVisible(true);
-        
+
         limpiarVentana();
         codigoProducto.setText(b.obtenerCodigo());
         nombreProducto.setText(b.obtenerNombre());
         precioProducto.setText(b.obtenerPrecio());
         cantidad.requestFocus();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
@@ -703,6 +703,30 @@ public class Pedido extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+//        MySQL my = new MySQL();
+//        Connection con = my.getConnection();
+//        Statement sql;
+//        Date fechaEntrega = seleccionFecha.getDate();
+//        DateFormat formatoFecha = new SimpleDateFormat("yyyy/MM/dd");
+//        
+//        try {
+//            sql = con.createStatement();
+//            PreparedStatement stmt = con.prepareStatement("INSERT INTO pedido ( codigo, codigoCliente, estado,"
+//                    + "fecha, hora, fechaEntrega, horaEntrega, codigoUsuario)"
+//                    + " VALUES (?,?,?,?,?,?,?,?);");
+//
+//            stmt.setInt(1, 1);
+//            stmt.setInt(2, Integer.parseInt(codigoCliente.getText()));
+//            stmt.setString(3, "");
+//            stmt.setDate(4, (java.sql.Date) seleccionFecha.getDate());
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     public void eliminarFilaDeTabla(JTable tblDetalle) {
         DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
         int fila = tblDetalle.getSelectedRow();
@@ -719,13 +743,14 @@ public class Pedido extends javax.swing.JFrame {
         }
     }
 
-    public void limpiarVentana(){
+    public void limpiarVentana() {
         this.cantidad.setText("");
         this.codigoProducto.setText("");
         this.nombreProducto.setText("");
         this.precioProducto.setText("");
         this.totalProducto.setText("");
     }
+
     public void cargarProductoATabla() {
 
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
@@ -826,6 +851,7 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -847,7 +873,6 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel nombreCliente;

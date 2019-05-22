@@ -16,17 +16,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-
-
 /**
  *
  * @author Mauricio
  */
 public class Producto extends javax.swing.JFrame {
+
     public static ArrayList<String> productos = new ArrayList<>();
     public static ArrayList<String> nombres = new ArrayList<>();
     public static ArrayList<Double> cantidad = new ArrayList<>();
     public boolean creado = false;
+
     /**
      * Creates new form Producto
      */
@@ -343,116 +343,110 @@ public class Producto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void llamarProducto(){
+    public void llamarProducto() {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
-        String cod =  codigo.getText();
-            
+        String cod = codigo.getText();
+
         try {
             sql = con.createStatement();
-        
-        
-             PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo = ? ");
-             stmt.setString(1,cod);
-				ResultSet rs;
-                                rs = stmt.executeQuery();
-                                familias.removeAllItems();
-                                cargarFamilias();
-                                
-				boolean r=rs.next();
-                                System.out.println(r);
-                                if (r==false){
-                                    JOptionPane.showMessageDialog(this, "Se creará nuevo producto", "Información", JOptionPane.INFORMATION_MESSAGE);
-                                    limpiarCampos();
-                                }
-				while (r) {
-                                    creado = true;
-                                    nombre.setText(rs.getString("nombre"));
-                                    total.setText(rs.getString("total"));
-                                    neto.setText(rs.getString("neto"));
-                                    iva.setText(rs.getString("iva"));
-                                    bruto.setText(rs.getString("bruto"));
-                                    margen.setText(rs.getString("margen"));
-                                    medida.setSelectedItem(rs.getString("medida"));
-                                    stock.setText(rs.getString("stock"));
-                                    minimo.setText(rs.getString("minimo"));
-                                    familias.setSelectedItem(rs.getString("familia"));
-                                    if (rs.getString("mueve").equals("1")){
-                                        modifica.setSelected(true);
-                                    }
-                                    if (rs.getString("incluye").equals("1")){
-                                        compuesto.setSelected(true);
-                                    }
-                                    medida.setSelectedItem(rs.getString("medida"));
-                                    
-                                    borrar.setEnabled(true);
-                                    r=rs.next();
-                                    }
-                                
-                                
+
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo = ? ");
+            stmt.setString(1, cod);
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            familias.removeAllItems();
+            cargarFamilias();
+
+            boolean r = rs.next();
+            System.out.println(r);
+            if (r == false) {
+                JOptionPane.showMessageDialog(this, "Se creará nuevo producto", "Información", JOptionPane.INFORMATION_MESSAGE);
+                limpiarCampos();
+            }
+            while (r) {
+                creado = true;
+                nombre.setText(rs.getString("nombre"));
+                total.setText(rs.getString("total"));
+                neto.setText(rs.getString("neto"));
+                iva.setText(rs.getString("iva"));
+                bruto.setText(rs.getString("bruto"));
+                margen.setText(rs.getString("margen"));
+                medida.setSelectedItem(rs.getString("medida"));
+                stock.setText(rs.getString("stock"));
+                minimo.setText(rs.getString("minimo"));
+                familias.setSelectedItem(rs.getString("familia"));
+                if (rs.getString("mueve").equals("1")) {
+                    modifica.setSelected(true);
+                }
+                if (rs.getString("incluye").equals("1")) {
+                    compuesto.setSelected(true);
+                }
+                medida.setSelectedItem(rs.getString("medida"));
+
+                borrar.setEnabled(true);
+                r = rs.next();
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void limpiarCampos(){
+
+    public void limpiarCampos() {
         nombre.setText("");
-                                    total.setText("");
-                                    neto.setText("");
-                                    iva.setText("");
-                                    bruto.setText("");
-                                    margen.setText("");
-                                    stock.setText("");
-                                    minimo.setText("");
-                                    guardar.setEnabled(true);
-                                    borrar.setEnabled(false);
+        total.setText("");
+        neto.setText("");
+        iva.setText("");
+        bruto.setText("");
+        margen.setText("");
+        stock.setText("");
+        minimo.setText("");
+        guardar.setEnabled(true);
+        borrar.setEnabled(false);
     }
-    public void cargarFamilias(){
+
+    public void cargarFamilias() {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
-            
-        
-            
+
         try {
             sql = con.createStatement();
-        
-        
-             PreparedStatement stmt = con.prepareStatement("SELECT * FROM familias");
-				ResultSet rs;
-                                rs = stmt.executeQuery();
-                                
-				boolean r=rs.next();
-				while (r) {
-                                    
-                                    familias.addItem(rs.getString("nombre"));
-                                    r=rs.next();
-                                    }
-                                
+
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM familias");
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            boolean r = rs.next();
+            while (r) {
+
+                familias.addItem(rs.getString("nombre"));
+                r = rs.next();
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void vaciarReceta(){
+
+    public void vaciarReceta() {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
         try {
-             sql = con.createStatement();
-             PreparedStatement stmt = con.prepareStatement("DELETE FROM receta WHERE producto = ?");
-             
-             stmt.setString(1, codigo.getText());
-             stmt.executeUpdate();
-             
-            
-				
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM receta WHERE producto = ?");
+
+            stmt.setString(1, codigo.getText());
+            stmt.executeUpdate();
+
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_codigoActionPerformed
@@ -477,276 +471,260 @@ public class Producto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_modificaActionPerformed
 
-    public void actualizar(){
-        
+    public void actualizar() {
+
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
         try {
-             sql = con.createStatement();
-             PreparedStatement stmt = con.prepareStatement("UPDATE productos SET nombre = ?,familia=?,"
-                     + " medida = ?, neto=?, iva=?, bruto=?, margen=?,total=?,stock=?,minimo=?,mueve = ?,incluye = ?"
-                     + " WHERE codigo = ?;");
-             stmt.setString(1,nombre.getText());
-             stmt.setString(2, (String) familias.getSelectedItem());
-             
-             
-             stmt.setString(3,""+medida.getSelectedItem());
-             
-             if (neto.getText().equals("")){
-                 stmt.setInt(4,0);
-             }else{
-                 stmt.setInt(4,Integer.parseInt(neto.getText()));
-             }
-             
-             
-             if (iva.getText().equals("")){
-                 stmt.setInt(5,0);
-             }else{
-                 stmt.setInt(5,Integer.parseInt(iva.getText()));
-             }
-             
-             if (bruto.getText().equals("")){
-                 stmt.setInt(6,0);
-             }else{
-                 stmt.setInt(6,Integer.parseInt(bruto.getText()));
-             }
-             
-             if (margen.getText().equals("")){
-                 stmt.setFloat(7,0);
-             }else{
-                 stmt.setFloat(7,Float.parseFloat(margen.getText()));
-             }
-             
-             if (total.getText().equals("")){
-                 stmt.setInt(8,0);
-             }else{
-                 stmt.setInt(8,Integer.parseInt(total.getText()));
-             }
-             
-             if (stock.getText().equals("")){
-                 stmt.setInt(9,0);
-             }else{
-                 stmt.setFloat(9,Float.parseFloat(stock.getText()));
-             }
-             
-             if (minimo.getText().equals("")){
-                 stmt.setInt(10,0);
-             }else{
-                 stmt.setFloat(10,Float.parseFloat(minimo.getText()));
-             }
-             if (modifica.isSelected()){
-                 stmt.setInt(11,1);
-             }else{
-                 stmt.setInt(11,0);
-             }
-             if (compuesto.isSelected()){
-                 stmt.setInt(12,1);
-             }else{
-                 stmt.setInt(12,0);
-             }
-           
-             
-             stmt.setString(13,codigo.getText());
-             
-             
-             stmt.executeUpdate();
-             JOptionPane.showMessageDialog(this, "Producto modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
-             
-            
-            
-				
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("UPDATE productos SET nombre = ?,familia=?,"
+                    + " medida = ?, neto=?, iva=?, bruto=?, margen=?,total=?,stock=?,minimo=?,mueve = ?,incluye = ?"
+                    + " WHERE codigo = ?;");
+            stmt.setString(1, nombre.getText());
+            stmt.setString(2, (String) familias.getSelectedItem());
+
+            stmt.setString(3, "" + medida.getSelectedItem());
+
+            if (neto.getText().equals("")) {
+                stmt.setInt(4, 0);
+            } else {
+                stmt.setInt(4, Integer.parseInt(neto.getText()));
+            }
+
+            if (iva.getText().equals("")) {
+                stmt.setInt(5, 0);
+            } else {
+                stmt.setInt(5, Integer.parseInt(iva.getText()));
+            }
+
+            if (bruto.getText().equals("")) {
+                stmt.setInt(6, 0);
+            } else {
+                stmt.setInt(6, Integer.parseInt(bruto.getText()));
+            }
+
+            if (margen.getText().equals("")) {
+                stmt.setFloat(7, 0);
+            } else {
+                stmt.setFloat(7, Float.parseFloat(margen.getText()));
+            }
+
+            if (total.getText().equals("")) {
+                stmt.setInt(8, 0);
+            } else {
+                stmt.setInt(8, Integer.parseInt(total.getText()));
+            }
+
+            if (stock.getText().equals("")) {
+                stmt.setInt(9, 0);
+            } else {
+                stmt.setFloat(9, Float.parseFloat(stock.getText()));
+            }
+
+            if (minimo.getText().equals("")) {
+                stmt.setInt(10, 0);
+            } else {
+                stmt.setFloat(10, Float.parseFloat(minimo.getText()));
+            }
+            if (modifica.isSelected()) {
+                stmt.setInt(11, 1);
+            } else {
+                stmt.setInt(11, 0);
+            }
+            if (compuesto.isSelected()) {
+                stmt.setInt(12, 1);
+            } else {
+                stmt.setInt(12, 0);
+            }
+
+            stmt.setString(13, codigo.getText());
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Producto modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
         try {
-             sql = con.createStatement();
-             PreparedStatement stmt = con.prepareStatement("DELETE FROM productos WHERE codigo = ?");
-             
-             stmt.setString(1,codigo.getText());
-             
-                
-             
-             stmt.executeUpdate();
-             JOptionPane.showMessageDialog(this, "Producto ha sido borrado", "Información", JOptionPane.INFORMATION_MESSAGE);
-                                    nombre.setText("");
-                                    total.setText("");
-                                    neto.setText("");
-                                    iva.setText("");
-                                    bruto.setText("");
-                                    margen.setText("");
-                                    stock.setText("");
-                                    minimo.setText("");
-                                    guardar.setEnabled(true);
-                                    borrar.setEnabled(false);
-				
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM productos WHERE codigo = ?");
+
+            stmt.setString(1, codigo.getText());
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Producto ha sido borrado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            nombre.setText("");
+            total.setText("");
+            neto.setText("");
+            iva.setText("");
+            bruto.setText("");
+            margen.setText("");
+            stock.setText("");
+            minimo.setText("");
+            guardar.setEnabled(true);
+            borrar.setEnabled(false);
+
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_borrarActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
-         BusquedaProducto s = new BusquedaProducto(this, true);
-         s.setVisible(true);
-         codigo.setText(s.obtenerCodigo());
-         llamarProducto();
+        BusquedaProducto s = new BusquedaProducto(this, true);
+        s.setVisible(true);
+        codigo.setText(s.obtenerCodigo());
+        llamarProducto();
     }//GEN-LAST:event_botonBuscarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
-        String cod = new Random().nextInt(9 + 1)+""+new Random().nextInt(9 + 1)+""+new Random().nextInt(9 + 1)+
-                   ""+new Random().nextInt(9 + 1);  
-           
+        String cod = new Random().nextInt(9 + 1) + "" + new Random().nextInt(9 + 1) + "" + new Random().nextInt(9 + 1)
+                + "" + new Random().nextInt(9 + 1);
+
         try {
             sql = con.createStatement();
-        
-        
-             PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos");
-				ResultSet rs;
-                                rs = stmt.executeQuery();
-                                
-				boolean r=rs.next();
-				while (r) {
-                                    if (rs.getString("nombre").equals(cod)){
-                                        JOptionPane.showMessageDialog(this, "Debe volver a generar", "Información", JOptionPane.INFORMATION_MESSAGE);
-                                        cod = "";
-                                    }
-                                    r=rs.next();
-                                    }
-                                
+
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos");
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            boolean r = rs.next();
+            while (r) {
+                if (rs.getString("nombre").equals(cod)) {
+                    JOptionPane.showMessageDialog(this, "Debe volver a generar", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    cod = "";
+                }
+                r = rs.next();
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         this.codigo.setText(cod);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         guardarReceta();
-        if (creado){
+        if (creado) {
             actualizar();
-        }else{
-        
-        MySQL my = new MySQL();
-        Connection con = my.getConnection();
-        Statement sql;
-        int conteo = 0;
-        try {
-             sql = con.createStatement();
-             PreparedStatement stmt = con.prepareStatement("INSERT INTO productos ( codigo, nombre, familia,"
-                     + "medida, neto, iva, bruto, margen,total,stock,minimo,mueve,incluye)"
-                     + " VALUES ( ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?);");
-             
-             stmt.setString(1, codigo.getText());
-             stmt.setString(2,nombre.getText());
-             stmt.setString(3, (String) familias.getSelectedItem());
-             
-             stmt.setString(4,""+medida.getSelectedItem());
-             
-             if (neto.getText().equals("")){
-                 stmt.setInt(5,0);
-             }else{
-                 stmt.setInt(5,Integer.parseInt(neto.getText()));
-             }
-             
-             
-             if (iva.getText().equals("")){
-                 stmt.setInt(6,0);
-             }else{
-                 stmt.setInt(6,Integer.parseInt(iva.getText()));
-             }
-             
-             if (bruto.getText().equals("")){
-                 stmt.setInt(7,0);
-             }else{
-                 stmt.setInt(7,Integer.parseInt(bruto.getText()));
-             }
-             
-             if (margen.getText().equals("")){
-                 stmt.setFloat(8,0);
-             }else{
-                 stmt.setFloat(8,Float.parseFloat(margen.getText()));
-             }
-             
-             if (total.getText().equals("")){
-                 stmt.setInt(9,0);
-             }else{
-                 stmt.setInt(9,Integer.parseInt(total.getText()));
-             }
-             
-             if (stock.getText().equals("")){
-                 stmt.setFloat(10,0);
-             }else{
-                 stmt.setFloat(10,Float.parseFloat(stock.getText()));
-             }
-             
-             if (minimo.getText().equals("")){
-                 stmt.setInt(11,0);
-             }else{
-                 stmt.setFloat(11,Float.parseFloat(minimo.getText()));
-             }
-             if (modifica.isSelected()){
-                 stmt.setInt(12,1);
-             }else{
-                 stmt.setInt(12,0);
-             }
-             if (compuesto.isSelected()){
-                 stmt.setInt(13,1);
-             }else{
-                 stmt.setInt(13,0);
-             }
-            
-             
-             
-             stmt.executeUpdate();
-             
-             JOptionPane.showMessageDialog(this, "Producto ha sido creado", "Información", JOptionPane.INFORMATION_MESSAGE);
-                                                                     
-				
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
+        } else {
+
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+            int conteo = 0;
+            try {
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO productos ( codigo, nombre, familia,"
+                        + "medida, neto, iva, bruto, margen,total,stock,minimo,mueve,incluye)"
+                        + " VALUES ( ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?);");
+
+                stmt.setString(1, codigo.getText());
+                stmt.setString(2, nombre.getText());
+                stmt.setString(3, (String) familias.getSelectedItem());
+
+                stmt.setString(4, "" + medida.getSelectedItem());
+
+                if (neto.getText().equals("")) {
+                    stmt.setInt(5, 0);
+                } else {
+                    stmt.setInt(5, Integer.parseInt(neto.getText()));
+                }
+
+                if (iva.getText().equals("")) {
+                    stmt.setInt(6, 0);
+                } else {
+                    stmt.setInt(6, Integer.parseInt(iva.getText()));
+                }
+
+                if (bruto.getText().equals("")) {
+                    stmt.setInt(7, 0);
+                } else {
+                    stmt.setInt(7, Integer.parseInt(bruto.getText()));
+                }
+
+                if (margen.getText().equals("")) {
+                    stmt.setFloat(8, 0);
+                } else {
+                    stmt.setFloat(8, Float.parseFloat(margen.getText()));
+                }
+
+                if (total.getText().equals("")) {
+                    stmt.setInt(9, 0);
+                } else {
+                    stmt.setInt(9, Integer.parseInt(total.getText()));
+                }
+
+                if (stock.getText().equals("")) {
+                    stmt.setFloat(10, 0);
+                } else {
+                    stmt.setFloat(10, Float.parseFloat(stock.getText()));
+                }
+
+                if (minimo.getText().equals("")) {
+                    stmt.setInt(11, 0);
+                } else {
+                    stmt.setFloat(11, Float.parseFloat(minimo.getText()));
+                }
+                if (modifica.isSelected()) {
+                    stmt.setInt(12, 1);
+                } else {
+                    stmt.setInt(12, 0);
+                }
+                if (compuesto.isSelected()) {
+                    stmt.setInt(13, 1);
+                } else {
+                    stmt.setInt(13, 0);
+                }
+
+                stmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "Producto ha sido creado", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
         limpiarCampos();
         creado = false;
     }//GEN-LAST:event_guardarActionPerformed
 
-    public void guardarReceta(){
+    public void guardarReceta() {
         vaciarReceta();
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
         int conteo = 0;
         try {
-             sql = con.createStatement();
-             for (int i = 0; i<productos.size();i++){
-             PreparedStatement stmt = con.prepareStatement("INSERT INTO receta ( producto, productoreceta,cantidad)"
-                     + " VALUES ( ? ,? ,?);");
-             
-             stmt.setString(1, codigo.getText());
-             stmt.setString(2,productos.get(i));
-             stmt.setDouble(3,cantidad.get(i));
-                
-             
-             stmt.executeUpdate();
-             
-             }
-            
-				
+            sql = con.createStatement();
+            for (int i = 0; i < productos.size(); i++) {
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO receta ( producto, productoreceta,cantidad)"
+                        + " VALUES ( ? ,? ,?);");
+
+                stmt.setString(1, codigo.getText());
+                stmt.setString(2, productos.get(i));
+                stmt.setDouble(3, cantidad.get(i));
+
+                stmt.executeUpdate();
+
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         productos.clear();
         cantidad.clear();
