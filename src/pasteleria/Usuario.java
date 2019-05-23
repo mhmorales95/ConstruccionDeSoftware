@@ -58,7 +58,7 @@ public class Usuario extends javax.swing.JDialog {
         getContentPane().add(contrasena);
         contrasena.setBounds(150, 166, 130, 22);
 
-        usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario" }));
+        usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione usuario..." }));
         usuario.setBorder(null);
         usuario.setMaximumSize(new java.awt.Dimension(130, 20));
         usuario.setName(""); // NOI18N
