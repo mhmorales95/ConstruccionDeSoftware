@@ -646,7 +646,7 @@ public class Pedido extends javax.swing.JFrame {
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
         if (!cantidad.getText().equals("")) {
             anadir.requestFocus();
-            totalProducto.setText("" + Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
+            totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
         } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -704,6 +704,7 @@ public class Pedido extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
+
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         MySQL my = new MySQL();
         Connection con = my.getConnection();
@@ -713,80 +714,60 @@ public class Pedido extends javax.swing.JFrame {
 
         java.sql.Date fechaActual = new java.sql.Date(date.getTime());
         java.sql.Time horaActual = new java.sql.Time(date.getTime());
+        if (!codigoCliente.getText().equals("") && seleccionFecha.getCalendar() != null && seleccionHora.getSelectedIndex() != 0 && !codigoProducto.getText().equals("") && !cantidad.getText().equals("")) {
+            try {
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO pedido (codigoCliente, estado,"
+                        + "fecha, hora, fechaEntrega, horaEntrega, codigoUsuario, precioTotal, abono, porPagar)"
+                        + " VALUES (?,?,?,?,?,?,?,?,?,?);");
 
-        try {
-            sql = con.createStatement();
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO pedido (codigoCliente, estado,"
-                    + "fecha, hora, fechaEntrega, horaEntrega, codigoUsuario, precioTotal, abono, porPagar)"
-                    + " VALUES (?,?,?,?,?,?,?,?,?,?);");
-
-            if (!codigoCliente.getText().equals("")) {
                 stmt.setInt(1, Integer.parseInt(codigoCliente.getText()));
-            } else {
-                System.out.println("esta vacío el codigo");
-            }
 
-            stmt.setString(2, "");
-            stmt.setDate(3, fechaActual);
-            stmt.setTime(4, horaActual);
+                stmt.setString(2, "");
+                stmt.setDate(3, fechaActual);
+                stmt.setTime(4, horaActual);
 
-            if (seleccionFecha.getCalendar() != null) {
                 java.sql.Date fechaSeleccionada = new java.sql.Date(date2.getTime());
                 stmt.setDate(5, fechaSeleccionada);
-            } else {
-                System.out.println("la fecha está vacía");
-            }
 
-            if (seleccionHora.getSelectedIndex() != 0) {
                 stmt.setString(6, (String) seleccionHora.getSelectedItem());
-            } else {
-                System.out.println("no se seleccionó hora");
+
+                stmt.setInt(7, 1);
+                stmt.setInt(8, Integer.parseInt(totalPedido.getText()));
+                stmt.setInt(9, Integer.parseInt(abono.getText()));
+                stmt.setInt(10, Integer.parseInt(porPagar.getText()));
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            stmt.setInt(7, 1);
-            stmt.setInt(8, Integer.parseInt(totalPedido.getText()));
-            stmt.setInt(9, Integer.parseInt(abono.getText()));
-            stmt.setInt(10, Integer.parseInt(porPagar.getText()));
+            try {
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO pedidoDetalle (codigoProducto,"
+                        + "cantidad, comentario)"
+                        + " VALUES (?,?,?);");
 
-            stmt.executeUpdate();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
-            sql = con.createStatement();
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO pedidoDetalle (codigoProducto,"
-                    + "cantidad, comentario)"
-                    + " VALUES (?,?,?);");
-
-            if (!codigoProducto.getText().equals("")) {
                 stmt.setString(1, codigoProducto.getText());
-            } else {
-                System.out.println("no existe codigo de producto");
-            }
 
-            if (!cantidad.getText().equals("")) {
                 stmt.setInt(2, Integer.parseInt(cantidad.getText()));
 
-            }else{
-                System.out.println("no se colocó cantidad");
+                stmt.setString(3, comentario);
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
             }
-           
 
-            stmt.setString(3, comentario);
+            JOptionPane.showMessageDialog(this, "Pedido agregado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            limpiarVentana();
+            limpiarTabla();
 
-            stmt.executeUpdate();
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }else{
+            JOptionPane.showMessageDialog(this, "Es necesario rellenar todos los campos", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
-
-        JOptionPane.showMessageDialog(this, "Pedido agregado", "Información", JOptionPane.INFORMATION_MESSAGE);
-        limpiarVentana();
-        limpiarTabla();
-
-
     }//GEN-LAST:event_botonGuardarActionPerformed
 
     public void eliminarFilaDeTabla(JTable tblDetalle) {
@@ -848,7 +829,7 @@ public class Pedido extends javax.swing.JFrame {
             jTable1.setModel(modelo);
             comentario = "";
             double total = sumarTotal();
-            totalPedido.setText("" + total);
+            totalPedido.setText("" + (int)total);
         } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -863,7 +844,7 @@ public class Pedido extends javax.swing.JFrame {
 
             double precioFinal = total - abono;
 
-            this.porPagar.setText("" + precioFinal);
+            this.porPagar.setText("" + (int)precioFinal);
 
         } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
