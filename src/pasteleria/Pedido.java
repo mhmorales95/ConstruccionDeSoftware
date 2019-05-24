@@ -38,6 +38,7 @@ public class Pedido extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         this.abono.setText("0");
         fechaActual();
+        
 
     }
 
@@ -60,7 +61,7 @@ public class Pedido extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        numeroPedido = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         seleccionFecha = new com.toedter.calendar.JDateChooser();
@@ -197,9 +198,9 @@ public class Pedido extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Fecha entrega:");
 
-        jTextField3.setEditable(false);
-        jTextField3.setMaximumSize(new java.awt.Dimension(59, 20));
-        jTextField3.setMinimumSize(new java.awt.Dimension(59, 20));
+        numeroPedido.setEditable(false);
+        numeroPedido.setMaximumSize(new java.awt.Dimension(59, 20));
+        numeroPedido.setMinimumSize(new java.awt.Dimension(59, 20));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -235,7 +236,7 @@ public class Pedido extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(numeroPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(seleccionFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +256,7 @@ public class Pedido extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(numeroPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
                     .addComponent(horaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -628,6 +629,7 @@ public class Pedido extends javax.swing.JFrame {
 
         codigoCliente.setText(b.obtenerCodigo());
         nombreCliente.setText(b.obtenerNombre());
+        cantidadPedidos();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -704,6 +706,26 @@ public class Pedido extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void cantidadPedidos() {
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+
+        try {
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("SELECT MAX(pedido.codigo) AS maximo FROM `pedido` ");
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                numeroPedido.setText(rs.getString("maximo"));
+            }
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         MySQL my = new MySQL();
@@ -765,7 +787,7 @@ public class Pedido extends javax.swing.JFrame {
             limpiarVentana();
             limpiarTabla();
 
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Es necesario rellenar todos los campos", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonGuardarActionPerformed
@@ -782,7 +804,7 @@ public class Pedido extends javax.swing.JFrame {
 
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No Selecciono Ninguna Fila", "Aviso", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No Seleccionó ninguna fila", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -800,6 +822,7 @@ public class Pedido extends javax.swing.JFrame {
         this.nombreCliente.setText("");
         this.seleccionHora.setSelectedIndex(0);
         this.seleccionFecha.setCalendar(null);
+        this.numeroPedido.setText("");
     }
 
     public void limpiarTabla() {
@@ -829,7 +852,7 @@ public class Pedido extends javax.swing.JFrame {
             jTable1.setModel(modelo);
             comentario = "";
             double total = sumarTotal();
-            totalPedido.setText("" + (int)total);
+            totalPedido.setText("" + (int) total);
         } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -844,7 +867,7 @@ public class Pedido extends javax.swing.JFrame {
 
             double precioFinal = total - abono;
 
-            this.porPagar.setText("" + (int)precioFinal);
+            this.porPagar.setText("" + (int) precioFinal);
 
         } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -933,9 +956,9 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel nombreCliente;
     private javax.swing.JTextField nombreProducto;
+    private javax.swing.JTextField numeroPedido;
     private javax.swing.JTextField porPagar;
     private javax.swing.JTextField precioProducto;
     private com.toedter.calendar.JDateChooser seleccionFecha;

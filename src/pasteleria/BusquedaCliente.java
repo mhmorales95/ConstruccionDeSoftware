@@ -5,7 +5,8 @@
  */
 package pasteleria;
 
-import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,13 +14,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
+import javax.swing.AbstractAction;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -37,9 +34,30 @@ public class BusquedaCliente extends javax.swing.JDialog {
     private String rut;
     private String direccion;
     private int descuento;
+    private static final String solve = "Solve";
+
     public BusquedaCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        KeyStroke enter = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+        tabla.getInputMap(JTable.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT).put(enter, solve);
+        tabla.getActionMap().put(solve, new EnterAction());
+    }
+
+    private class EnterAction extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
+            System.out.println(dtm.getValueAt(tabla.getSelectedRow(), 0));
+            codigo = "" + dtm.getValueAt(tabla.getSelectedRow(), 0);
+            nombre = "" + dtm.getValueAt(tabla.getSelectedRow(), 2);
+            rut = "" + dtm.getValueAt(tabla.getSelectedRow(), 2);
+            direccion = "" + dtm.getValueAt(tabla.getSelectedRow(), 3);
+            descuento = Integer.parseInt("" + dtm.getValueAt(tabla.getSelectedRow(), 4));
+            dispose();
+        }
     }
 
     /**
@@ -127,13 +145,13 @@ public class BusquedaCliente extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel(); 
+        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
         System.out.println(dtm.getValueAt(tabla.getSelectedRow(), 0));
-        codigo =""+ dtm.getValueAt(tabla.getSelectedRow(), 0);
-        nombre =""+ dtm.getValueAt(tabla.getSelectedRow(), 2);
-        rut =""+ dtm.getValueAt(tabla.getSelectedRow(), 2);
-        direccion =""+ dtm.getValueAt(tabla.getSelectedRow(), 3);
-        descuento =Integer.parseInt(""+ dtm.getValueAt(tabla.getSelectedRow(), 4));
+        codigo = "" + dtm.getValueAt(tabla.getSelectedRow(), 0);
+        nombre = "" + dtm.getValueAt(tabla.getSelectedRow(), 2);
+        rut = "" + dtm.getValueAt(tabla.getSelectedRow(), 2);
+        direccion = "" + dtm.getValueAt(tabla.getSelectedRow(), 3);
+        descuento = Integer.parseInt("" + dtm.getValueAt(tabla.getSelectedRow(), 4));
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -142,109 +160,117 @@ public class BusquedaCliente extends javax.swing.JDialog {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
-        
+
         try {
             sql = con.createStatement();
-        
-        
-             PreparedStatement stmt = con.prepareStatement("SELECT * FROM clientes WHERE nombre LIKE ? ORDER BY nombre");
-             stmt.setString(1,"%"+buscartxt.getText()+"%");
-				ResultSet rs;
-                                rs = stmt.executeQuery();
-				System.out.println("CONSULTA EJECUTADA");
-                                eliminar();
-				boolean r=rs.next();
-				while (r) {
-                                    
-                                    System.out.println(rs.getString("nombre"));
-                                       DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
 
-                                       
-                                    Object [] fila=new Object[5];
-                                    
-                                    fila[0]=rs.getInt("codigo");
-                                    fila[1]=rs.getString("rut");
-                                    fila[2]=rs.getString("nombre");
-                                    fila[3]=rs.getString("direccion");
-                                    fila[4]=rs.getString("Telefono");
-                                    modelo.addRow(fila);
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM clientes WHERE nombre LIKE ? ORDER BY nombre");
+            stmt.setString(1, "%" + buscartxt.getText() + "%");
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            System.out.println("CONSULTA EJECUTADA");
+            eliminar();
+            boolean r = rs.next();
+            while (r) {
 
-                                    tabla.setModel(modelo); 
-                                    
-                                    r=rs.next();
-                                    }
+                System.out.println(rs.getString("nombre"));
+                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+                Object[] fila = new Object[5];
+
+                fila[0] = rs.getInt("codigo");
+                fila[1] = rs.getString("rut");
+                fila[2] = rs.getString("nombre");
+                fila[3] = rs.getString("direccion");
+                fila[4] = rs.getString("Telefono");
+                modelo.addRow(fila);
+
+                tabla.setModel(modelo);
+
+                r = rs.next();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void buscartxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscartxtKeyTyped
-        
-        
-        
+
+
     }//GEN-LAST:event_buscartxtKeyTyped
 
     private void buscartxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscartxtKeyReleased
-        eliminar();
-        MySQL my = new MySQL();
-        Connection con = my.getConnection();
-        Statement sql;
-        
-        try {
-            sql = con.createStatement();
-        
-        
-             PreparedStatement stmt = con.prepareStatement("SELECT * FROM clientes WHERE nombre LIKE ? ORDER BY nombre");
-             stmt.setString(1,"%"+buscartxt.getText()+"%");
-				ResultSet rs;
-                                rs = stmt.executeQuery();
-                                eliminar();
-				boolean r=rs.next();
-				while (r) {
-                                  
-                                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+            tabla.requestFocus();
 
-                                       
-                                    Object [] fila=new Object[5];
-                                    
-                                    fila[0]=rs.getInt("codigo");
-                                    fila[1]=rs.getString("rut");
-                                    fila[2]=rs.getString("nombre");
-                                    fila[3]=rs.getString("direccion");
-                                    fila[4]=rs.getString("telefono");
-                                    modelo.addRow(fila);
+            tabla.changeSelection(0, 0, false, false);
+        } else {
 
-                                    tabla.setModel(modelo); 
-                                    
-                                    r=rs.next();
-                                    }
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            eliminar();
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+
+            try {
+                sql = con.createStatement();
+
+                PreparedStatement stmt = con.prepareStatement("SELECT * FROM clientes WHERE nombre LIKE ? ORDER BY nombre");
+                stmt.setString(1, "%" + buscartxt.getText() + "%");
+                ResultSet rs;
+                rs = stmt.executeQuery();
+                eliminar();
+                boolean r = rs.next();
+                while (r) {
+
+                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+                    Object[] fila = new Object[5];
+
+                    fila[0] = rs.getInt("codigo");
+                    fila[1] = rs.getString("rut");
+                    fila[2] = rs.getString("nombre");
+                    fila[3] = rs.getString("direccion");
+                    fila[4] = rs.getString("telefono");
+                    modelo.addRow(fila);
+
+                    tabla.setModel(modelo);
+
+                    r = rs.next();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_buscartxtKeyReleased
 
-    public void eliminar(){
+    public void eliminar() {
         DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
-        int a = tabla.getRowCount()-1;
-        for (int i = a; i >= 0; i--) {           
-        tb.removeRow(tb.getRowCount()-1);
-        } 
+        int a = tabla.getRowCount() - 1;
+        for (int i = a; i >= 0; i--) {
+            tb.removeRow(tb.getRowCount() - 1);
+        }
     }
-    public String obtenerCodigo(){ 
-        return codigo; 
+
+    public String obtenerCodigo() {
+        return codigo;
     }
-    public String obtenerNombre(){ 
-        return nombre; 
+
+    public String obtenerNombre() {
+        return nombre;
     }
-    public String obtenerRut(){ 
-        return rut; 
+
+    public String obtenerRut() {
+        return rut;
     }
-    public String obtenerDireccion(){ 
+
+    public String obtenerDireccion() {
         return direccion;
     }
-    public int obtenerDescuento(){ 
+
+    public int obtenerDescuento() {
         return descuento;
     }
+
     /**
      * @param args the command line arguments
      */
@@ -301,7 +327,7 @@ public class BusquedaCliente extends javax.swing.JDialog {
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField buscartxt;
