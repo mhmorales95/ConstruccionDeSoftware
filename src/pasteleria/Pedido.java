@@ -38,6 +38,7 @@ public class Pedido extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         this.abono.setText("0");
         fechaActual();
+        jButton5.setContentAreaFilled(false);
         
 
     }
@@ -443,7 +444,12 @@ public class Pedido extends javax.swing.JFrame {
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 246, -1, -1));
 
-        jButton5.setText("Eliminar");
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconoEliminar.png"))); // NOI18N
+        jButton5.setBorder(null);
+        jButton5.setMaximumSize(new java.awt.Dimension(30, 30));
+        jButton5.setMinimumSize(new java.awt.Dimension(30, 30));
+        jButton5.setPreferredSize(new java.awt.Dimension(30, 30));
+        jButton5.setOpaque(true);
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
