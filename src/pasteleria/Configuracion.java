@@ -5,12 +5,29 @@
  */
 package pasteleria;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Mauricio
  */
 public class Configuracion extends javax.swing.JFrame {
 
+    public int insertar = 0;
     /**
      * Creates new form Configuracion
      */
@@ -27,22 +44,492 @@ public class Configuracion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel5 = new javax.swing.JLabel();
+        usuariocod = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        usunombre = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        usucon = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        accesoTotal = new javax.swing.JRadioButton();
+        accesoPedido = new javax.swing.JRadioButton();
+        accesoCaja = new javax.swing.JRadioButton();
+        jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jTextField3 = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        editarFamtxt = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        familiaEliminar = new javax.swing.JComboBox<>();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel5.setText("Codigo usuario:");
+
+        usuariocod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuariocodActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Cargar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Nombre:");
+
+        jLabel7.setText("Contraseña:");
+
+        accesoTotal.setText("Acceso Total");
+
+        accesoPedido.setText("Acceso a pedido");
+        accesoPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accesoPedidoActionPerformed(evt);
+            }
+        });
+
+        accesoCaja.setText("Acceso a caja");
+
+        jButton3.setText("Eliminar Usuario");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Guardar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Crear");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setText("Eliminar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("Editar");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Familias");
+
+        familiaEliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
+        familiaEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                familiaEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel7))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(usuariocod, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton4))
+                                .addComponent(usunombre)
+                                .addComponent(usucon, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(accesoTotal)
+                                .addComponent(jButton3))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1)))
+                    .addComponent(accesoPedido)
+                    .addComponent(accesoCaja))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 263, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editarFamtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(familiaEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(304, 304, 304))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(usuariocod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5)
+                            .addComponent(jButton4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(usunombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(usucon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(accesoTotal)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(accesoPedido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(accesoCaja))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(familiaEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)
+                        .addGap(86, 86, 86)
+                        .addComponent(jButton6)
+                        .addGap(82, 82, 82)
+                        .addComponent(editarFamtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton3))
+                .addGap(249, 249, 249))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void usuariocodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariocodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usuariocodActionPerformed
+
+    public void cargar(){
+        
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        
+        try {
+            sql = con.createStatement();
+
+            ResultSet rs = sql.executeQuery("SELECT * FROM familias");
+            System.out.println("CONSULTA EJECUTADA");
+
+            boolean r = rs.next();
+            while (r) {
+                
+                        
+                        familiaEliminar.addItem(rs.getString("nombre"));
+                       
+                        
+                r = rs.next();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+            sql = con.createStatement();
+
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios WHERE codigo = ?");
+            stmt.setInt(1, Integer.parseInt(usuariocod.getText()));
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            boolean r = rs.next();
+            if (r == false) {
+                JOptionPane.showMessageDialog(this, "Se creará usuario", "", JOptionPane.INFORMATION_MESSAGE);
+                usunombre.setText("");
+                usucon.setText("");
+                accesoTotal.setSelected(false);
+                accesoPedido.setSelected(false);
+                accesoCaja.setSelected(false);
+                insertar = 1;
+            }
+            while (r) {
+
+                usunombre.setText(rs.getString("nombre"));
+                usucon.setText(rs.getString("contrasena"));
+                if (rs.getInt("accesoCaja") == 1) {
+                    accesoCaja.setSelected(true);
+                } else {
+                    accesoCaja.setSelected(false);
+                }
+                if (rs.getInt("accesoTotal") == 1) {
+                    accesoTotal.setSelected(true);
+                } else {
+                    accesoTotal.setSelected(false);
+                }
+                if (rs.getInt("accesoPedido") == 1) {
+                    accesoPedido.setSelected(true);
+                } else {
+                    accesoPedido.setSelected(false);
+                }
+               
+                r = rs.next();
+                insertar = 0;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void accesoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accesoPedidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_accesoPedidoActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+            System.out.println("aqui");
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM usuarios WHERE codigo = ?");
+            stmt.setInt(1, Integer.parseInt(usuariocod.getText()));
+            usunombre.setText("");
+            usucon.setText("");
+            accesoTotal.setSelected(false);
+            accesoPedido.setSelected(false);
+                accesoCaja.setSelected(false);
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Usuario Borrado", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (insertar == 1) {
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+            try {
+                System.out.println("aqui");
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO usuarios"
+                    + " (codigo, nombre, contrasena, accesoCaja,accesoTotal,accesoPedido) VALUES (?,?,?,?,?,?);");
+                stmt.setInt(1, Integer.parseInt(usuariocod.getText()));
+                stmt.setString(2, usunombre.getText());
+                stmt.setString(3, usucon.getText());
+                if (accesoCaja.isSelected()) {
+                    stmt.setInt(4, 1);
+                } else {
+                    stmt.setInt(4, 0);
+                }
+                if (accesoTotal.isSelected()) {
+                    stmt.setInt(5, 1);
+                } else {
+                    stmt.setInt(5, 0);
+                }
+                if (accesoPedido.isSelected()) {
+                    stmt.setInt(6, 1);
+                } else {
+                    stmt.setInt(6, 0);
+                }
+                
+
+                insertar = 0;
+                stmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "Usuario añadido", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+            try {
+                System.out.println("aqui");
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("UPDATE `usuarios` SET nombre = ?,accesoCaja = ?,accesoTotal = ?,"
+                    + "accesoPedido = ? WHERE usuario.codigo = ?;");
+
+                stmt.setString(1, usunombre.getText());
+                stmt.setString(2, usucon.getText());
+                if (accesoCaja.isSelected()) {
+                    stmt.setInt(3, 1);
+                } else {
+                    stmt.setInt(3, 0);
+                }
+
+                if (accesoTotal.isSelected()) {
+                    stmt.setInt(4, 1);
+                } else {
+                    stmt.setInt(4, 0);
+                }
+                if (accesoPedido.isSelected()) {
+                    stmt.setInt(5, 1);
+                } else {
+                    stmt.setInt(5, 0);
+                }
+                
+                stmt.setInt(6, Integer.parseInt(usuariocod.getText()));
+                insertar = 0;
+                stmt.executeUpdate();
+
+                JOptionPane.showMessageDialog(this, "Usuario modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        //
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO familias"
+                + " (nombre) VALUES (?);");
+
+            // stmt.setInt(1, familiaMayor);
+            stmt.setString(1, jTextField3.getText());
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Familia creada!", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        familiaEliminar.removeAllItems();
+        familiaEliminar.addItem("Seleccionar");
+        jTextField3.setText("");
+        cargar();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM familias WHERE nombre = ? ");
+
+            stmt.setString(1, (String) familiaEliminar.getSelectedItem());
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Familia eliminada!", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        familiaEliminar.removeAllItems();
+        familiaEliminar.addItem("Seleccionar");
+        cargar();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+            System.out.println("aqui");
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("UPDATE `familias` SET nombre = ?"
+                + " WHERE nombre = ?;");
+
+            stmt.setString(1, editarFamtxt.getText());
+            stmt.setString(2, (String) familiaEliminar.getSelectedItem());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            System.out.println("aqui");
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("UPDATE `productos` SET familia = ?"
+                + " WHERE familia = ?;");
+
+            stmt.setString(1, editarFamtxt.getText());
+            stmt.setString(2, (String) familiaEliminar.getSelectedItem());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            System.out.println("aqui");
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("UPDATE `subfamilias` SET familia = ?"
+                + " WHERE familia = ?;");
+
+            stmt.setString(1, editarFamtxt.getText());
+            stmt.setString(2, (String) familiaEliminar.getSelectedItem());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        JOptionPane.showMessageDialog(this, "Familia editada!", "Información", JOptionPane.INFORMATION_MESSAGE);
+        familiaEliminar.removeAllItems();
+        familiaEliminar.addItem("Seleccionar");
+        jTextField3.setText("");
+        cargar();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void familiaEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_familiaEliminarActionPerformed
+        editarFamtxt.setText((String) familiaEliminar.getSelectedItem());
+    }//GEN-LAST:event_familiaEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +567,24 @@ public class Configuracion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton accesoCaja;
+    private javax.swing.JRadioButton accesoPedido;
+    private javax.swing.JRadioButton accesoTotal;
+    private javax.swing.JTextField editarFamtxt;
+    private javax.swing.JComboBox<String> familiaEliminar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField usuariocod;
+    private javax.swing.JTextField usucon;
+    private javax.swing.JTextField usunombre;
     // End of variables declaration//GEN-END:variables
 }
