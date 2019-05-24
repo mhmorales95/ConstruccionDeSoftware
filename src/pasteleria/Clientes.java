@@ -5,6 +5,14 @@
  */
 package pasteleria;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Mauricio
@@ -92,6 +100,11 @@ public class Clientes extends javax.swing.JFrame {
         });
 
         jButton2.setText("Guardar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -258,6 +271,64 @@ public class Clientes extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        if ((!jTextField6.getText().equals("")) && (!jTextField8.getText().equals("")) && (!jTextField7.getText().equals(""))
+                && (!jTextField10.getText().equals("")) && (!jTextField9.getText().equals(""))) {
+            try {
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO clientes (codigo, rut,"
+                        + "nombre, telefono, direccion)"
+                        + " VALUES (?,?,?,?,?);");
+
+                if (!jTextField6.getText().equals("")) {
+                    stmt.setString(3, jTextField6.getText());
+                } else {
+                    System.out.println("Esta vacío el nombre");
+                }
+
+                if (!jTextField8.getText().equals("")) {
+                    stmt.setInt(1, Integer.parseInt(jTextField8.getText()));
+                } else {
+                    System.out.println("Esta vacio el codigo");
+                }
+
+                if (!jTextField7.getText().equals("")) {
+                    stmt.setString(2, jTextField7.getText());
+                } else {
+                    System.out.println("RUT está vacío");
+                }
+
+                if (!jTextField10.getText().equals("")) {
+                    stmt.setString(4, jTextField10.getText());
+                } else {
+                    System.out.println("Teléfono está vacío");
+                }
+
+                if (!jTextField9.getText().equals("")) {
+                    stmt.setString(5, jTextField9.getText());
+                } else {
+                    System.out.println("Direccion vacia");
+                }
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            JOptionPane.showMessageDialog(this, "Cliente agregado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            this.borrarCampos();
+
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Es necesario rellenar todos los campos", "Campos incompletos", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -292,8 +363,8 @@ public class Clientes extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void borrarCampos(){
+
+    private void borrarCampos() {
         this.jTextField1.setText("");
         this.jTextField10.setText("");
         this.jTextField6.setText("");
@@ -303,26 +374,16 @@ public class Clientes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField codigoCliente;
-    private javax.swing.JTextField codigoCliente1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JTextField jTextField1;
