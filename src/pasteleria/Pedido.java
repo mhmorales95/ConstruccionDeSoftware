@@ -39,8 +39,37 @@ public class Pedido extends javax.swing.JFrame {
         this.abono.setText("0");
         fechaActual();
         jButton5.setContentAreaFilled(false);
-        
+        numeroPedido();
 
+    }
+    
+    public void numeroPedido(){
+        MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+            int numeroPedido = 0;
+            try {
+                
+                    sql = con.createStatement();
+                    PreparedStatement stmt = con.prepareStatement("SELECT MAX(codigo)"
+                            + "FROM pedido;");
+                    
+                    ResultSet rs;
+            rs = stmt.executeQuery();
+
+            boolean r = rs.next();
+            while (r) {
+
+                numeroPedido = rs.getInt("MAX(codigo)")+1;
+
+                r = rs.next();
+            }
+                    
+            this.numeroPedido.setText(numeroPedido+"");
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             
     }
 
     /**
@@ -635,7 +664,7 @@ public class Pedido extends javax.swing.JFrame {
 
         codigoCliente.setText(b.obtenerCodigo());
         nombreCliente.setText(b.obtenerNombre());
-        cantidadPedidos();
+        
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -654,8 +683,12 @@ public class Pedido extends javax.swing.JFrame {
     private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
         if (!cantidad.getText().equals("")) {
             anadir.requestFocus();
-            totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
-        } else {
+            try {
+                totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
+       
+            } catch (Exception e) {
+            }
+             } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
 
@@ -712,26 +745,7 @@ public class Pedido extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void cantidadPedidos() {
-        MySQL my = new MySQL();
-        Connection con = my.getConnection();
-        Statement sql;
-
-        try {
-            sql = con.createStatement();
-            PreparedStatement stmt = con.prepareStatement("SELECT MAX(pedido.codigo) AS maximo FROM `pedido` ");
-            ResultSet rs;
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                numeroPedido.setText(rs.getString("maximo"));
-            }
-            
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         MySQL my = new MySQL();
@@ -742,7 +756,8 @@ public class Pedido extends javax.swing.JFrame {
 
         java.sql.Date fechaActual = new java.sql.Date(date.getTime());
         java.sql.Time horaActual = new java.sql.Time(date.getTime());
-        if (!codigoCliente.getText().equals("") && seleccionFecha.getCalendar() != null && seleccionHora.getSelectedIndex() != 0 && !codigoProducto.getText().equals("") && !cantidad.getText().equals("")) {
+        if (!codigoCliente.getText().equals("") && seleccionFecha.getCalendar() != null &&
+                seleccionHora.getSelectedIndex() != 0 && jTable1.getRowCount() > 0) {
             try {
                 sql = con.createStatement();
                 PreparedStatement stmt = con.prepareStatement("INSERT INTO pedido (codigoCliente, estado,"
@@ -771,33 +786,61 @@ public class Pedido extends javax.swing.JFrame {
                 Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            try {
-                sql = con.createStatement();
-                PreparedStatement stmt = con.prepareStatement("INSERT INTO pedidoDetalle (codigoProducto,"
-                        + "cantidad, comentario)"
-                        + " VALUES (?,?,?);");
+            //carga de detalle de productos
+            DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
 
-                stmt.setString(1, codigoProducto.getText());
-
-                stmt.setInt(2, Integer.parseInt(cantidad.getText()));
-
-                stmt.setString(3, comentario);
-
-                stmt.executeUpdate();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        int filas = jTable1.getRowCount();
+        
+        for (int i = 0; i < filas; i++) {
+            String codigo = String.valueOf(tm.getValueAt(i, 0));
+            double cantidad = Double.parseDouble(String.valueOf(tm.getValueAt(i, 2)));
+            String comentario = String.valueOf(tm.getValueAt(i, 3)) ;
+            int unitario = Integer.parseInt(String.valueOf(tm.getValueAt(i, 4)));
+            int total = Integer.parseInt(String.valueOf(tm.getValueAt(i, 5)));
+            insertarDetalle(codigo, cantidad, comentario, unitario , total);
+        }
+        
 
             JOptionPane.showMessageDialog(this, "Pedido agregado", "Información", JOptionPane.INFORMATION_MESSAGE);
             limpiarVentana();
             limpiarTabla();
+            numeroPedido();
 
         } else {
             JOptionPane.showMessageDialog(this, "Es necesario rellenar todos los campos", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botonGuardarActionPerformed
 
+    public void insertarDetalle(String codigo, double cantidad, String comentario, int unitario, int total){
+        try {
+             
+            
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+            sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO pedidoDetalle (codigoProducto,"
+                        + "cantidad, unitario, total, comentario, codigoPedido)"
+                        + " VALUES (?,?,?,?,?,?);");
+
+                stmt.setString(1, codigo);
+
+                stmt.setDouble(2, cantidad);
+
+                stmt.setInt(3, unitario);
+                
+                stmt.setInt(4, total);
+                
+                stmt.setString(5, comentario);
+                
+                stmt.setInt(6, Integer.parseInt(numeroPedido.getText()));
+
+                stmt.executeUpdate();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
     public void eliminarFilaDeTabla(JTable tblDetalle) {
         DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
         int fila = tblDetalle.getSelectedRow();
@@ -805,8 +848,8 @@ public class Pedido extends javax.swing.JFrame {
             int[] filasselec = tblDetalle.getSelectedRows();
             for (int i = 0; i < filasselec.length; i++) {
                 modelo.removeRow(filasselec[i]);
-                double total = sumarTotal();
-                totalPedido.setText("" + total);
+                
+                totalPedido.setText("" + sumarTotal());
 
             }
         } else {
@@ -881,20 +924,16 @@ public class Pedido extends javax.swing.JFrame {
 
     }
 
-    public double sumarTotal() {
+    public int sumarTotal() {
         DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
 
         int filas = jTable1.getRowCount();
-        double suma = 0;
+        int suma = 0;
         for (int i = 0; i < filas; i++) {
             String dato = String.valueOf(tm.getValueAt(i, 5));
-            suma += Double.parseDouble(dato);
+            suma += Integer.parseInt(dato);
         }
-        // suma = (int) (Math.round((suma) / 10.0) * 10);
-
-        //int tot = suma;    
-        //  tot = ((int) (Math.round((tot) / 10))) * 10;
-        //totalPedido.setText("" + suma);
+   
         return suma;
     }
 
