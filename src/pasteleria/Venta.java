@@ -6,9 +6,17 @@
 package pasteleria;
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -43,8 +51,6 @@ public class Venta extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroupMetodo = new javax.swing.ButtonGroup();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -102,6 +108,8 @@ public class Venta extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
         jLabel24 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -110,30 +118,6 @@ public class Venta extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1024, 700));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Nombre", "Cantidad", "Precio unitario", "Precio total"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable1.setMaximumSize(new java.awt.Dimension(247, 0));
-        jTable1.setMinimumSize(new java.awt.Dimension(247, 0));
-        jTable1.setPreferredSize(new java.awt.Dimension(247, 0));
-        jTable1.setRowHeight(9);
-        jScrollPane1.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 650, 180));
 
         jButton2.setBackground(new java.awt.Color(123, 101, 122));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -377,12 +361,22 @@ public class Venta extends javax.swing.JFrame {
         jButton13.setMaximumSize(new java.awt.Dimension(30, 20));
         jButton13.setMinimumSize(new java.awt.Dimension(30, 20));
         jButton13.setPreferredSize(new java.awt.Dimension(30, 20));
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setText("Cargar");
         jButton14.setMargin(new java.awt.Insets(2, 2, 2, 2));
         jButton14.setMaximumSize(new java.awt.Dimension(59, 23));
         jButton14.setMinimumSize(new java.awt.Dimension(59, 23));
         jButton14.setPreferredSize(new java.awt.Dimension(59, 23));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -716,6 +710,27 @@ public class Venta extends javax.swing.JFrame {
         jButton10.setPreferredSize(new java.awt.Dimension(45, 23));
         getContentPane().add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 560, -1, -1));
 
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Descripción", "Cantidad", "Precio unitario", "Precio total"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabla.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tabla);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 650, 185));
+
         jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/FondoVenta.jpg"))); // NOI18N
         jLabel24.setText("jLabel24");
         getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -765,6 +780,55 @@ public class Venta extends javax.swing.JFrame {
     
     }//GEN-LAST:event_numeroPedidoActionPerformed
 
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        cargarPedido();
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    public void cargarPedido(){
+        MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+
+            try {
+                sql = con.createStatement();
+
+                PreparedStatement stmt = con.prepareStatement("SELECT * FROM pedido, pedidodetalle, productos WHERE "
+                        + "pedidodetalle.codigoProducto = productos.codigo AND"
+                        + " pedidoDetalle.codigoPedido = pedido.codigo AND pedidodetalle.codigoPedido = ?");
+                stmt.setInt(1, Integer.parseInt(numeroPedido.getText()) );
+                ResultSet rs;
+                rs = stmt.executeQuery();
+                
+                boolean r = rs.next();
+                while (r) {
+
+                    if (codigoCliente.getText().equals("")){
+                        codigoCliente.setText(""+rs.getInt("pedido.codigoCliente"));
+                    }
+                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+                    Object[] fila = new Object[5];
+
+                    fila[0] = rs.getInt("productos.codigo");
+                    fila[1] = rs.getString("productos.nombre");
+                    fila[2] = rs.getDouble("pedidodetalle.cantidad");
+                    fila[3] = rs.getInt("pedidodetalle.unitario");
+                    fila[4] = rs.getInt("pedidodetalle.total");
+                    
+                    modelo.addRow(fila);
+
+                    tabla.setModel(modelo);
+
+                    r = rs.next();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
     /**
      * @param args the command line arguments
      */
@@ -854,8 +918,7 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonFacBol;
     private javax.swing.JRadioButton jRadioButtonFacTrans;
     private javax.swing.JRadioButton jRadioButtonTransbank;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField11;
@@ -868,5 +931,6 @@ public class Venta extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JLabel nombreCliente;
     private javax.swing.JTextField numeroPedido;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }
