@@ -1057,7 +1057,7 @@ public class Pedido extends javax.swing.JFrame {
                 evt.consume();
                 JOptionPane.showMessageDialog(this, "Ingrese sólo números, punto o guión");
                 campoTexto.setCursor(null);
-            } else if ((int) evt.getKeyChar() >= 32 && (int) evt.getKeyChar() <= 44 || (int) evt.getKeyChar() >= 46 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+            } else if ((int) evt.getKeyChar() >= 32 && (int) evt.getKeyChar() <= 44 || (int) evt.getKeyChar() >= 45 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
                     && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
                     || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
                 getToolkit().beep();
