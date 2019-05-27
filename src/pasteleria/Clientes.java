@@ -81,6 +81,12 @@ public class Clientes extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("RUT: ");
 
+        rut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rutActionPerformed(evt);
+            }
+        });
+
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Código:");
@@ -224,9 +230,51 @@ public class Clientes extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    public void actualizar() {
+
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("UPDATE clientes SET rut = ?,nombre = ?,"
+                    + " telefono = ?, direccion = ? WHERE codigo = ?;");
+            if (!nombreCompleto.getText().equals("")) {
+                stmt.setString(2, nombreCompleto.getText());
+            } else {
+                System.out.println("Esta vacío el nombre");
+            }
+
+            if (!rut.getText().equals("")) {
+                stmt.setString(1, rut.getText());
+            } else {
+                System.out.println("RUT está vacío");
+            }
+
+            if (!telefono.getText().equals("")) {
+                stmt.setString(3, telefono.getText());
+            } else {
+                System.out.println("Teléfono está vacío");
+            }
+
+            if (!direccion.getText().equals("")) {
+                stmt.setString(4, direccion.getText());
+            } else {
+                System.out.println("Direccion vacia");
+            }
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Producto modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if (creado) {
-            //actualizar();
+            actualizar();
         } else {
             MySQL my = new MySQL();
             Connection con = my.getConnection();
@@ -290,9 +338,11 @@ public class Clientes extends javax.swing.JFrame {
         b.setVisible(true);
 
         nombreCompleto.setText(b.obtenerNombre());
+        System.out.println(""+ b.obtenerRut()+ "+" + b.obtenerNombre());
         rut.setText(b.obtenerRut());
         codigo.setText(b.obtenerCodigo());
         direccion.setText(b.obtenerDireccion());
+        telefono.setText("" + b.obtenerDescuento());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void telefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonoActionPerformed
@@ -302,6 +352,10 @@ public class Clientes extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         this.llamarProducto();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void rutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rutActionPerformed
 
     /**
      * @param args the command line arguments
