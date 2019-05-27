@@ -773,30 +773,30 @@ public class Pedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
-       anadir();
-       
+        anadir();
+
     }//GEN-LAST:event_anadirActionPerformed
 
-    private void anadir(){
-        if (cantidad.getText().equals("")){
+    private void anadir() {
+        if (cantidad.getText().equals("")) {
             cantidad.requestFocus();
             JOptionPane.showMessageDialog(this, "Debe ingresar cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
-            
-        }else{
-        if (totalPedido.getText().equals("")) {
-            totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
-            cargarProductoATabla();
-            limpiarSeccionItem();
+
         } else {
-            if (totalProducto.getText().equals("")){
-                 totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
-                 
-            }else{
+            if (totalPedido.getText().equals("")) {
+                totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
                 cargarProductoATabla();
                 limpiarSeccionItem();
+            } else {
+                if (totalProducto.getText().equals("")) {
+                    totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
+
+                } else {
+                    cargarProductoATabla();
+                    limpiarSeccionItem();
+                }
+
             }
-            
-        }
         }
     }
     private void nombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreProductoActionPerformed
@@ -1014,17 +1014,17 @@ public class Pedido extends javax.swing.JFrame {
 
     private void codigoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoClienteKeyTyped
         // TODO add your handling code here:
-        verificarCamposSinLetras(evt);
+        verificarCamposSinLetras(evt, "numero", codigoCliente);
     }//GEN-LAST:event_codigoClienteKeyTyped
 
     private void codigoProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoProductoKeyTyped
         // TODO add your handling code here:
-        verificarCamposSinLetras(evt);
+        verificarCamposSinLetras(evt, "numero", codigoProducto);
     }//GEN-LAST:event_codigoProductoKeyTyped
 
     private void cantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyTyped
         // TODO add your handling code here:
-        verificarCamposSinLetras(evt);
+        verificarCamposSinLetras(evt, "numero coma", cantidad);
     }//GEN-LAST:event_cantidadKeyTyped
 
     private void cantidadPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cantidadPropertyChange
@@ -1035,21 +1035,66 @@ public class Pedido extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cantidadInputMethodTextChanged
 
-    private void verificarCamposSinLetras(KeyEvent evt) {
+    private void verificarCamposSinLetras(KeyEvent evt, String tipo, javax.swing.JTextField campoTexto) {
         char c = evt.getKeyChar();
+        if (tipo.equals("numero")) {
+            if (Character.isLetter(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo numeros");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo numeros");
+                campoTexto.setCursor(null);
+            }
+        } else if (tipo.equals("rut")) {
+            if (Character.isLetter(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números, punto o guión");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() >= 32 && (int) evt.getKeyChar() <= 44 || (int) evt.getKeyChar() >= 46 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números, punto o guión");
+                campoTexto.setCursor(null);
+            }
+        } else if (tipo.equals("letras")) {
+            if (Character.isDigit(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo letras");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo letras");
+                campoTexto.setCursor(null);
+            }
 
-        if (Character.isLetter(c)) {
-            getToolkit().beep();
-            evt.consume();
-            JOptionPane.showMessageDialog(this, "Ingrese sólo números");
-            codigoCliente.setCursor(null);
-        } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
-                && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
-                || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
-            getToolkit().beep();
-            evt.consume();
-            JOptionPane.showMessageDialog(this, "Ingrese sólo números");
-            codigoCliente.setCursor(null);
+        } else if (tipo.endsWith("numero coma")) {
+            if (Character.isLetter(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() >= 32 && (int) evt.getKeyChar() <= 43 || (int) evt.getKeyChar() >= 45 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+                campoTexto.setCursor(null);
+            }
+
         }
 
     }
@@ -1141,7 +1186,7 @@ public class Pedido extends javax.swing.JFrame {
         System.out.println("total: " + totalProducto.getText());
         if (!this.cantidad.getText().equals("")) {
             Object[] fila = new Object[6];
-            
+
             fila[0] = codigoProducto.getText();
             fila[1] = nombreProducto.getText();;
             fila[2] = cantidad.getText();
