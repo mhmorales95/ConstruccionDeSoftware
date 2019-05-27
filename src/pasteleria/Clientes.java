@@ -239,6 +239,12 @@ public class Clientes extends javax.swing.JFrame {
             sql = con.createStatement();
             PreparedStatement stmt = con.prepareStatement("UPDATE clientes SET rut = ?,nombre = ?,"
                     + " telefono = ?, direccion = ? WHERE codigo = ?;");
+            if (!codigo.getText().equals("")) {
+                stmt.setInt(5, Integer.parseInt(codigo.getText()));
+            } else {
+                System.out.println("Esta vacio el codigo");
+            }
+
             if (!nombreCompleto.getText().equals("")) {
                 stmt.setString(2, nombreCompleto.getText());
             } else {
@@ -264,7 +270,7 @@ public class Clientes extends javax.swing.JFrame {
             }
 
             stmt.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Producto modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Cliente modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
 
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
@@ -338,7 +344,7 @@ public class Clientes extends javax.swing.JFrame {
         b.setVisible(true);
 
         nombreCompleto.setText(b.obtenerNombre());
-        System.out.println(""+ b.obtenerRut()+ "+" + b.obtenerNombre());
+        System.out.println("" + b.obtenerRut() + "+" + b.obtenerNombre());
         rut.setText(b.obtenerRut());
         codigo.setText(b.obtenerCodigo());
         direccion.setText(b.obtenerDireccion());
