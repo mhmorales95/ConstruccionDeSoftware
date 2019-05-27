@@ -773,19 +773,33 @@ public class Pedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
-        System.out.println("cantidad.getText(): " + cantidad.getText());
-        System.out.println("total.getText(): " + totalProducto.getText());
+       anadir();
+        
+
+    }//GEN-LAST:event_anadirActionPerformed
+
+    private void anadir(){
+        if (cantidad.getText().equals("")){
+            cantidad.requestFocus();
+            JOptionPane.showMessageDialog(this, "Debe ingresar cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else{
         if (totalPedido.getText().equals("")) {
             totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
             cargarProductoATabla();
             limpiarSeccionItem();
         } else {
-            cargarProductoATabla();
-            limpiarSeccionItem();
+            if (totalProducto.getText().equals("")){
+                 totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
+                 
+            }else{
+                cargarProductoATabla();
+                limpiarSeccionItem();
+            }
+            
         }
-
-    }//GEN-LAST:event_anadirActionPerformed
-
+        }
+    }
     private void nombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreProductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreProductoActionPerformed
@@ -796,8 +810,7 @@ public class Pedido extends javax.swing.JFrame {
 
     private void anadirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anadirKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            cargarProductoATabla();
-            limpiarSeccionItem();
+            anadir();
         }
     }//GEN-LAST:event_anadirKeyPressed
 

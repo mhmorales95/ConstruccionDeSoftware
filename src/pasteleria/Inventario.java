@@ -535,13 +535,8 @@ public class Inventario extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-        finally{
- if(con != null)  try {
-     con.close();
- } catch (SQLException ex) {
-     Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
- } 
-}
+        
+
     }
     public void quitar(){
         MySQL my = new MySQL();
@@ -578,6 +573,33 @@ public class Inventario extends javax.swing.JFrame {
 }
     }
     
+    public void registrarAccion(String accion){
+         MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+            
+            DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
+        int a = tabla.getRowCount()-1;
+        for (int i = 0; i <= a; i++) {  
+            String cod =  (String) tb.getValueAt(i, 0);
+            float stockactual=(float) tb.getValueAt(i, 2);
+            float cant=(float) tb.getValueAt(i, 3);
+             sql = con.createStatement();
+             PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = ? WHERE productos.codigo = ?;");
+             stmt.setFloat(1,stockactual+cant);
+             stmt.setString(2, cod);
+             
+             stmt.executeUpdate();
+             
+        }    
+            JOptionPane.showMessageDialog(this, "Stock modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            
+				
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
 
