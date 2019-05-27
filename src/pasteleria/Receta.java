@@ -57,7 +57,7 @@ public class Receta extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(1024, 700));
         setMinimumSize(new java.awt.Dimension(1024, 700));
         setResizable(false);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton1.setText("Buscar");
         jButton1.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -67,8 +67,7 @@ public class Receta extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(185, 413, 80, 40);
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 413, 80, 40));
 
         jButton2.setText("Guardar");
         jButton2.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -77,33 +76,26 @@ public class Receta extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(677, 603, 100, 40);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(677, 603, 100, 40));
 
         codigo.setMaximumSize(new java.awt.Dimension(6, 20));
-        getContentPane().add(codigo);
-        codigo.setBounds(226, 483, 106, 20);
+        getContentPane().add(codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 483, 106, -1));
 
         nombre.setEditable(false);
         nombre.setMaximumSize(new java.awt.Dimension(6, 20));
-        getContentPane().add(nombre);
-        nombre.setBounds(445, 483, 184, 20);
+        getContentPane().add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(445, 483, 184, -1));
 
         cantidad.setMaximumSize(new java.awt.Dimension(6, 20));
-        getContentPane().add(cantidad);
-        cantidad.setBounds(713, 483, 64, 20);
+        getContentPane().add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(713, 483, 64, -1));
 
         jLabel1.setText("Codigo:");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(185, 486, 37, 14);
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 486, -1, -1));
 
         jLabel2.setText("Nombre:");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(400, 486, 41, 14);
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 486, -1, -1));
 
         jLabel3.setText("Cantidad:");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(662, 486, 47, 14);
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(662, 486, -1, -1));
 
         jButton3.setText("Añadir");
         jButton3.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -112,8 +104,7 @@ public class Receta extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(677, 521, 100, 30);
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(677, 521, 100, 30));
 
         jButton4.setText("Quitar");
         jButton4.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -122,8 +113,7 @@ public class Receta extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(677, 413, 100, 30);
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(677, 413, 100, 30));
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -150,12 +140,11 @@ public class Receta extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(185, 123, 593, 272);
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 123, 593, 272));
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/FondoRecetas.jpg"))); // NOI18N
         jLabel4.setText("jLabel4");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(0, 0, 1030, 710);
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, 710));
 
         pack();
         setLocationRelativeTo(null);
