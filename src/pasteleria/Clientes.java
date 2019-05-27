@@ -350,7 +350,7 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_telefonoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        this.llamarProducto();
+        this.llamarCliente();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void rutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rutActionPerformed
@@ -400,7 +400,7 @@ public class Clientes extends javax.swing.JFrame {
         this.direccion.setText("");
     }
 
-    public void llamarProducto() {
+    public void llamarCliente() {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
@@ -417,7 +417,7 @@ public class Clientes extends javax.swing.JFrame {
             boolean r = rs.next();
             System.out.println(r);
             if (r == false) {
-                JOptionPane.showMessageDialog(this, "Se creará nuevo producto", "Información", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Se creará nuevo cliente", "Información", JOptionPane.INFORMATION_MESSAGE);
                 this.borrarCampos();
             }
             while (r) {
