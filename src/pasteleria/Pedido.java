@@ -773,6 +773,8 @@ public class Pedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
+        System.out.println("cantidad.getText(): " + cantidad.getText());
+        System.out.println("total.getText(): " + totalProducto.getText());
         if (totalPedido.getText().equals("")) {
             totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
             cargarProductoATabla();
@@ -836,8 +838,8 @@ public class Pedido extends javax.swing.JFrame {
         java.sql.Time horaActual = new java.sql.Time(date.getTime());
         if (!codigoCliente.getText().equals("") && seleccionFecha.getCalendar() != null
                 && seleccionHora.getSelectedIndex() != 0 && jTable1.getRowCount() > 0) {
-            
-            if(abono.getText().equals("")){
+
+            if (abono.getText().equals("")) {
                 abono.setText("0");
             }
             try {
@@ -1124,9 +1126,10 @@ public class Pedido extends javax.swing.JFrame {
 
         DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
 
+        System.out.println("total: " + totalProducto.getText());
         if (!this.cantidad.getText().equals("")) {
             Object[] fila = new Object[6];
-
+            
             fila[0] = codigoProducto.getText();
             fila[1] = nombreProducto.getText();;
             fila[2] = cantidad.getText();
