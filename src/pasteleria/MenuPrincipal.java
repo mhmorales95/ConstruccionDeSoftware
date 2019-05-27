@@ -16,6 +16,7 @@ import java.util.Date;
  */
 public class MenuPrincipal extends javax.swing.JFrame {
 
+    public static int usuario = 0;
     /** Creates new form MenuPrincipal */
     public MenuPrincipal() {
         initComponents();

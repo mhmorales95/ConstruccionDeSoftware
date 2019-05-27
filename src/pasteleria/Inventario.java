@@ -532,6 +532,30 @@ public class Inventario extends javax.swing.JFrame {
 
     public int calcularMax(){
         int cod = 0;
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("SELECT MAX(codigo)"
+                    + "FROM movimientostock;");
+
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            boolean r = rs.next();
+            while (r) {
+
+                cod = rs.getInt("MAX(codigo)") + 1;
+
+                r = rs.next();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         return cod;
     }
     
@@ -559,7 +583,7 @@ public class Inventario extends javax.swing.JFrame {
 
                     stmt.setInt(1, calcularMax());
 
-                    stmt.setInt(2, 1);
+                    stmt.setInt(2, MenuPrincipal.usuario);
                     stmt.setString(3, "Vuelta a 0");
                     stmt.setString(4, "");
 
@@ -587,6 +611,7 @@ public class Inventario extends javax.swing.JFrame {
             java.sql.Time horaActual = new java.sql.Time(date.getTime());
             DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
             int a = tabla.getRowCount() - 1;
+            int codigo = calcularMax();
             for (int i = 0; i <= a; i++) {
                 String cod = (String) tb.getValueAt(i, 0);
                 double cant = (double) tb.getValueAt(i, 3);
@@ -602,9 +627,9 @@ public class Inventario extends javax.swing.JFrame {
                             + "movimiento, producto, cantidad, hora, fecha)"
                             + " VALUES (?,?,?,?,?,?,?);");
 
-                    stmt.setInt(1, calcularMax());
+                    stmt.setInt(1, codigo);
 
-                    stmt.setInt(2, 1);
+                    stmt.setInt(2, MenuPrincipal.usuario);
                     stmt.setString(3, accion);
                     stmt.setString(4, cod);
 

@@ -871,7 +871,7 @@ public class Pedido extends javax.swing.JFrame {
 
                 stmt.setString(6, (String) seleccionHora.getSelectedItem());
 
-                stmt.setInt(7, 1);
+                stmt.setInt(7, MenuPrincipal.usuario);
                 stmt.setInt(8, Integer.parseInt(totalPedido.getText()));
                 stmt.setInt(9, Integer.parseInt(abono.getText()));
                 stmt.setInt(10, Integer.parseInt(porPagar.getText()));

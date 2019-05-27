@@ -262,7 +262,7 @@ public class Anulaciones extends javax.swing.JFrame {
              }
              }
              
-            // stmt.setString(2,MenuPrincipal.usuario);
+             stmt.setInt(2,MenuPrincipal.usuario);
              
              
              stmt.setDate(5, fechaActual);

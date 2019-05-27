@@ -1100,7 +1100,7 @@ public class Venta extends javax.swing.JFrame {
                 stmt.setDate(7, fechaActual);
                 stmt.setTime(8, horaActual);
                 stmt.setString(9, "");
-                stmt.setInt(10, 1);
+                stmt.setInt(10, MenuPrincipal.usuario);
 
                 stmt.executeUpdate();
 
