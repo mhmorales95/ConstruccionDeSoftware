@@ -6,6 +6,8 @@
 package pasteleria;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,34 +44,34 @@ public class Pedido extends javax.swing.JFrame {
         numeroPedido();
 
     }
-    
-    public void numeroPedido(){
+
+    public void numeroPedido() {
         MySQL my = new MySQL();
-            Connection con = my.getConnection();
-            Statement sql;
-            int numeroPedido = 0;
-            try {
-                
-                    sql = con.createStatement();
-                    PreparedStatement stmt = con.prepareStatement("SELECT MAX(codigo)"
-                            + "FROM pedido;");
-                    
-                    ResultSet rs;
+        Connection con = my.getConnection();
+        Statement sql;
+        int numeroPedido = 0;
+        try {
+
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("SELECT MAX(codigo)"
+                    + "FROM pedido;");
+
+            ResultSet rs;
             rs = stmt.executeQuery();
 
             boolean r = rs.next();
             while (r) {
 
-                numeroPedido = rs.getInt("MAX(codigo)")+1;
+                numeroPedido = rs.getInt("MAX(codigo)") + 1;
 
                 r = rs.next();
             }
-                    
-            this.numeroPedido.setText(numeroPedido+"");
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             
+
+            this.numeroPedido.setText(numeroPedido + "");
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -153,6 +155,16 @@ public class Pedido extends javax.swing.JFrame {
         codigoCliente.setMaximumSize(new java.awt.Dimension(180, 20));
         codigoCliente.setMinimumSize(new java.awt.Dimension(180, 20));
         codigoCliente.setPreferredSize(new java.awt.Dimension(180, 20));
+        codigoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoClienteActionPerformed(evt);
+            }
+        });
+        codigoCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codigoClienteKeyPressed(evt);
+            }
+        });
 
         jButton8.setText("Cargar");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +255,11 @@ public class Pedido extends javax.swing.JFrame {
         seleccionFecha.setMaximumSize(new java.awt.Dimension(59, 20));
         seleccionFecha.setMinimumSize(new java.awt.Dimension(59, 20));
         seleccionFecha.setPreferredSize(new java.awt.Dimension(59, 20));
+        seleccionFecha.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                seleccionFechaPropertyChange(evt);
+            }
+        });
 
         horaActual.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         horaActual.setForeground(new java.awt.Color(255, 255, 255));
@@ -250,10 +267,30 @@ public class Pedido extends javax.swing.JFrame {
         horaActual.setMinimumSize(new java.awt.Dimension(77, 14));
         horaActual.setPreferredSize(new java.awt.Dimension(77, 14));
 
-        seleccionHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar hora", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00", "20:00 - 21:00", " " }));
+        seleccionHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar hora", "09:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 13:00", "13:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "16:00 - 17:00", "17:00 - 18:00", "18:00 - 19:00", "19:00 - 20:00", "20:00 - 21:00" }));
         seleccionHora.setMaximumSize(new java.awt.Dimension(129, 20));
         seleccionHora.setMinimumSize(new java.awt.Dimension(129, 20));
         seleccionHora.setPreferredSize(new java.awt.Dimension(129, 20));
+        seleccionHora.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                seleccionHoraItemStateChanged(evt);
+            }
+        });
+        seleccionHora.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionHoraActionPerformed(evt);
+            }
+        });
+        seleccionHora.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                seleccionHoraPropertyChange(evt);
+            }
+        });
+        seleccionHora.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                seleccionHoraKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -326,6 +363,16 @@ public class Pedido extends javax.swing.JFrame {
         codigoProducto.setMinimumSize(new java.awt.Dimension(105, 20));
         codigoProducto.setName(""); // NOI18N
         codigoProducto.setPreferredSize(new java.awt.Dimension(105, 20));
+        codigoProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoProductoActionPerformed(evt);
+            }
+        });
+        codigoProducto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codigoProductoKeyPressed(evt);
+            }
+        });
 
         jButton2.setMaximumSize(new java.awt.Dimension(30, 20));
         jButton2.setMinimumSize(new java.awt.Dimension(30, 20));
@@ -474,7 +521,6 @@ public class Pedido extends javax.swing.JFrame {
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 246, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/iconoEliminar.png"))); // NOI18N
-        jButton5.setBorder(null);
         jButton5.setMaximumSize(new java.awt.Dimension(30, 30));
         jButton5.setMinimumSize(new java.awt.Dimension(30, 30));
         jButton5.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -664,8 +710,9 @@ public class Pedido extends javax.swing.JFrame {
 
         codigoCliente.setText(b.obtenerCodigo());
         nombreCliente.setText(b.obtenerNombre());
-        
+
     }//GEN-LAST:event_jButton9ActionPerformed
+
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         BusquedaProducto b = new BusquedaProducto(this, true);
@@ -676,7 +723,6 @@ public class Pedido extends javax.swing.JFrame {
         nombreProducto.setText(b.obtenerNombre());
         precioProducto.setText(b.obtenerPrecio());
         cantidad.requestFocus();
-
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -685,10 +731,10 @@ public class Pedido extends javax.swing.JFrame {
             anadir.requestFocus();
             try {
                 totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
-       
+
             } catch (Exception e) {
             }
-             } else {
+        } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
 
@@ -717,6 +763,7 @@ public class Pedido extends javax.swing.JFrame {
     private void anadirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_anadirKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             cargarProductoATabla();
+            limpiarSeccionItem();
         }
     }//GEN-LAST:event_anadirKeyPressed
 
@@ -745,7 +792,6 @@ public class Pedido extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    
 
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
         MySQL my = new MySQL();
@@ -756,8 +802,8 @@ public class Pedido extends javax.swing.JFrame {
 
         java.sql.Date fechaActual = new java.sql.Date(date.getTime());
         java.sql.Time horaActual = new java.sql.Time(date.getTime());
-        if (!codigoCliente.getText().equals("") && seleccionFecha.getCalendar() != null &&
-                seleccionHora.getSelectedIndex() != 0 && jTable1.getRowCount() > 0) {
+        if (!codigoCliente.getText().equals("") && seleccionFecha.getCalendar() != null
+                && seleccionHora.getSelectedIndex() != 0 && jTable1.getRowCount() > 0) {
             try {
                 sql = con.createStatement();
                 PreparedStatement stmt = con.prepareStatement("INSERT INTO pedido (codigoCliente, estado,"
@@ -789,17 +835,16 @@ public class Pedido extends javax.swing.JFrame {
             //carga de detalle de productos
             DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
 
-        int filas = jTable1.getRowCount();
-        
-        for (int i = 0; i < filas; i++) {
-            String codigo = String.valueOf(tm.getValueAt(i, 0));
-            double cantidad = Double.parseDouble(String.valueOf(tm.getValueAt(i, 2)));
-            String comentario = String.valueOf(tm.getValueAt(i, 3)) ;
-            int unitario = Integer.parseInt(String.valueOf(tm.getValueAt(i, 4)));
-            int total = Integer.parseInt(String.valueOf(tm.getValueAt(i, 5)));
-            insertarDetalle(codigo, cantidad, comentario, unitario , total);
-        }
-        
+            int filas = jTable1.getRowCount();
+
+            for (int i = 0; i < filas; i++) {
+                String codigo = String.valueOf(tm.getValueAt(i, 0));
+                double cantidad = Double.parseDouble(String.valueOf(tm.getValueAt(i, 2)));
+                String comentario = String.valueOf(tm.getValueAt(i, 3));
+                int unitario = Integer.parseInt(String.valueOf(tm.getValueAt(i, 4)));
+                int total = Integer.parseInt(String.valueOf(tm.getValueAt(i, 5)));
+                insertarDetalle(codigo, cantidad, comentario, unitario, total);
+            }
 
             JOptionPane.showMessageDialog(this, "Pedido agregado", "Información", JOptionPane.INFORMATION_MESSAGE);
             limpiarVentana();
@@ -811,36 +856,140 @@ public class Pedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonGuardarActionPerformed
 
-    public void insertarDetalle(String codigo, double cantidad, String comentario, int unitario, int total){
+    private void codigoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoProductoActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_codigoProductoActionPerformed
+
+    private void codigoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoClienteActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_codigoClienteActionPerformed
+
+    private void codigoClienteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoClienteKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                llamarCliente(codigoCliente.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_codigoClienteKeyPressed
+
+    private void verificarRangoHorario() {
+        seleccionHora.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DateFormat formatoHora = new SimpleDateFormat("HH:mm");
+                Date date = new Date();
+                String fechaPc = formatoHora.format(date);
+                if (seleccionHora.getSelectedIndex() == 0) {
+
+                } else {
+                    String seleccion = (String) seleccionHora.getSelectedItem();
+                    String[] partes = seleccion.split(" - ");
+
+                    if (fechaPc.compareTo(partes[1]) < 0) {
+                        System.out.println("está dentro del rango");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Está fuera del rango de horario", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                }
+            }
+        });
+
+    }
+    private void codigoProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoProductoKeyPressed
+        // TODO add your handling code here:
+//        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+//            System.out.println("enter presionado");
+//            BusquedaProducto b = new BusquedaProducto(this, true);
+//            b.buscar(codigoProducto.getText(), nombreProducto, precioProducto);
+//            cantidad.requestFocus();
+//        }
+
+
+    }//GEN-LAST:event_codigoProductoKeyPressed
+
+    private void seleccionFechaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_seleccionFechaPropertyChange
+        // TODO add your handling code here:
+        if (seleccionFecha.getCalendar() == null) {
+
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+            String fechaSeleccionada = sdf.format(seleccionFecha.getCalendar().getTime());
+            Date date = new Date();
+            String fechaPc = sdf.format(date);
+
+            if (fechaSeleccionada.compareTo(fechaPc) < 0) {
+                JOptionPane.showMessageDialog(this, "No puedes realizar un pedido para una fecha posterior a la actual", "Información", JOptionPane.INFORMATION_MESSAGE);
+                seleccionFecha.setCalendar(null);
+                seleccionHora.setSelectedIndex(0);
+            }
+            if (fechaSeleccionada.compareTo(fechaPc) == 0) {
+                verificarRangoHorario();
+                seleccionHora.setSelectedIndex(0);
+            } else {
+                seleccionHora.setSelectedIndex(0);
+            }
+
+        }
+
+
+    }//GEN-LAST:event_seleccionFechaPropertyChange
+
+    private void seleccionHoraPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_seleccionHoraPropertyChange
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_seleccionHoraPropertyChange
+
+    private void seleccionHoraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_seleccionHoraItemStateChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_seleccionHoraItemStateChanged
+
+    private void seleccionHoraKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_seleccionHoraKeyReleased
+        // TODO add your handling code here:
+        System.out.println("sirve");
+    }//GEN-LAST:event_seleccionHoraKeyReleased
+
+    private void seleccionHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionHoraActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_seleccionHoraActionPerformed
+
+    public void insertarDetalle(String codigo, double cantidad, String comentario, int unitario, int total) {
         try {
-             
-            
+
             MySQL my = new MySQL();
             Connection con = my.getConnection();
             Statement sql;
             sql = con.createStatement();
-                PreparedStatement stmt = con.prepareStatement("INSERT INTO pedidoDetalle (codigoProducto,"
-                        + "cantidad, unitario, total, comentario, codigoPedido)"
-                        + " VALUES (?,?,?,?,?,?);");
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO pedidoDetalle (codigoProducto,"
+                    + "cantidad, unitario, total, comentario, codigoPedido)"
+                    + " VALUES (?,?,?,?,?,?);");
 
-                stmt.setString(1, codigo);
+            stmt.setString(1, codigo);
 
-                stmt.setDouble(2, cantidad);
+            stmt.setDouble(2, cantidad);
 
-                stmt.setInt(3, unitario);
-                
-                stmt.setInt(4, total);
-                
-                stmt.setString(5, comentario);
-                
-                stmt.setInt(6, Integer.parseInt(numeroPedido.getText()));
+            stmt.setInt(3, unitario);
 
-                stmt.executeUpdate();
+            stmt.setInt(4, total);
 
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            stmt.setString(5, comentario);
+
+            stmt.setInt(6, Integer.parseInt(numeroPedido.getText()));
+
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+
     public void eliminarFilaDeTabla(JTable tblDetalle) {
         DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
         int fila = tblDetalle.getSelectedRow();
@@ -848,7 +997,7 @@ public class Pedido extends javax.swing.JFrame {
             int[] filasselec = tblDetalle.getSelectedRows();
             for (int i = 0; i < filasselec.length; i++) {
                 modelo.removeRow(filasselec[i]);
-                
+
                 totalPedido.setText("" + sumarTotal());
 
             }
@@ -872,6 +1021,15 @@ public class Pedido extends javax.swing.JFrame {
         this.seleccionHora.setSelectedIndex(0);
         this.seleccionFecha.setCalendar(null);
         this.numeroPedido.setText("");
+    }
+
+    public void limpiarSeccionItem() {
+        this.cantidad.setText("");
+        this.codigoProducto.setText("");
+        this.nombreProducto.setText("");
+        this.precioProducto.setText("");
+        this.totalProducto.setText("");
+        this.totalPedido.setText("");
     }
 
     public void limpiarTabla() {
@@ -933,7 +1091,7 @@ public class Pedido extends javax.swing.JFrame {
             String dato = String.valueOf(tm.getValueAt(i, 5));
             suma += Integer.parseInt(dato);
         }
-   
+
         return suma;
     }
 
@@ -949,6 +1107,11 @@ public class Pedido extends javax.swing.JFrame {
             ResultSet rs;
             rs = stmt.executeQuery();
             boolean r = rs.next();
+
+            if (r == false) {
+                JOptionPane.showMessageDialog(this, "El cliente no existe", "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
+
             while (r) {
 
                 nombreCliente.setText(rs.getString("nombre"));

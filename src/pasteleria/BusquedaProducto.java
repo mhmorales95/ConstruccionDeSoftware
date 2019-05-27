@@ -14,15 +14,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintException;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
 import javax.swing.AbstractAction;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 import javax.swing.table.DefaultTableModel;
@@ -56,7 +51,7 @@ public class BusquedaProducto extends javax.swing.JDialog {
         @Override
         public void actionPerformed(ActionEvent e) {
             DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
-            System.out.println(dtm.getValueAt(tabla.getSelectedRow(), 0));
+
             codigo = "" + dtm.getValueAt(tabla.getSelectedRow(), 0);
             nombre = "" + dtm.getValueAt(tabla.getSelectedRow(), 1);
             precio = "" + dtm.getValueAt(tabla.getSelectedRow(), 2);
@@ -201,6 +196,38 @@ public class BusquedaProducto extends javax.swing.JDialog {
 
     }//GEN-LAST:event_buscartxtKeyTyped
 
+//    public void buscar(String codigo, JTextField nombreProducto, JTextField precioProducto) {
+//        eliminar();
+//        MySQL my = new MySQL();
+//        Connection con = my.getConnection();
+//        Statement sql;
+//
+//        try {
+//            sql = con.createStatement();
+//
+//            PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo LIKE ? ORDER BY nombre");
+//            stmt.setString(1, "%" + codigo + "%");
+//            ResultSet rs;
+//            rs = stmt.executeQuery();
+//            eliminar();
+//            boolean r = rs.next();
+//            if (r == false || codigo.equals("")) {
+//                JOptionPane.showMessageDialog(this, "El codigo del producto no existe", "Información", JOptionPane.INFORMATION_MESSAGE);
+//            }
+//            while (r) {
+//
+//                nombreProducto.setText(rs.getString("nombre"));
+//                precioProducto.setText("" + rs.getInt("total"));
+//
+//                r = rs.next();
+//                break;
+//            }
+//            
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
     private void buscartxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscartxtKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
             tabla.requestFocus();
@@ -215,7 +242,7 @@ public class BusquedaProducto extends javax.swing.JDialog {
             try {
                 sql = con.createStatement();
 
-                PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE nombre LIKE ? ORDER BY nombre");
+                PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo = ?");
                 stmt.setString(1, "%" + buscartxt.getText() + "%");
                 ResultSet rs;
                 rs = stmt.executeQuery();
