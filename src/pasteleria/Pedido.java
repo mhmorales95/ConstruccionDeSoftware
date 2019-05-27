@@ -164,6 +164,9 @@ public class Pedido extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 codigoClienteKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codigoClienteKeyTyped(evt);
+            }
         });
 
         jButton8.setText("Cargar");
@@ -372,6 +375,9 @@ public class Pedido extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 codigoProductoKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codigoProductoKeyTyped(evt);
+            }
         });
 
         jButton2.setMaximumSize(new java.awt.Dimension(30, 20));
@@ -394,6 +400,11 @@ public class Pedido extends javax.swing.JFrame {
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadActionPerformed(evt);
+            }
+        });
+        cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cantidadKeyTyped(evt);
             }
         });
 
@@ -959,6 +970,38 @@ public class Pedido extends javax.swing.JFrame {
     private void seleccionHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionHoraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_seleccionHoraActionPerformed
+
+    private void codigoClienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoClienteKeyTyped
+        // TODO add your handling code here:
+        verificarCamposSinLetras(evt);
+    }//GEN-LAST:event_codigoClienteKeyTyped
+
+    private void codigoProductoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoProductoKeyTyped
+        // TODO add your handling code here:
+        verificarCamposSinLetras(evt);
+    }//GEN-LAST:event_codigoProductoKeyTyped
+
+    private void cantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyTyped
+        // TODO add your handling code here:
+        verificarCamposSinLetras(evt);
+    }//GEN-LAST:event_cantidadKeyTyped
+
+    private void verificarCamposSinLetras(KeyEvent evt) {
+        char c = evt.getKeyChar();
+
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+            codigoCliente.setCursor(null);
+        } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58 && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96 || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+            codigoCliente.setCursor(null);
+        }
+
+    }
 
     public void insertarDetalle(String codigo, double cantidad, String comentario, int unitario, int total) {
         try {
