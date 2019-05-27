@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Mauricio
@@ -222,9 +223,6 @@ public class InformeDeMovimientoDeStock extends javax.swing.JFrame {
                     + "         between TIMESTAMP(?,?) "
                     + "                 and TIMESTAMP(?,?); ");
 
-       
-            
-
             stmt.setDate(3, fechaCuadro2);
             stmt.setDate(1, fechaCuadro);
             String myTime = hora1.getValue() + ":" + min1.getValue() + ":" + seg1.getValue();
@@ -254,12 +252,12 @@ public class InformeDeMovimientoDeStock extends javax.swing.JFrame {
 
             boolean r = rs.next();
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            String fechaActual = dateFormat.format(rs.getDate("fecha"));
+
             while (r) {
                 DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
 
                 Object[] fila = new Object[7];
-
+                String fechaActual = dateFormat.format(rs.getDate("fecha"));
                 fila[0] = rs.getInt("codigo");
                 fila[1] = rs.getInt("usuario");
                 fila[2] = rs.getString("movimiento");
@@ -267,20 +265,18 @@ public class InformeDeMovimientoDeStock extends javax.swing.JFrame {
                 fila[4] = rs.getDouble("cantidad");
                 fila[5] = rs.getTime("hora");
                 fila[6] = fechaActual;
-                
+
                 modelo.addRow(fila);
-                
+
                 r = rs.next();
             }
-
 
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */

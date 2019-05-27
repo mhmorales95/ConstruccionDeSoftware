@@ -258,9 +258,11 @@ public class InformeDePedidos extends javax.swing.JFrame {
 
                 fila[0] = rs.getInt("codigo");
                 fila[1] = rs.getInt("codigoCliente");
-                fila[2] = rs.getDate("fecha");
+                String fechaActual = dateFormat.format(rs.getDate("fecha"));
+                fila[2] = fechaActual;
                 fila[3] = rs.getTime("hora");
-                fila[4] = rs.getDate("fechaEntrega");
+                fechaActual = dateFormat.format(rs.getDate("fechaEntrega"));
+                fila[4] = fechaActual;
                 fila[5] = rs.getString("horaEntrega");
                 fila[6] = rs.getInt("codigoUsuario");
                 fila[7] = rs.getInt("precioTotal");

@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -142,7 +144,10 @@ public class InformeDeAnulaciones extends javax.swing.JFrame {
                                         fila[1]=rs.getString("usuario");
                                         fila[2]=rs.getInt("correlativo");
                                         fila[3]=rs.getString("motivo");
-                                        fila[4]=rs.getDate("fecha");
+                                        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                String fechaActual = dateFormat.format(rs.getDate("fecha"));
+                                        fila[4]=fechaActual;
                                         fila[5]=rs.getTime("hora");
                                             modelo.addRow(fila);
 
