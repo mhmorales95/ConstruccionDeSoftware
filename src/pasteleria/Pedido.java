@@ -774,8 +774,7 @@ public class Pedido extends javax.swing.JFrame {
 
     private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
        anadir();
-        
-
+       
     }//GEN-LAST:event_anadirActionPerformed
 
     private void anadir(){

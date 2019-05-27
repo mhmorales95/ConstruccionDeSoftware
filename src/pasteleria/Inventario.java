@@ -11,10 +11,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Mauricio
@@ -82,7 +84,7 @@ public class Inventario extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
                 true, false, true, false
@@ -267,7 +269,7 @@ public class Inventario extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         guardar.setEnabled(true);
         codigo.requestFocus();
-        if((""+selec.getSelectedItem()).equals("Volver a 0")){
+        if (("" + selec.getSelectedItem()).equals("Volver a 0")) {
             JOptionPane.showMessageDialog(this, "Para continuar presione guardar, para salir solo cierre", "Información", JOptionPane.INFORMATION_MESSAGE);
 
         }
@@ -287,7 +289,7 @@ public class Inventario extends javax.swing.JFrame {
     }//GEN-LAST:event_codigoActionPerformed
 
     private void codigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             MySQL my = new MySQL();
             Connection con = my.getConnection();
             Statement sql;
@@ -298,18 +300,18 @@ public class Inventario extends javax.swing.JFrame {
                 stmt.setString(1, (codigo.getText()));
                 ResultSet rs;
                 rs = stmt.executeQuery();
-                boolean r=rs.next();
-                if (r==false){
+                boolean r = rs.next();
+                if (r == false) {
                     JOptionPane.showMessageDialog(this, "Código no existe", "Información", JOptionPane.INFORMATION_MESSAGE);
 
                     codigo.requestFocus();
                     codigo.setText("");
-                }else{
+                } else {
                     while (r) {
 
                         nombre.setText(rs.getString("nombre"));
                         stockActual.setText(rs.getString("stock"));
-                        r=rs.next();
+                        r = rs.next();
                     }
                     cantidad.requestFocus();
                 }
@@ -318,7 +320,7 @@ public class Inventario extends javax.swing.JFrame {
                 Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if (evt.getKeyCode() == KeyEvent.VK_TAB){
+        if (evt.getKeyCode() == KeyEvent.VK_TAB) {
             MySQL my = new MySQL();
             Connection con = my.getConnection();
             Statement sql;
@@ -326,21 +328,21 @@ public class Inventario extends javax.swing.JFrame {
             try {
                 sql = con.createStatement();
                 PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo = ? ");
-                stmt.setString(1,(codigo.getText()));
+                stmt.setString(1, (codigo.getText()));
                 ResultSet rs;
                 rs = stmt.executeQuery();
-                boolean r=rs.next();
-                if (r==false){
+                boolean r = rs.next();
+                if (r == false) {
                     JOptionPane.showMessageDialog(this, "Código no existe", "Información", JOptionPane.INFORMATION_MESSAGE);
 
                     codigo.requestFocus();
                     codigo.setText("");
-                }else{
+                } else {
                     while (r) {
 
                         nombre.setText(rs.getString("nombre"));
                         stockActual.setText(rs.getString("stock"));
-                        r=rs.next();
+                        r = rs.next();
                     }
                     cantidad.requestFocus();
                 }
@@ -353,53 +355,55 @@ public class Inventario extends javax.swing.JFrame {
     }//GEN-LAST:event_codigoKeyPressed
 
     private void cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             jButton4.requestFocus();
         }
     }//GEN-LAST:event_cantidadKeyPressed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    public void anadir(){
         int flag = 0;
         DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
-        int a = tabla.getRowCount()-1;
+        int a = tabla.getRowCount() - 1;
         int borrar = 0;
-        float repeticion = 0;
+        double repeticion = 0;
         for (int i = 0; i <= a; i++) {
-            if (((String) tb.getValueAt(i, 0)).equals(codigo.getText())){
+            if (((String) tb.getValueAt(i, 0)).equals(codigo.getText())) {
                 borrar = i;
-                repeticion = (float) tb.getValueAt(i, 3);
+                repeticion = (double) tb.getValueAt(i, 3);
                 flag = 1;
             }
         }
-        if (codigo.getText().equals("")){
+        if (codigo.getText().equals("")) {
 
-        }else if(flag == 1){
+        } else if (flag == 1) {
 
             tb.removeRow(borrar);
 
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
 
-            Object [] fila=new Object[4];
+            Object[] fila = new Object[4];
 
-            fila[0]= codigo.getText();
-            fila[1]=nombre.getText();
-            fila[2]=Float.parseFloat(stockActual.getText());
-            fila[3]=Float.parseFloat(cantidad.getText())+ repeticion;
+            fila[0] = codigo.getText();
+            fila[1] = nombre.getText();
+            fila[2] = Double.parseDouble(stockActual.getText());
+            fila[3] = Double.parseDouble(cantidad.getText()) + repeticion;
             modelo.addRow(fila);
 
             tabla.setModel(modelo);
-        }
-
-        else{
+        } else {
 
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
 
-            Object [] fila=new Object[4];
+            Object[] fila = new Object[4];
 
-            fila[0]= codigo.getText();
-            fila[1]=nombre.getText();
-            fila[2]=Float.parseFloat(stockActual.getText());
-            fila[3]=Float.parseFloat(cantidad.getText());
+            fila[0] = codigo.getText();
+            fila[1] = nombre.getText();
+            fila[2] = Double.parseDouble(stockActual.getText());
+            fila[3] = Double.parseDouble(cantidad.getText());
             modelo.addRow(fila);
 
             tabla.setModel(modelo);
@@ -409,74 +413,24 @@ public class Inventario extends javax.swing.JFrame {
         stockActual.setText("");
         nombre.setText("");
         cantidad.setText("");
-    }//GEN-LAST:event_jButton4ActionPerformed
-
+    }
     private void jButton4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton4KeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
-
-            int flag = 0;
-            DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
-            int a = tabla.getRowCount()-1;
-            int borrar = 0;
-            float repeticion = 0;
-            for (int i = 0; i <= a; i++) {
-                if (((String)tb.getValueAt(i, 0)).equals(codigo.getText()) ){
-                    borrar = i;
-                    repeticion = (float) tb.getValueAt(i, 3);
-                    flag = 1;
-                }
-            }
-            if (codigo.getText().equals("")){
-
-            }else if(flag == 1){
-
-                tb.removeRow(borrar);
-
-                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-
-                Object [] fila=new Object[4];
-
-                fila[0]=codigo.getText();
-                fila[1]=nombre.getText();
-                fila[2]=Float.parseFloat(stockActual.getText());
-                fila[3]=Float.parseFloat(cantidad.getText())+ repeticion;
-                modelo.addRow(fila);
-
-                tabla.setModel(modelo);
-            }
-
-            else{
-
-                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-
-                Object [] fila=new Object[4];
-
-                fila[0]=codigo.getText();
-                fila[1]=nombre.getText();
-                fila[2]=Float.parseFloat(stockActual.getText());
-                fila[3]=Float.parseFloat(cantidad.getText());
-                modelo.addRow(fila);
-
-                tabla.setModel(modelo);
-            }
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            anadir();
         }
-        codigo.requestFocus();
-        codigo.setText("");
-        stockActual.setText("");
-        nombre.setText("");
-        cantidad.setText("");
     }//GEN-LAST:event_jButton4KeyPressed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        if ((""+selec.getSelectedItem()).equals("Ingresar")){
+        if (("" + selec.getSelectedItem()).equals("Ingresar")) {
             insertar();
-        }else if((""+selec.getSelectedItem()).equals("Quitar")){
+            registrarAccion("Insertar");
+        } else if (("" + selec.getSelectedItem()).equals("Quitar")) {
             quitar();
-        }
-        else if((""+selec.getSelectedItem()).equals("Volver a 0")){
+            registrarAccion("Quitado");
+        } else if (("" + selec.getSelectedItem()).equals("Volver a 0")) {
 
             String name = JOptionPane.showInputDialog("Para volver a 0, escriba 'SI' en mayúsculas");
-            if (name.equals("SI")){
+            if (name.equals("SI")) {
                 MySQL my = new MySQL();
                 Connection con = my.getConnection();
                 Statement sql;
@@ -488,20 +442,24 @@ public class Inventario extends javax.swing.JFrame {
 
                     JOptionPane.showMessageDialog(this, "Stock devuelto a 0!", "Información", JOptionPane.INFORMATION_MESSAGE);
 
+                    registrarVueltaA0();
                 } catch (SQLException ex) {
                     Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                finally{
-                    if(con != null)  try {
-                        con.close();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+                
+                
+                finally {
+                    if (con != null) {
+                        try {
+                            con.close();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
 
                     //
-
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "Error no se efectuaron cambios", "Información", JOptionPane.INFORMATION_MESSAGE);
 
             }
@@ -509,93 +467,156 @@ public class Inventario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_guardarActionPerformed
 
-    public void insertar(){
+    public void insertar() {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
         try {
-            
+
             DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
-        int a = tabla.getRowCount()-1;
-        for (int i = 0; i <= a; i++) {  
-            String cod =  (String) tb.getValueAt(i, 0);
-            float stockactual=(float) tb.getValueAt(i, 2);
-            float cant=(float) tb.getValueAt(i, 3);
-             sql = con.createStatement();
-             PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = ? WHERE productos.codigo = ?;");
-             stmt.setFloat(1,stockactual+cant);
-             stmt.setString(2, cod);
-             
-             stmt.executeUpdate();
-             
-        }    
+            int a = tabla.getRowCount() - 1;
+            for (int i = 0; i <= a; i++) {
+                String cod = (String) tb.getValueAt(i, 0);
+                double stockactual = (double) tb.getValueAt(i, 2);
+                double cant = (double) tb.getValueAt(i, 3);
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = ? WHERE productos.codigo = ?;");
+                stmt.setDouble(1, stockactual + cant);
+                stmt.setString(2, cod);
+
+                stmt.executeUpdate();
+
+            }
             JOptionPane.showMessageDialog(this, "Stock modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
-            
-				
+
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
     }
-    public void quitar(){
+
+    public void quitar() {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
         try {
-            
+
             DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
-        int a = tabla.getRowCount()-1;
-        for (int i = 0; i <= a; i++) {  
-            String cod =  (String) tb.getValueAt(i, 0);
-            float stockactual=(float) tb.getValueAt(i, 2);
-            float cant=(float) tb.getValueAt(i, 3);
-             sql = con.createStatement();
-             PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = ? WHERE productos.codigo = ?;");
-             stmt.setFloat(1,stockactual-cant);
-             stmt.setString(2, cod);
-             
-             stmt.executeUpdate();
-             
-        }    
+            int a = tabla.getRowCount() - 1;
+            for (int i = 0; i <= a; i++) {
+                String cod = (String) tb.getValueAt(i, 0);
+                double stockactual = (double) tb.getValueAt(i, 2);
+                double cant = (double) tb.getValueAt(i, 3);
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = ? WHERE productos.codigo = ?;");
+                stmt.setDouble(1, stockactual - cant);
+                stmt.setString(2, cod);
+
+                stmt.executeUpdate();
+
+            }
             JOptionPane.showMessageDialog(this, "Stock modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
-            
-				
+
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
-        finally{
- if(con != null)  try {
-     con.close();
- } catch (SQLException ex) {
-     Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
- } 
-}
+    }
+
+    public int calcularMax(){
+        int cod = 0;
+        return cod;
     }
     
-    public void registrarAccion(String accion){
-         MySQL my = new MySQL();
+    public void registrarVueltaA0() {
+        MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
         try {
+            java.util.Date date = new Date();
+            java.sql.Date fechaActual = new java.sql.Date(date.getTime());
+            java.sql.Time horaActual = new java.sql.Time(date.getTime());
+           
+           
+
+                
+
+                
+                
+
+
+                    sql = con.createStatement();
+                    PreparedStatement stmt = con.prepareStatement("INSERT INTO movimientostock (codigo, usuario,"
+                            + "movimiento, producto, cantidad, hora, fecha)"
+                            + " VALUES (?,?,?,?,?,?,?);");
+
+                    stmt.setInt(1, calcularMax());
+
+                    stmt.setInt(2, 1);
+                    stmt.setString(3, "Vuelta a 0");
+                    stmt.setString(4, "");
+
+                    stmt.setDouble(5, 0);
+
+                    stmt.setTime(6, horaActual);
+                    stmt.setDate(7, fechaActual);
+                    stmt.executeUpdate();
+
+                
+
             
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void registrarAccion(String accion) {
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+            java.util.Date date = new Date();
+            java.sql.Date fechaActual = new java.sql.Date(date.getTime());
+            java.sql.Time horaActual = new java.sql.Time(date.getTime());
             DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
-        int a = tabla.getRowCount()-1;
-        for (int i = 0; i <= a; i++) {  
-            String cod =  (String) tb.getValueAt(i, 0);
-            float stockactual=(float) tb.getValueAt(i, 2);
-            float cant=(float) tb.getValueAt(i, 3);
-             sql = con.createStatement();
-             PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = ? WHERE productos.codigo = ?;");
-             stmt.setFloat(1,stockactual+cant);
-             stmt.setString(2, cod);
-             
-             stmt.executeUpdate();
-             
-        }    
-            JOptionPane.showMessageDialog(this, "Stock modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
-            
-				
+            int a = tabla.getRowCount() - 1;
+            for (int i = 0; i <= a; i++) {
+                String cod = (String) tb.getValueAt(i, 0);
+                double cant = (double) tb.getValueAt(i, 3);
+
+                
+
+                
+                
+
+
+                    sql = con.createStatement();
+                    PreparedStatement stmt = con.prepareStatement("INSERT INTO movimientostock (codigo, usuario,"
+                            + "movimiento, producto, cantidad, hora, fecha)"
+                            + " VALUES (?,?,?,?,?,?,?);");
+
+                    stmt.setInt(1, calcularMax());
+
+                    stmt.setInt(2, 1);
+                    stmt.setString(3, accion);
+                    stmt.setString(4, cod);
+
+                    stmt.setDouble(5, cant);
+
+                    stmt.setTime(6, horaActual);
+                    stmt.setDate(7, fechaActual);
+                    stmt.executeUpdate();
+
+                
+
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
