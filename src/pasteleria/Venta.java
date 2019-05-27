@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -757,6 +758,11 @@ public class Venta extends javax.swing.JFrame {
         jButton9.setMaximumSize(new java.awt.Dimension(45, 23));
         jButton9.setMinimumSize(new java.awt.Dimension(45, 23));
         jButton9.setPreferredSize(new java.awt.Dimension(45, 23));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 470, -1, -1));
 
         jButton10.setText("D");
@@ -1258,6 +1264,26 @@ public class Venta extends javax.swing.JFrame {
         limpiarVentana(false);
     }//GEN-LAST:event_codigoClienteKeyReleased
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        eliminarFilaDeTabla(tabla);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    public void eliminarFilaDeTabla(JTable tblDetalle) {
+        DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
+        int fila = tblDetalle.getSelectedRow();
+        if (fila >= 0) {
+            int[] filasselec = tblDetalle.getSelectedRows();
+            for (int i = 0; i < filasselec.length; i++) {
+                modelo.removeRow(filasselec[i]);
+                
+                sumarTotal();
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No Seleccionó ninguna fila", "Aviso", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     public void cargarProductoATabla() throws SQLException {
 
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();

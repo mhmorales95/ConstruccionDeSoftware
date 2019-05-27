@@ -5,6 +5,14 @@
  */
 package pasteleria;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Mauricio
@@ -27,58 +35,296 @@ public class InformeDeInventario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        familias = new javax.swing.JComboBox<>();
+        jButton3 = new javax.swing.JButton();
+        sbm = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
+        labelTotal = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cargar Familias");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Familia:");
+
+        familias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODAS" }));
+        familias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                familiasMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                familiasMousePressed(evt);
+            }
+        });
+        familias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                familiasActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Generar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        sbm.setText("Stock bajo mínimo");
+        sbm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sbmActionPerformed(evt);
+            }
+        });
+
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Descripción", "Bruto", "Precio", "Mínimo", "Stock"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabla.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabla);
+
+        labelTotal.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        labelTotal.setText("Total: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(64, 64, 64)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(sbm)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(familias, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(251, 251, 251)))
+                                .addGap(34, 34, 34)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(648, 648, 648)
+                        .addComponent(labelTotal)
+                        .addGap(138, 138, 138)))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton2)
+                        .addComponent(jLabel1)
+                        .addComponent(familias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sbm)
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelTotal)
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InformeDeInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InformeDeInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InformeDeInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InformeDeInventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InformeDeInventario().setVisible(true);
-            }
-        });
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        familias.removeAllItems();
+        cargarFamilias();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void familiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_familiasMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_familiasMouseClicked
+
+    private void familiasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_familiasMousePressed
+
+    }//GEN-LAST:event_familiasMousePressed
+
+    private void familiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_familiasActionPerformed
+        
+    }//GEN-LAST:event_familiasActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        limpiarTabla();
+        llenarTabla();
+
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void sbmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sbmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sbmActionPerformed
+
+    public void cargarFamilias(){
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+            
+        
+            
+        try {
+            sql = con.createStatement();
+        
+        
+             PreparedStatement stmt = con.prepareStatement("SELECT * FROM familias");
+				ResultSet rs;
+                                rs = stmt.executeQuery();
+                                familias.addItem("TODAS");
+				boolean r=rs.next();
+				while (r) {
+                                    
+                                    familias.addItem(rs.getString("nombre"));
+                                    r=rs.next();
+                                    }
+                                
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void llenarTabla(){
+        
+        MySQL my = new MySQL();
+        String cod;
+        String nombre = "";
+        int precio = 0;
+        double stock = 0;
+        int bruto = 0;
+        Connection con = my.getConnection();
+        Statement sql;
+        int total = 0;
+        try {
+            sql = con.createStatement();
+        
+        
+             PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos ORDER BY nombre");
+             if (sbm.isSelected()){
+                     stmt = con.prepareStatement("SELECT * FROM productos WHERE minimo > stock ORDER BY nombre");
+                 }
+             if (familias.getSelectedItem().equals("TODAS")){
+                 stmt = con.prepareStatement("SELECT * FROM productos ORDER BY nombre");   
+                 if (sbm.isSelected()){
+                     stmt = con.prepareStatement("SELECT * FROM productos WHERE minimo > stock ORDER BY nombre");
+                 }
+             }
+                 
+             
+             
+				ResultSet rs;
+                                rs = stmt.executeQuery();
+
+				boolean r=rs.next();
+				while (r) {
+                                        
+                                        cod = rs.getString("codigo");
+                                        nombre = rs.getString("nombre");
+                                        precio = rs.getInt("total");                                      
+                                        stock = rs.getFloat("stock"); 
+                                        bruto = rs.getInt("bruto"); 
+                                        double minimo = rs.getFloat("minimo"); ;
+                                        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+
+                                         Object [] fila=new Object[6];
+                                        fila[0] = cod;
+                                        fila[1]=nombre;
+                                        fila[2]=bruto;
+                                        fila[3]=precio;
+                                        fila[4]=minimo;
+                                        fila[5]=stock;
+                                        modelo.addRow(fila);
+
+                                        if (stock > 0){
+                                            total+= precio*stock; 
+                                             
+                                        }
+                                       
+                                        
+                                        tabla.setModel(modelo);
+                                        r=rs.next();
+                                    }
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        labelTotal.setText("Total: "+total);
+        
+        
+    }
+    
+    
+    
+    public void limpiarTabla(){
+        DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
+        int a = tabla.getRowCount()-1;
+        for (int i = a; i >= 0; i--) {           
+        tb.removeRow(tb.getRowCount()-1);
+        } 
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> familias;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelTotal;
+    private javax.swing.JRadioButton sbm;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

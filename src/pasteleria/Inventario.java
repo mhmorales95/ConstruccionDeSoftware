@@ -5,6 +5,16 @@
  */
 package pasteleria;
 
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Mauricio
@@ -27,22 +37,553 @@ public class Inventario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        selec = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        codigo = new javax.swing.JTextField();
+        nombre = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        stockActual = new javax.swing.JTextField();
+        cantidad = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        guardar = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jButton1.setText("Volver");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        selec.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ingresar", "Quitar", "Volver a 0" }));
+
+        jButton2.setText("Continuar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Descripción", "Stock Actual", "Cantidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabla);
+
+        jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Código:");
+
+        codigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                codigoActionPerformed(evt);
+            }
+        });
+        codigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                codigoKeyPressed(evt);
+            }
+        });
+
+        nombre.setFocusable(false);
+
+        jLabel2.setText("Nombre:");
+
+        jLabel4.setText("Stock Actual");
+
+        stockActual.setFocusable(false);
+
+        cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cantidadKeyPressed(evt);
+            }
+        });
+
+        jLabel3.setText("Cantidad:");
+
+        jButton4.setText("Añadir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jButton4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jButton4KeyPressed(evt);
+            }
+        });
+
+        guardar.setText("Guardar");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Borrar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1024, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(213, 213, 213)
+                        .addComponent(selec, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 764, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(595, 595, 595))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addGap(101, 101, 101)
+                                                .addComponent(jLabel2)))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(stockActual, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel4))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGap(12, 12, 12)
+                                                .addComponent(jLabel3)
+                                                .addGap(122, 122, 122))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(40, 40, 40)
+                                                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(32, 32, 32)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(guardar, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))))))
+                .addContainerGap(144, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(914, 914, 914))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(selec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(85, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel2))
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(stockActual, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        guardar.setEnabled(true);
+        codigo.requestFocus();
+        if((""+selec.getSelectedItem()).equals("Volver a 0")){
+            JOptionPane.showMessageDialog(this, "Para continuar presione guardar, para salir solo cierre", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        BusquedaProducto b = new BusquedaProducto(this, true);
+        b.setVisible(true);
+        cantidad.requestFocus();
+        codigo.setText(b.obtenerCodigo());
+        nombre.setText(b.obtenerNombre());
+        stockActual.setText(b.obtenerStock());
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_codigoActionPerformed
+
+    private void codigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+
+            try {
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo = ? ");
+                stmt.setString(1, (codigo.getText()));
+                ResultSet rs;
+                rs = stmt.executeQuery();
+                boolean r=rs.next();
+                if (r==false){
+                    JOptionPane.showMessageDialog(this, "Código no existe", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+                    codigo.requestFocus();
+                    codigo.setText("");
+                }else{
+                    while (r) {
+
+                        nombre.setText(rs.getString("nombre"));
+                        stockActual.setText(rs.getString("stock"));
+                        r=rs.next();
+                    }
+                    cantidad.requestFocus();
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        if (evt.getKeyCode() == KeyEvent.VK_TAB){
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+
+            try {
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo = ? ");
+                stmt.setString(1,(codigo.getText()));
+                ResultSet rs;
+                rs = stmt.executeQuery();
+                boolean r=rs.next();
+                if (r==false){
+                    JOptionPane.showMessageDialog(this, "Código no existe", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+                    codigo.requestFocus();
+                    codigo.setText("");
+                }else{
+                    while (r) {
+
+                        nombre.setText(rs.getString("nombre"));
+                        stockActual.setText(rs.getString("stock"));
+                        r=rs.next();
+                    }
+                    cantidad.requestFocus();
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }//GEN-LAST:event_codigoKeyPressed
+
+    private void cantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidadKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            jButton4.requestFocus();
+        }
+    }//GEN-LAST:event_cantidadKeyPressed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        int flag = 0;
+        DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
+        int a = tabla.getRowCount()-1;
+        int borrar = 0;
+        float repeticion = 0;
+        for (int i = 0; i <= a; i++) {
+            if (((String) tb.getValueAt(i, 0)).equals(codigo.getText())){
+                borrar = i;
+                repeticion = (float) tb.getValueAt(i, 3);
+                flag = 1;
+            }
+        }
+        if (codigo.getText().equals("")){
+
+        }else if(flag == 1){
+
+            tb.removeRow(borrar);
+
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+            Object [] fila=new Object[4];
+
+            fila[0]= codigo.getText();
+            fila[1]=nombre.getText();
+            fila[2]=Float.parseFloat(stockActual.getText());
+            fila[3]=Float.parseFloat(cantidad.getText())+ repeticion;
+            modelo.addRow(fila);
+
+            tabla.setModel(modelo);
+        }
+
+        else{
+
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+            Object [] fila=new Object[4];
+
+            fila[0]= codigo.getText();
+            fila[1]=nombre.getText();
+            fila[2]=Float.parseFloat(stockActual.getText());
+            fila[3]=Float.parseFloat(cantidad.getText());
+            modelo.addRow(fila);
+
+            tabla.setModel(modelo);
+        }
+        codigo.requestFocus();
+        codigo.setText("");
+        stockActual.setText("");
+        nombre.setText("");
+        cantidad.setText("");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton4KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+
+            int flag = 0;
+            DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
+            int a = tabla.getRowCount()-1;
+            int borrar = 0;
+            float repeticion = 0;
+            for (int i = 0; i <= a; i++) {
+                if (((String)tb.getValueAt(i, 0)).equals(codigo.getText()) ){
+                    borrar = i;
+                    repeticion = (float) tb.getValueAt(i, 3);
+                    flag = 1;
+                }
+            }
+            if (codigo.getText().equals("")){
+
+            }else if(flag == 1){
+
+                tb.removeRow(borrar);
+
+                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+                Object [] fila=new Object[4];
+
+                fila[0]=codigo.getText();
+                fila[1]=nombre.getText();
+                fila[2]=Float.parseFloat(stockActual.getText());
+                fila[3]=Float.parseFloat(cantidad.getText())+ repeticion;
+                modelo.addRow(fila);
+
+                tabla.setModel(modelo);
+            }
+
+            else{
+
+                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+                Object [] fila=new Object[4];
+
+                fila[0]=codigo.getText();
+                fila[1]=nombre.getText();
+                fila[2]=Float.parseFloat(stockActual.getText());
+                fila[3]=Float.parseFloat(cantidad.getText());
+                modelo.addRow(fila);
+
+                tabla.setModel(modelo);
+            }
+        }
+        codigo.requestFocus();
+        codigo.setText("");
+        stockActual.setText("");
+        nombre.setText("");
+        cantidad.setText("");
+    }//GEN-LAST:event_jButton4KeyPressed
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        if ((""+selec.getSelectedItem()).equals("Ingresar")){
+            insertar();
+        }else if((""+selec.getSelectedItem()).equals("Quitar")){
+            quitar();
+        }
+        else if((""+selec.getSelectedItem()).equals("Volver a 0")){
+
+            String name = JOptionPane.showInputDialog("Para volver a 0, escriba 'SI' en mayúsculas");
+            if (name.equals("SI")){
+                MySQL my = new MySQL();
+                Connection con = my.getConnection();
+                Statement sql;
+                try {
+
+                    PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = 0;");
+
+                    stmt.executeUpdate();
+
+                    JOptionPane.showMessageDialog(this, "Stock devuelto a 0!", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                finally{
+                    if(con != null)  try {
+                        con.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    //
+
+                }
+            }else{
+                JOptionPane.showMessageDialog(this, "Error no se efectuaron cambios", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+
+        }
+    }//GEN-LAST:event_guardarActionPerformed
+
+    public void insertar(){
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+            
+            DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
+        int a = tabla.getRowCount()-1;
+        for (int i = 0; i <= a; i++) {  
+            String cod =  (String) tb.getValueAt(i, 0);
+            float stockactual=(float) tb.getValueAt(i, 2);
+            float cant=(float) tb.getValueAt(i, 3);
+             sql = con.createStatement();
+             PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = ? WHERE productos.codigo = ?;");
+             stmt.setFloat(1,stockactual+cant);
+             stmt.setString(2, cod);
+             
+             stmt.executeUpdate();
+             
+        }    
+            JOptionPane.showMessageDialog(this, "Stock modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            
+				
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+ if(con != null)  try {
+     con.close();
+ } catch (SQLException ex) {
+     Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+ } 
+}
+    }
+    public void quitar(){
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+        try {
+            
+            DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
+        int a = tabla.getRowCount()-1;
+        for (int i = 0; i <= a; i++) {  
+            String cod =  (String) tb.getValueAt(i, 0);
+            float stockactual=(float) tb.getValueAt(i, 2);
+            float cant=(float) tb.getValueAt(i, 3);
+             sql = con.createStatement();
+             PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = ? WHERE productos.codigo = ?;");
+             stmt.setFloat(1,stockactual-cant);
+             stmt.setString(2, cod);
+             
+             stmt.executeUpdate();
+             
+        }    
+            JOptionPane.showMessageDialog(this, "Stock modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            
+				
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+ if(con != null)  try {
+     con.close();
+ } catch (SQLException ex) {
+     Logger.getLogger(Inventario.class.getName()).log(Level.SEVERE, null, ex);
+ } 
+}
+    }
+    
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
+
+        tb.removeRow(tabla.getSelectedRow());
+
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -80,5 +621,22 @@ public class Inventario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField cantidad;
+    private javax.swing.JTextField codigo;
+    private javax.swing.JButton guardar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField nombre;
+    private javax.swing.JComboBox<String> selec;
+    private javax.swing.JTextField stockActual;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }
