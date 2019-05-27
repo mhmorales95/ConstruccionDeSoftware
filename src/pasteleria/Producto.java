@@ -574,6 +574,19 @@ public class Producto extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        try {
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("DELETE FROM receta WHERE producto = ? OR productoreceta = ?");
+            stmt.setString(1, codigo.getText());
+            stmt.setString(2, codigo.getText());
+       
+            stmt.executeUpdate();
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_borrarActionPerformed
 
     private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed

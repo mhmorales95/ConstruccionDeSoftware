@@ -88,6 +88,7 @@ public class BusquedaPedido extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -155,6 +156,9 @@ public class BusquedaPedido extends javax.swing.JDialog {
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(559, 500, 100, 30));
 
+        jLabel2.setText("Código cliente:");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 90, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Buscar.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -176,7 +180,8 @@ public class BusquedaPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public void buscar(){
-        eliminar();
+            
+            eliminar();
             MySQL my = new MySQL();
             Connection con = my.getConnection();
             Statement sql;
@@ -230,7 +235,7 @@ public class BusquedaPedido extends javax.swing.JDialog {
     }//GEN-LAST:event_buscartxtKeyReleased
 
     private void buscartxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscartxtActionPerformed
-        // TODO add your handling code here:
+        buscar();
     }//GEN-LAST:event_buscartxtActionPerformed
 
     public void eliminar() {
@@ -294,6 +299,7 @@ public class BusquedaPedido extends javax.swing.JDialog {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
