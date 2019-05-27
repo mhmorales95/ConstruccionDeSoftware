@@ -5,6 +5,7 @@
  */
 package pasteleria;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -90,6 +91,12 @@ public class Clientes extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Código:");
+
+        codigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codigoKeyTyped(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -363,6 +370,29 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rutActionPerformed
 
+    private void codigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoKeyTyped
+        
+
+    }//GEN-LAST:event_codigoKeyTyped
+
+//    private void verificarCamposSinLetras(KeyEvent evt) {
+//        char c = evt.getKeyChar();
+//
+//        if (Character.isLetter(c)) {
+//            getToolkit().beep();
+//            evt.consume();
+//            JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+//            codigoCliente.setCursor(null);
+//        } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+//                && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+//                || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+//            getToolkit().beep();
+//            evt.consume();
+//            JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+//            codigoCliente.setCursor(null);
+//        }
+//
+//    }
     /**
      * @param args the command line arguments
      */
