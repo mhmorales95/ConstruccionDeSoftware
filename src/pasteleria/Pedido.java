@@ -22,6 +22,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -397,9 +399,21 @@ public class Pedido extends javax.swing.JFrame {
         cantidad.setMaximumSize(new java.awt.Dimension(43, 20));
         cantidad.setMinimumSize(new java.awt.Dimension(43, 20));
         cantidad.setPreferredSize(new java.awt.Dimension(43, 20));
+        cantidad.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                cantidadInputMethodTextChanged(evt);
+            }
+        });
         cantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cantidadActionPerformed(evt);
+            }
+        });
+        cantidad.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                cantidadPropertyChange(evt);
             }
         });
         cantidad.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -759,8 +773,15 @@ public class Pedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void anadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirActionPerformed
+        if (totalPedido.getText().equals("")) {
+            totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
+            cargarProductoATabla();
+            limpiarSeccionItem();
+        } else {
+            cargarProductoATabla();
+            limpiarSeccionItem();
+        }
 
-        cargarProductoATabla();
     }//GEN-LAST:event_anadirActionPerformed
 
     private void nombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreProductoActionPerformed
@@ -815,6 +836,10 @@ public class Pedido extends javax.swing.JFrame {
         java.sql.Time horaActual = new java.sql.Time(date.getTime());
         if (!codigoCliente.getText().equals("") && seleccionFecha.getCalendar() != null
                 && seleccionHora.getSelectedIndex() != 0 && jTable1.getRowCount() > 0) {
+            
+            if(abono.getText().equals("")){
+                abono.setText("0");
+            }
             try {
                 sql = con.createStatement();
                 PreparedStatement stmt = con.prepareStatement("INSERT INTO pedido (codigoCliente, estado,"
@@ -912,6 +937,8 @@ public class Pedido extends javax.swing.JFrame {
         });
 
     }
+
+
     private void codigoProductoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoProductoKeyPressed
         // TODO add your handling code here:
 //        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -986,6 +1013,14 @@ public class Pedido extends javax.swing.JFrame {
         verificarCamposSinLetras(evt);
     }//GEN-LAST:event_cantidadKeyTyped
 
+    private void cantidadPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cantidadPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cantidadPropertyChange
+
+    private void cantidadInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_cantidadInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cantidadInputMethodTextChanged
+
     private void verificarCamposSinLetras(KeyEvent evt) {
         char c = evt.getKeyChar();
 
@@ -994,7 +1029,9 @@ public class Pedido extends javax.swing.JFrame {
             evt.consume();
             JOptionPane.showMessageDialog(this, "Ingrese sólo números");
             codigoCliente.setCursor(null);
-        } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58 && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96 || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+        } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
             getToolkit().beep();
             evt.consume();
             JOptionPane.showMessageDialog(this, "Ingrese sólo números");
@@ -1072,7 +1109,6 @@ public class Pedido extends javax.swing.JFrame {
         this.nombreProducto.setText("");
         this.precioProducto.setText("");
         this.totalProducto.setText("");
-        this.totalPedido.setText("");
     }
 
     public void limpiarTabla() {

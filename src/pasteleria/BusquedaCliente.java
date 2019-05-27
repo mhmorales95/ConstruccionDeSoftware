@@ -53,7 +53,7 @@ public class BusquedaCliente extends javax.swing.JDialog {
             System.out.println(dtm.getValueAt(tabla.getSelectedRow(), 0));
             codigo = "" + dtm.getValueAt(tabla.getSelectedRow(), 0);
             nombre = "" + dtm.getValueAt(tabla.getSelectedRow(), 2);
-            rut = "" + dtm.getValueAt(tabla.getSelectedRow(), 2);
+            rut = "" + dtm.getValueAt(tabla.getSelectedRow(), 1);
             direccion = "" + dtm.getValueAt(tabla.getSelectedRow(), 3);
             descuento = Integer.parseInt("" + dtm.getValueAt(tabla.getSelectedRow(), 4));
             dispose();
