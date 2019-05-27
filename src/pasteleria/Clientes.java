@@ -77,6 +77,11 @@ public class Clientes extends javax.swing.JFrame {
                 nombreCompletoActionPerformed(evt);
             }
         });
+        nombreCompleto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreCompletoKeyTyped(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
@@ -85,6 +90,11 @@ public class Clientes extends javax.swing.JFrame {
         rut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rutActionPerformed(evt);
+            }
+        });
+        rut.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                rutKeyTyped(evt);
             }
         });
 
@@ -115,6 +125,11 @@ public class Clientes extends javax.swing.JFrame {
         telefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 telefonoActionPerformed(evt);
+            }
+        });
+        telefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefonoKeyTyped(evt);
             }
         });
 
@@ -371,28 +386,85 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_rutActionPerformed
 
     private void codigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoKeyTyped
-        
-
+        this.verificarCamposSinLetras(evt, "numero", codigo);
     }//GEN-LAST:event_codigoKeyTyped
 
-//    private void verificarCamposSinLetras(KeyEvent evt) {
-//        char c = evt.getKeyChar();
-//
-//        if (Character.isLetter(c)) {
-//            getToolkit().beep();
-//            evt.consume();
-//            JOptionPane.showMessageDialog(this, "Ingrese sólo números");
-//            codigoCliente.setCursor(null);
-//        } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
-//                && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
-//                || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
-//            getToolkit().beep();
-//            evt.consume();
-//            JOptionPane.showMessageDialog(this, "Ingrese sólo números");
-//            codigoCliente.setCursor(null);
-//        }
-//
-//    }
+    private void nombreCompletoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreCompletoKeyTyped
+        this.verificarCamposSinLetras(evt, "letras", nombreCompleto);
+    }//GEN-LAST:event_nombreCompletoKeyTyped
+
+    private void rutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_rutKeyTyped
+        this.verificarCamposSinLetras(evt, "rut", rut);
+        
+    }//GEN-LAST:event_rutKeyTyped
+
+    private void telefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyTyped
+        this.verificarCamposSinLetras(evt, "numero", telefono);
+    }//GEN-LAST:event_telefonoKeyTyped
+
+private void verificarCamposSinLetras(KeyEvent evt, String tipo, javax.swing.JTextField campoTexto) {
+        char c = evt.getKeyChar();
+        if (tipo.equals("numero")) {
+            if (Character.isLetter(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo numeros");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo numeros");
+                campoTexto.setCursor(null);
+            }
+        } else if (tipo.equals("rut")) {
+            if (Character.isLetter(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números, punto o guión");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() >= 32 && (int) evt.getKeyChar() <= 44 || (int) evt.getKeyChar() == 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números, punto o guión");
+                campoTexto.setCursor(null);
+            }
+        } else if (tipo.equals("letras")) {
+            if (Character.isDigit(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo letras");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo letras");
+                campoTexto.setCursor(null);
+            }
+
+        } else if (tipo.endsWith("numero coma")) {
+            if (Character.isLetter(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() >= 32 && (int) evt.getKeyChar() <= 43 || (int) evt.getKeyChar() >= 45 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+                campoTexto.setCursor(null);
+            }
+
+        }
+
+    }
     /**
      * @param args the command line arguments
      */
