@@ -69,14 +69,14 @@ public class Configuracion extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("Codigo usuario:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, -1, -1));
 
         usuariocod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usuariocodActionPerformed(evt);
             }
         });
-        getContentPane().add(usuariocod, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 41, -1));
+        getContentPane().add(usuariocod, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 80, -1));
 
         jButton4.setText("Cargar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -84,18 +84,18 @@ public class Configuracion extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 170, -1, -1));
-        getContentPane().add(usunombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 154, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, -1, -1));
+        getContentPane().add(usunombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 154, -1));
 
         jLabel6.setText("Nombre:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 75, -1));
-        getContentPane().add(usucon, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 154, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 50, -1));
+        getContentPane().add(usucon, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 154, -1));
 
         jLabel7.setText("Contraseña:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, -1, -1));
 
         accesoTotal.setText("Acceso Total");
-        getContentPane().add(accesoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, -1, -1));
+        getContentPane().add(accesoTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, -1, -1));
 
         accesoPedido.setText("Acceso a pedido");
         accesoPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -103,10 +103,10 @@ public class Configuracion extends javax.swing.JFrame {
                 accesoPedidoActionPerformed(evt);
             }
         });
-        getContentPane().add(accesoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, -1, -1));
+        getContentPane().add(accesoPedido, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, -1, -1));
 
         accesoCaja.setText("Acceso a caja");
-        getContentPane().add(accesoCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, -1, -1));
+        getContentPane().add(accesoCaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 280, -1, -1));
 
         jButton3.setText("Eliminar Usuario");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -150,9 +150,8 @@ public class Configuracion extends javax.swing.JFrame {
         });
         getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 500, 80, -1));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Familias");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, 60, 20));
+        jLabel1.setText("Familias:");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 180, 60, 20));
 
         familiaEliminar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
         familiaEliminar.addActionListener(new java.awt.event.ActionListener() {
