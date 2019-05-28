@@ -21,13 +21,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Mauricio
  */
 public class Configuracion extends javax.swing.JFrame {
-
+    
     public int insertar = 0;
+
     /**
      * Creates new form Configuracion
      */
@@ -175,8 +177,8 @@ public class Configuracion extends javax.swing.JFrame {
     private void usuariocodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuariocodActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usuariocodActionPerformed
-
-    public void cargar(){
+    
+    public void cargar() {
         
         MySQL my = new MySQL();
         Connection con = my.getConnection();
@@ -184,73 +186,75 @@ public class Configuracion extends javax.swing.JFrame {
         
         try {
             sql = con.createStatement();
-
+            
             ResultSet rs = sql.executeQuery("SELECT * FROM familias");
             System.out.println("CONSULTA EJECUTADA");
-
+            
             boolean r = rs.next();
             while (r) {
                 
-                        
-                        familiaEliminar.addItem(rs.getString("nombre"));
-                       
-                        
+                familiaEliminar.addItem(rs.getString("nombre"));
+                
                 r = rs.next();
             }
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        MySQL my = new MySQL();
-        Connection con = my.getConnection();
-        Statement sql;
-        try {
-            sql = con.createStatement();
-
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios WHERE codigo = ?");
-            stmt.setInt(1, Integer.parseInt(usuariocod.getText()));
-
-            ResultSet rs;
-            rs = stmt.executeQuery();
-
-            boolean r = rs.next();
-            if (r == false) {
-                JOptionPane.showMessageDialog(this, "Se creará usuario", "", JOptionPane.INFORMATION_MESSAGE);
-                usunombre.setText("");
-                usucon.setText("");
-                accesoTotal.setSelected(false);
-                accesoPedido.setSelected(false);
-                accesoCaja.setSelected(false);
-                insertar = 1;
-            }
-            while (r) {
-
-                usunombre.setText(rs.getString("nombre"));
-                usucon.setText(rs.getString("contrasena"));
-                if (rs.getInt("accesoCaja") == 1) {
-                    accesoCaja.setSelected(true);
-                } else {
-                    accesoCaja.setSelected(false);
-                }
-                if (rs.getInt("accesoTotal") == 1) {
-                    accesoTotal.setSelected(true);
-                } else {
+        if (usuariocod.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "No ha ingresado codigo usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+            try {
+                sql = con.createStatement();
+                
+                PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios WHERE codigo = ?");
+                stmt.setInt(1, Integer.parseInt(usuariocod.getText()));
+                
+                ResultSet rs;
+                rs = stmt.executeQuery();
+                
+                boolean r = rs.next();
+                if (r == false) {
+                    JOptionPane.showMessageDialog(this, "Se creará usuario", "", JOptionPane.INFORMATION_MESSAGE);
+                    usunombre.setText("");
+                    usucon.setText("");
                     accesoTotal.setSelected(false);
-                }
-                if (rs.getInt("accesoPedido") == 1) {
-                    accesoPedido.setSelected(true);
-                } else {
                     accesoPedido.setSelected(false);
+                    accesoCaja.setSelected(false);
+                    insertar = 1;
                 }
-               
-                r = rs.next();
-                insertar = 0;
+                while (r) {
+                    
+                    usunombre.setText(rs.getString("nombre"));
+                    usucon.setText(rs.getString("contrasena"));
+                    if (rs.getInt("accesoCaja") == 1) {
+                        accesoCaja.setSelected(true);
+                    } else {
+                        accesoCaja.setSelected(false);
+                    }
+                    if (rs.getInt("accesoTotal") == 1) {
+                        accesoTotal.setSelected(true);
+                    } else {
+                        accesoTotal.setSelected(false);
+                    }
+                    if (rs.getInt("accesoPedido") == 1) {
+                        accesoPedido.setSelected(true);
+                    } else {
+                        accesoPedido.setSelected(false);
+                    }
+                    
+                    r = rs.next();
+                    insertar = 0;
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -259,107 +263,114 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_accesoPedidoActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        MySQL my = new MySQL();
-        Connection con = my.getConnection();
-        Statement sql;
-        try {
-            System.out.println("aqui");
-            sql = con.createStatement();
-            PreparedStatement stmt = con.prepareStatement("DELETE FROM usuarios WHERE codigo = ?");
-            stmt.setInt(1, Integer.parseInt(usuariocod.getText()));
-            usunombre.setText("");
-            usucon.setText("");
-            accesoTotal.setSelected(false);
-            accesoPedido.setSelected(false);
+        if (usuariocod.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "No ha ingresado codigo usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            MySQL my = new MySQL();
+            Connection con = my.getConnection();
+            Statement sql;
+            try {
+                System.out.println("aqui");
+                sql = con.createStatement();
+                PreparedStatement stmt = con.prepareStatement("DELETE FROM usuarios WHERE codigo = ?");
+                stmt.setInt(1, Integer.parseInt(usuariocod.getText()));
+                usunombre.setText("");
+                usucon.setText("");
+                accesoTotal.setSelected(false);
+                accesoPedido.setSelected(false);
                 accesoCaja.setSelected(false);
-            stmt.executeUpdate();
-            JOptionPane.showMessageDialog(this, "Usuario Borrado", "Información", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(this, "Usuario Borrado", "Información", JOptionPane.INFORMATION_MESSAGE);
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (insertar == 1) {
-            MySQL my = new MySQL();
-            Connection con = my.getConnection();
-            Statement sql;
-            try {
-                System.out.println("aqui");
-                sql = con.createStatement();
-                PreparedStatement stmt = con.prepareStatement("INSERT INTO usuarios"
-                    + " (codigo, nombre, contrasena, accesoCaja,accesoTotal,accesoPedido) VALUES (?,?,?,?,?,?);");
-                stmt.setInt(1, Integer.parseInt(usuariocod.getText()));
-                stmt.setString(2, usunombre.getText());
-                stmt.setString(3, usucon.getText());
-                if (accesoCaja.isSelected()) {
-                    stmt.setInt(4, 1);
-                } else {
-                    stmt.setInt(4, 0);
-                }
-                if (accesoTotal.isSelected()) {
-                    stmt.setInt(5, 1);
-                } else {
-                    stmt.setInt(5, 0);
-                }
-                if (accesoPedido.isSelected()) {
-                    stmt.setInt(6, 1);
-                } else {
-                    stmt.setInt(6, 0);
-                }
-                
-
-                insertar = 0;
-                stmt.executeUpdate();
-
-                JOptionPane.showMessageDialog(this, "Usuario añadido", "Información", JOptionPane.INFORMATION_MESSAGE);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (usuariocod.getText().equals("") || usunombre.getText().equals("") || usucon.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Datos faltantes", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-
-            MySQL my = new MySQL();
-            Connection con = my.getConnection();
-            Statement sql;
-            try {
-                System.out.println("aqui");
-                sql = con.createStatement();
-                PreparedStatement stmt = con.prepareStatement("UPDATE usuarios SET nombre = ?,contrasena = ?,accesoCaja = ?,accesoTotal = ?,"
-                    + "accesoPedido = ? WHERE codigo = ?;");
-
-                stmt.setString(1, usunombre.getText());
-                stmt.setString(2, usucon.getText());
-                if (accesoCaja.isSelected()) {
-                    stmt.setInt(3, 1);
-                } else {
-                    stmt.setInt(3, 0);
+            
+            if (insertar == 1) {
+                MySQL my = new MySQL();
+                Connection con = my.getConnection();
+                Statement sql;
+                try {
+                    System.out.println("aqui");
+                    sql = con.createStatement();
+                    PreparedStatement stmt = con.prepareStatement("INSERT INTO usuarios"
+                            + " (codigo, nombre, contrasena, accesoCaja,accesoTotal,accesoPedido) VALUES (?,?,?,?,?,?);");
+                    stmt.setInt(1, Integer.parseInt(usuariocod.getText()));
+                    stmt.setString(2, usunombre.getText());
+                    stmt.setString(3, usucon.getText());
+                    if (accesoCaja.isSelected()) {
+                        stmt.setInt(4, 1);
+                    } else {
+                        stmt.setInt(4, 0);
+                    }
+                    if (accesoTotal.isSelected()) {
+                        stmt.setInt(5, 1);
+                    } else {
+                        stmt.setInt(5, 0);
+                    }
+                    if (accesoPedido.isSelected()) {
+                        stmt.setInt(6, 1);
+                    } else {
+                        stmt.setInt(6, 0);
+                    }
+                    
+                    insertar = 0;
+                    stmt.executeUpdate();
+                    
+                    JOptionPane.showMessageDialog(this, "Usuario añadido", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-                if (accesoTotal.isSelected()) {
-                    stmt.setInt(4, 1);
-                } else {
-                    stmt.setInt(4, 0);
-                }
-                if (accesoPedido.isSelected()) {
-                    stmt.setInt(5, 1);
-                } else {
-                    stmt.setInt(5, 0);
+            } else {
+                
+                MySQL my = new MySQL();
+                Connection con = my.getConnection();
+                Statement sql;
+                try {
+                    System.out.println("aqui");
+                    sql = con.createStatement();
+                    PreparedStatement stmt = con.prepareStatement("UPDATE usuarios SET nombre = ?,contrasena = ?,accesoCaja = ?,accesoTotal = ?,"
+                            + "accesoPedido = ? WHERE codigo = ?;");
+                    
+                    stmt.setString(1, usunombre.getText());
+                    stmt.setString(2, usucon.getText());
+                    if (accesoCaja.isSelected()) {
+                        stmt.setInt(3, 1);
+                    } else {
+                        stmt.setInt(3, 0);
+                    }
+                    
+                    if (accesoTotal.isSelected()) {
+                        stmt.setInt(4, 1);
+                    } else {
+                        stmt.setInt(4, 0);
+                    }
+                    if (accesoPedido.isSelected()) {
+                        stmt.setInt(5, 1);
+                    } else {
+                        stmt.setInt(5, 0);
+                    }
+                    
+                    stmt.setInt(6, Integer.parseInt(usuariocod.getText()));
+                    insertar = 0;
+                    stmt.executeUpdate();
+                    
+                    JOptionPane.showMessageDialog(this, "Usuario modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
-                stmt.setInt(6, Integer.parseInt(usuariocod.getText()));
-                insertar = 0;
-                stmt.executeUpdate();
-
-                JOptionPane.showMessageDialog(this, "Usuario modificado", "Información", JOptionPane.INFORMATION_MESSAGE);
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
 
         //
@@ -372,14 +383,14 @@ public class Configuracion extends javax.swing.JFrame {
         try {
             sql = con.createStatement();
             PreparedStatement stmt = con.prepareStatement("INSERT INTO familias"
-                + " (nombre) VALUES (?);");
+                    + " (nombre) VALUES (?);");
 
             // stmt.setInt(1, familiaMayor);
             stmt.setString(1, jTextField3.getText());
-
+            
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(this, "Familia creada!", "Información", JOptionPane.INFORMATION_MESSAGE);
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -396,12 +407,12 @@ public class Configuracion extends javax.swing.JFrame {
         try {
             sql = con.createStatement();
             PreparedStatement stmt = con.prepareStatement("DELETE FROM familias WHERE nombre = ? ");
-
+            
             stmt.setString(1, (String) familiaEliminar.getSelectedItem());
-
+            
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(this, "Familia eliminada!", "Información", JOptionPane.INFORMATION_MESSAGE);
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -418,28 +429,28 @@ public class Configuracion extends javax.swing.JFrame {
             System.out.println("aqui");
             sql = con.createStatement();
             PreparedStatement stmt = con.prepareStatement("UPDATE `familias` SET nombre = ?"
-                + " WHERE nombre = ?;");
-
+                    + " WHERE nombre = ?;");
+            
             stmt.setString(1, editarFamtxt.getText());
             stmt.setString(2, (String) familiaEliminar.getSelectedItem());
-
+            
             stmt.executeUpdate();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         try {
             System.out.println("aqui");
             sql = con.createStatement();
             PreparedStatement stmt = con.prepareStatement("UPDATE `productos` SET familia = ?"
-                + " WHERE familia = ?;");
-
+                    + " WHERE familia = ?;");
+            
             stmt.setString(1, editarFamtxt.getText());
             stmt.setString(2, (String) familiaEliminar.getSelectedItem());
-
+            
             stmt.executeUpdate();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -447,17 +458,17 @@ public class Configuracion extends javax.swing.JFrame {
             System.out.println("aqui");
             sql = con.createStatement();
             PreparedStatement stmt = con.prepareStatement("UPDATE `subfamilias` SET familia = ?"
-                + " WHERE familia = ?;");
-
+                    + " WHERE familia = ?;");
+            
             stmt.setString(1, editarFamtxt.getText());
             stmt.setString(2, (String) familiaEliminar.getSelectedItem());
-
+            
             stmt.executeUpdate();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         JOptionPane.showMessageDialog(this, "Familia editada!", "Información", JOptionPane.INFORMATION_MESSAGE);
         familiaEliminar.removeAllItems();
         familiaEliminar.addItem("Seleccionar");
