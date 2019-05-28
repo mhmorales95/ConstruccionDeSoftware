@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,10 +28,9 @@ import javax.swing.table.DefaultTableModel;
  * @author Mauricio
  */
 public class Venta extends javax.swing.JFrame {
-
     
     private ArrayList<Integer> pedidos = new ArrayList<>();
-    
+
     /**
      * Creates new form Venta
      */
@@ -42,7 +42,7 @@ public class Venta extends javax.swing.JFrame {
         boleta.setSelected(true);
         calcularCorrelativo("boleta");
     }
-
+    
     public void agregarItemsAlCombo() {
         buttonGroupMetodo.add(boleta);
         buttonGroupMetodo.add(transbank);
@@ -819,11 +819,11 @@ public class Venta extends javax.swing.JFrame {
             b.buscar();
             b.buscartxt.setEnabled(false);
         }
-
+        
         b.setVisible(true);
         
-        if (codigoCliente.getText().equals("")){
-            codigoCliente.setText(""+b.getCliente());
+        if (codigoCliente.getText().equals("")) {
+            codigoCliente.setText("" + b.getCliente());
             try {
                 llamarCliente(codigoCliente.getText());
             } catch (SQLException ex) {
@@ -832,79 +832,76 @@ public class Venta extends javax.swing.JFrame {
         }
         
         numeroPedido.setText("" + b.getCodigo());
-        if (abono.getText().equals("")){
+        if (abono.getText().equals("")) {
             abono.setText("0");
         }
-        abono.setText(""+(b.getAbono() + Integer.parseInt(abono.getText())));
+        abono.setText("" + (b.getAbono() + Integer.parseInt(abono.getText())));
         cargarPedido();
-
+        
 
     }//GEN-LAST:event_jButton8ActionPerformed
-
+    
     public void finalizarPedidos() throws SQLException {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
         try {
-            for (int p : pedidos){
+            for (int p : pedidos) {
                 sql = con.createStatement();
                 PreparedStatement stmt = con.prepareStatement("UPDATE pedido SET estado = ? WHERE codigo = ?;");
                 stmt.setString(1, "fin");
                 stmt.setInt(2, p);
                 stmt.executeUpdate();
             }
-          
-
-
             
-
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     public void obtenerMinimo(String codigo) throws SQLException {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
         try {
             sql = con.createStatement();
-
+            
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo = ?");
             stmt.setString(1, codigo);
-
+            
             ResultSet rs;
             rs = stmt.executeQuery();
             
             boolean r = rs.next();
             while (r) {
-
-                if (rs.getDouble("stock") <= rs.getDouble("minimo")){
-                     JOptionPane.showMessageDialog(this, "Stock bajo mínimo, producto: "+rs.getString("nombre"), "Información", JOptionPane.INFORMATION_MESSAGE);
-           
+                
+                if (rs.getDouble("stock") <= rs.getDouble("minimo")) {
+                    JOptionPane.showMessageDialog(this, "Stock bajo mínimo, producto: " + rs.getString("nombre"), "Información", JOptionPane.INFORMATION_MESSAGE);
+                    
                 }
-
+                
                 r = rs.next();
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        
+        }        
         
     }
+
     public void reducirStock(String codigo, Double cantidad) throws SQLException {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
         try {
             sql = con.createStatement();
-
+            
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo = ?");
             stmt.setString(1, codigo);
-
+            
             ResultSet rs;
             rs = stmt.executeQuery();
-
+            
             boolean r = rs.next();
             while (r) {
                 if (rs.getInt("mueve") == 1) {
@@ -913,10 +910,10 @@ public class Venta extends javax.swing.JFrame {
                 if (rs.getInt("incluye") == 1) {
                     reducirReceta(codigo, cantidad);
                 }
-
+                
                 r = rs.next();
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -931,12 +928,12 @@ public class Venta extends javax.swing.JFrame {
             PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = ? WHERE codigo = ?");
             stmt.setDouble(1, stock);
             stmt.setString(2, codigo);
-
+            
             stmt.executeUpdate();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }        
     }
     
     public void reducirReceta(String codigo, Double cantidad) throws SQLException {
@@ -945,21 +942,21 @@ public class Venta extends javax.swing.JFrame {
         Statement sql;
         try {
             sql = con.createStatement();
-
+            
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM receta WHERE producto = ?");
             stmt.setString(1, codigo);
-
+            
             ResultSet rs;
             rs = stmt.executeQuery();
-
+            
             boolean r = rs.next();
             while (r) {
-
+                
                 reducirReceta2(rs.getString("productoreceta"), rs.getDouble("cantidad") * cantidad, obtenerStock(rs.getString("productoreceta")));
-
+                
                 r = rs.next();
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -975,28 +972,28 @@ public class Venta extends javax.swing.JFrame {
         Statement sql;
         try {
             sql = con.createStatement();
-
+            
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo = ?");
             stmt.setString(1, codigo);
-
+            
             ResultSet rs;
             rs = stmt.executeQuery();
             double f = 0;
             boolean r = rs.next();
             while (r) {
-
+                
                 f = rs.getDouble("stock");
-
+                
                 r = rs.next();
             }
             return f;
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }        
         return null;
     }
-
+    
     public void reducirReceta2(String codigo, Double stock, Double stockproducto) throws SQLException {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
@@ -1006,9 +1003,9 @@ public class Venta extends javax.swing.JFrame {
             PreparedStatement stmt = con.prepareStatement("UPDATE productos SET stock = ? WHERE codigo = ?;");
             stmt.setDouble(1, stockproducto - stock);
             stmt.setString(2, codigo);
-
+            
             stmt.executeUpdate();
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -1017,8 +1014,8 @@ public class Venta extends javax.swing.JFrame {
             }
         }
     }
-
     
+
     private void abonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abonoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_abonoActionPerformed
@@ -1026,7 +1023,7 @@ public class Venta extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         BusquedaCliente b = new BusquedaCliente(this, true);
         b.setVisible(true);
-
+        
         codigoCliente.setText(b.obtenerCodigo());
         nombreCliente.setText(b.obtenerNombre());
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -1061,7 +1058,7 @@ public class Venta extends javax.swing.JFrame {
         Statement sql;
         String tipo = "";
         java.util.Date date = new Date();
-
+        
         java.sql.Date fechaActual = new java.sql.Date(date.getTime());
         java.sql.Time horaActual = new java.sql.Time(date.getTime());
         if (!correlativo.getText().equals("")) {
@@ -1070,113 +1067,129 @@ public class Venta extends javax.swing.JFrame {
                 PreparedStatement stmt = con.prepareStatement("INSERT INTO ventaresumen (correlativo, tipo,"
                         + "codigoCliente, neto, iva, total, fecha, hora, estado, codigoUsuario)"
                         + " VALUES (?,?,?,?,?,?,?,?,?,?);");
-
+                
                 stmt.setInt(1, Integer.parseInt(correlativo.getText()));
                 
-                if (boleta.isSelected()){
+                if (boleta.isSelected()) {
                     stmt.setString(2, "boleta");
                     tipo = "boleta";
-                } 
-                else if (transbank.isSelected()){
+                } else if (transbank.isSelected()) {
                     stmt.setString(2, "tarjeta");
                     tipo = "tarjeta";
-                }
-                else if (facturaEfectivo.isSelected()){
+                } else if (facturaEfectivo.isSelected()) {
                     stmt.setString(2, "facturaefectivo");
                     tipo = "facturaefectivo";
-                }
-                else if (facturatransbank.isSelected()){
+                } else if (facturatransbank.isSelected()) {
                     stmt.setString(2, "facturatransbank");
                     tipo = "facturatransbank";
                 }
-                if (codigoCliente.getText().equals("")){
+                if (codigoCliente.getText().equals("")) {
                     codigoCliente.setText("0");
                 }
                 stmt.setInt(3, Integer.parseInt(codigoCliente.getText()));
-                stmt.setInt(4, Integer.parseInt(precioTotal.getText())-(int)(Integer.parseInt(precioTotal.getText())*0.19));
-                stmt.setInt(5, (int)(Integer.parseInt(precioTotal.getText())*0.19));
+                stmt.setInt(4, Integer.parseInt(precioTotal.getText()) - (int) (Integer.parseInt(precioTotal.getText()) * 0.19));
+                stmt.setInt(5, (int) (Integer.parseInt(precioTotal.getText()) * 0.19));
                 stmt.setInt(6, Integer.parseInt(precioTotal.getText()));
-
+                
                 stmt.setDate(7, fechaActual);
                 stmt.setTime(8, horaActual);
                 stmt.setString(9, "");
                 stmt.setInt(10, MenuPrincipal.usuario);
-
+                
                 stmt.executeUpdate();
 
+                //carga de detalle de productos
+                DefaultTableModel tm = (DefaultTableModel) tabla.getModel();
                 
-                 //carga de detalle de productos
-            DefaultTableModel tm = (DefaultTableModel) tabla.getModel();
-
-        int filas = tabla.getRowCount();
-        
-        for (int i = 0; i < filas; i++) {
-            String codigo = String.valueOf(tm.getValueAt(i, 0));
-            double cantidad = Double.parseDouble(String.valueOf(tm.getValueAt(i, 2)));
-            int unitario = Integer.parseInt(String.valueOf(tm.getValueAt(i, 3)));
-            int total = Integer.parseInt(String.valueOf(tm.getValueAt(i, 4)));
-            insertarDetalle(codigo, cantidad, tipo, unitario , total);
-            
-            reducirStock(codigo, cantidad);
-            
-        }
-        
-        finalizarPedidos();
-        
-        
+                int filas = tabla.getRowCount();
+                ArrayList<String> datos = new ArrayList<>();
+                for (int i = 0; i < filas; i++) {
+                    String codigo = String.valueOf(tm.getValueAt(i, 0));
+                    double cantidad = Double.parseDouble(String.valueOf(tm.getValueAt(i, 2)));
+                    int unitario = Integer.parseInt(String.valueOf(tm.getValueAt(i, 3)));
+                    int total = Integer.parseInt(String.valueOf(tm.getValueAt(i, 4)));
+                    insertarDetalle(codigo, cantidad, tipo, unitario, total);
+                    datos.add(codigo);
+                    datos.add(String.valueOf(tm.getValueAt(i, 1)));
+                    datos.add(cantidad + "");
+                    datos.add(unitario + "");
+                    datos.add(total + "");
+                    reducirStock(codigo, cantidad);
+                    
+                }
+                imprimir(datos);
+                finalizarPedidos();
                 
-        boleta.setSelected(true);
-        calcularCorrelativo("boleta");
-        limpiarVentana(true);
-        
+                boleta.setSelected(true);
+                calcularCorrelativo("boleta");
+                limpiarVentana(true);
+                
             } catch (SQLException ex) {
                 Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            
             JOptionPane.showMessageDialog(this, "Venta Finalizada", "Información", JOptionPane.INFORMATION_MESSAGE);
             
-
         } else {
             JOptionPane.showMessageDialog(this, "Es necesario rellenar todos los campos", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
         
     }//GEN-LAST:event_pagarActionPerformed
-
-    public void insertarDetalle(String codigo, double cantidad, String tipo, int unitario, int total){
+    
+    public void imprimir(ArrayList a) {
+        Imprimir i = new Imprimir();
+        i.finalidad = "venta";
+        i.datos = a;
+        
+        i.total = precioTotal.getText();
+        i.cliente = nombreCliente.getText();
+        
+        if (boleta.isSelected()) {
+            i.correlativo = "Boleta " + correlativo.getText();
+        } else if (transbank.isSelected()) {
+            i.correlativo = "Tarjeta " + correlativo.getText();
+        } else if (facturaEfectivo.isSelected()) {
+            i.correlativo = "Factura efectivo " + correlativo.getText();
+        } else if (facturatransbank.isSelected()) {
+            i.correlativo = "Factura tarjeta " + correlativo.getText();
+        }
+        i.imprime("Microsoft Print to PDF");
+    }
+    
+    public void insertarDetalle(String codigo, double cantidad, String tipo, int unitario, int total) {
         try {
-             
             
             MySQL my = new MySQL();
             Connection con = my.getConnection();
             Statement sql;
             sql = con.createStatement();
-                PreparedStatement stmt = con.prepareStatement("INSERT INTO ventadetalle (correlativo,"
-                        + "tipo, codigoProducto, cantidad,unitario, total)"
-                        + " VALUES (?,?,?,?,?,?);");
-
-                stmt.setInt(1, Integer.parseInt(correlativo.getText()));
-
-                stmt.setString(2, tipo);
-
-                stmt.setString(3, codigo);
-                
-                stmt.setDouble(4, cantidad);
-                
-                stmt.setInt(5, unitario);
-                
-                stmt.setInt(6, total);
-
-                stmt.executeUpdate();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            PreparedStatement stmt = con.prepareStatement("INSERT INTO ventadetalle (correlativo,"
+                    + "tipo, codigoProducto, cantidad,unitario, total)"
+                    + " VALUES (?,?,?,?,?,?);");
+            
+            stmt.setInt(1, Integer.parseInt(correlativo.getText()));
+            
+            stmt.setString(2, tipo);
+            
+            stmt.setString(3, codigo);
+            
+            stmt.setDouble(4, cantidad);
+            
+            stmt.setInt(5, unitario);
+            
+            stmt.setInt(6, total);
+            
+            stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    public void limpiarVentana(boolean borrarCliente){
+    public void limpiarVentana(boolean borrarCliente) {
         limpiarTabla();
         numeroPedido.setText("");
-        if (borrarCliente){
+        if (borrarCliente) {
             codigoCliente.setText("");
             
         }
@@ -1188,13 +1201,14 @@ public class Venta extends javax.swing.JFrame {
         vuelto.setText("");
         pedidos.clear();
     }
+
     public void limpiarTabla() {
         DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
         int a = tabla.getRowCount() - 1;
         for (int i = a; i >= 0; i--) {
             tb.removeRow(tb.getRowCount() - 1);
         }
-
+        
     }
     
     private void boletaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boletaActionPerformed
@@ -1213,7 +1227,6 @@ public class Venta extends javax.swing.JFrame {
         BusquedaProducto b = new BusquedaProducto(this, true);
         b.setVisible(true);
         
-        
         codigoProducto.setText(b.obtenerCodigo());
         try {
             obtenerMinimo(codigoProducto.getText());
@@ -1230,10 +1243,10 @@ public class Venta extends javax.swing.JFrame {
             anadir.requestFocus();
             try {
                 totalProducto.setText("" + (int) Double.parseDouble(cantidad.getText()) * Integer.parseInt(precioProducto.getText()));
-       
+                
             } catch (Exception e) {
             }
-             } else {
+        } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_cantidadActionPerformed
@@ -1267,7 +1280,7 @@ public class Venta extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         eliminarFilaDeTabla(tabla);
     }//GEN-LAST:event_jButton9ActionPerformed
-
+    
     public void eliminarFilaDeTabla(JTable tblDetalle) {
         DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
         int fila = tblDetalle.getSelectedRow();
@@ -1277,7 +1290,7 @@ public class Venta extends javax.swing.JFrame {
                 modelo.removeRow(filasselec[i]);
                 
                 sumarTotal();
-
+                
             }
         } else {
             JOptionPane.showMessageDialog(null, "No Seleccionó ninguna fila", "Aviso", JOptionPane.ERROR_MESSAGE);
@@ -1285,60 +1298,62 @@ public class Venta extends javax.swing.JFrame {
     }
     
     public void cargarProductoATabla() throws SQLException {
-
+        
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-
+        
         if (!this.cantidad.getText().equals("")) {
             Object[] fila = new Object[5];
-
+            
             fila[0] = codigoProducto.getText();
             fila[1] = nombreProducto.getText();;
             fila[2] = cantidad.getText();
             fila[3] = precioProducto.getText();
             fila[4] = totalProducto.getText();
             modelo.addRow(fila);
-
+            
             tabla.setModel(modelo);
             sumarTotal();
         } else {
             JOptionPane.showMessageDialog(this, "Debes ingresar una cantidad", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
-
+        
     }
-    public void calcularCorrelativo(String tipo){
+
+    public void calcularCorrelativo(String tipo) {
         MySQL my = new MySQL();
-            Connection con = my.getConnection();
-            Statement sql;
-            int numero = 0;
-            try {
-                
-                    sql = con.createStatement();
-                    PreparedStatement stmt = con.prepareStatement("SELECT MAX(correlativo)"
-                            + "FROM ventaresumen WHERE tipo = ?;");
-                    stmt.setString(1, tipo);
-
-                    ResultSet rs;
+        Connection con = my.getConnection();
+        Statement sql;
+        int numero = 0;
+        try {
+            
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("SELECT MAX(correlativo)"
+                    + "FROM ventaresumen WHERE tipo = ?;");
+            stmt.setString(1, tipo);
+            
+            ResultSet rs;
             rs = stmt.executeQuery();
-
+            
             boolean r = rs.next();
             while (r) {
-
-                numero = rs.getInt("MAX(correlativo)")+1;
-
+                
+                numero = rs.getInt("MAX(correlativo)") + 1;
+                
                 r = rs.next();
             }
-                    
-            correlativo.setText(numero+"");
-            } catch (SQLException ex) {
-                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             
+            
+            correlativo.setText(numero + "");
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
+
     public void llamarCliente(String cod) throws SQLException {
         MySQL my = new MySQL();
         Connection con = my.getConnection();
         Statement sql;
-
+        
         try {
             sql = con.createStatement();
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM clientes WHERE codigo = ? ");
@@ -1347,11 +1362,11 @@ public class Venta extends javax.swing.JFrame {
             rs = stmt.executeQuery();
             boolean r = rs.next();
             while (r) {
-
+                
                 nombreCliente.setText(rs.getString("nombre"));
                 r = rs.next();
             }
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -1360,78 +1375,77 @@ public class Venta extends javax.swing.JFrame {
             }
         }
     }
-
+    
     public void cargarPedido() {
-        if (!pedidos.contains(Integer.parseInt(numeroPedido.getText()))){
+        if (!pedidos.contains(Integer.parseInt(numeroPedido.getText()))) {
             pedidos.add(Integer.parseInt(numeroPedido.getText()));
             MySQL my = new MySQL();
-        Connection con = my.getConnection();
-        Statement sql;
-
-        try {
-            sql = con.createStatement();
-
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM pedido, pedidodetalle, productos WHERE "
-                    + "pedidodetalle.codigoProducto = productos.codigo AND"
-                    + " pedidoDetalle.codigoPedido = pedido.codigo AND pedidodetalle.codigoPedido = ?");
-            stmt.setInt(1, Integer.parseInt(numeroPedido.getText()));
-            ResultSet rs;
-            rs = stmt.executeQuery();
-
-            boolean r = rs.next();
-            while (r) {
-
-                if (codigoCliente.getText().equals("")) {
-                    codigoCliente.setText("" + rs.getInt("pedido.codigoCliente"));
-                    llamarCliente("" + rs.getInt("pedido.codigoCliente"));
+            Connection con = my.getConnection();
+            Statement sql;
+            
+            try {
+                sql = con.createStatement();
+                
+                PreparedStatement stmt = con.prepareStatement("SELECT * FROM pedido, pedidodetalle, productos WHERE "
+                        + "pedidodetalle.codigoProducto = productos.codigo AND"
+                        + " pedidoDetalle.codigoPedido = pedido.codigo AND pedidodetalle.codigoPedido = ?");
+                stmt.setInt(1, Integer.parseInt(numeroPedido.getText()));
+                ResultSet rs;
+                rs = stmt.executeQuery();
+                
+                boolean r = rs.next();
+                while (r) {
+                    
+                    if (codigoCliente.getText().equals("")) {
+                        codigoCliente.setText("" + rs.getInt("pedido.codigoCliente"));
+                        llamarCliente("" + rs.getInt("pedido.codigoCliente"));
+                    }
+                    if (abono.getText().equals("")) {
+                        abono.setText("0");
+                    }
+                    abono.setText("" + (rs.getInt("pedido.abono") + Integer.parseInt(abono.getText())));
+                    DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+                    
+                    Object[] fila = new Object[5];
+                    
+                    fila[0] = rs.getString("productos.codigo");
+                    fila[1] = rs.getString("productos.nombre");
+                    fila[2] = rs.getDouble("pedidodetalle.cantidad");
+                    fila[3] = rs.getInt("pedidodetalle.unitario");
+                    fila[4] = rs.getInt("pedidodetalle.total");
+                    
+                    obtenerMinimo(rs.getString("productos.codigo"));
+                    modelo.addRow(fila);
+                    
+                    tabla.setModel(modelo);
+                    
+                    r = rs.next();
                 }
-                if (abono.getText().equals("")){
-                    abono.setText("0");
-                }
-                abono.setText(""+(rs.getInt("pedido.abono") + Integer.parseInt(abono.getText())));
-                DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-
-                Object[] fila = new Object[5];
-
-                fila[0] = rs.getString("productos.codigo");
-                fila[1] = rs.getString("productos.nombre");
-                fila[2] = rs.getDouble("pedidodetalle.cantidad");
-                fila[3] = rs.getInt("pedidodetalle.unitario");
-                fila[4] = rs.getInt("pedidodetalle.total");
-
-                obtenerMinimo(rs.getString("productos.codigo"));
-                modelo.addRow(fila);
-
-                tabla.setModel(modelo);
-
-                r = rs.next();
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
             }
             
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        sumarTotal();
-        }else{
+            sumarTotal();
+        } else {
             JOptionPane.showMessageDialog(this, "Pedido se encuentra cargado", "Información", JOptionPane.INFORMATION_MESSAGE);
-        
+            
         }
         
-
     }
-
+    
     public void sumarTotal() {
         DefaultTableModel tm = (DefaultTableModel) tabla.getModel();
-
+        
         int filas = tabla.getRowCount();
         int suma = 0;
         for (int i = 0; i < filas; i++) {
             String dato = String.valueOf(tm.getValueAt(i, 4));
             suma += Integer.parseInt(dato);
         }
-
+        
         precioTotal.setText(suma + "");
-        if (abono.getText().equals("")){
+        if (abono.getText().equals("")) {
             abono.setText("0");
         }
         porpagar.setText("" + (suma - (Integer.parseInt(abono.getText()))));
@@ -1471,12 +1485,12 @@ public class Venta extends javax.swing.JFrame {
             }
         });
     }
-
+    
     public void fechaActual() {
         Date date = new Date();
         Format dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         jLabel5.setText(dateFormat.format(date));
-
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField abono;

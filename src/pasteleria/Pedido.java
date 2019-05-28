@@ -17,6 +17,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -886,7 +887,7 @@ public class Pedido extends javax.swing.JFrame {
             DefaultTableModel tm = (DefaultTableModel) jTable1.getModel();
 
             int filas = jTable1.getRowCount();
-
+            ArrayList<String> datos = new ArrayList<>();
             for (int i = 0; i < filas; i++) {
                 String codigo = String.valueOf(tm.getValueAt(i, 0));
                 double cantidad = Double.parseDouble(String.valueOf(tm.getValueAt(i, 2)));
@@ -894,9 +895,16 @@ public class Pedido extends javax.swing.JFrame {
                 int unitario = Integer.parseInt(String.valueOf(tm.getValueAt(i, 4)));
                 int total = Integer.parseInt(String.valueOf(tm.getValueAt(i, 5)));
                 insertarDetalle(codigo, cantidad, comentario, unitario, total);
+                datos.add(codigo);
+                datos.add(String.valueOf(tm.getValueAt(i, 1)));
+                datos.add(cantidad + "");
+                datos.add(comentario);
+                datos.add(unitario + "");
+                datos.add(total + "");
             }
 
             JOptionPane.showMessageDialog(this, "Pedido agregado", "Información", JOptionPane.INFORMATION_MESSAGE);
+            imprimir(datos);
             limpiarVentana();
             limpiarTabla();
             numeroPedido();
@@ -906,13 +914,31 @@ public class Pedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botonGuardarActionPerformed
 
+    public void imprimir(ArrayList a) {
+        Imprimir i = new Imprimir();
+        java.util.Date date2 = seleccionFecha.getDate();
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        String fechaSeleccionada = dateFormat.format(date2);
+        i.finalidad = "pedido";
+        i.datos = a;
+        i.correlativo = numeroPedido.getText();
+        i.fechaEntrega = "" + fechaSeleccionada;
+        i.horaEntrega = seleccionHora.getSelectedItem() + "";
+        i.total = totalPedido.getText();
+        i.abono = abono.getText();
+        i.porPagar = porPagar.getText();
+        i.cliente = nombreCliente.getText();
+        i.imprime("Microsoft Print to PDF");
+    }
     private void codigoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoProductoActionPerformed
         // TODO add your handling code here:
 
     }//GEN-LAST:event_codigoProductoActionPerformed
 
     private void codigoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoClienteActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
 
     }//GEN-LAST:event_codigoClienteActionPerformed
 

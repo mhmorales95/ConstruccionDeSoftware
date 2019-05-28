@@ -202,10 +202,8 @@ public class BusquedaCliente extends javax.swing.JDialog {
     private void buscartxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscartxtKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
             tabla.requestFocus();
-
             tabla.changeSelection(0, 0, false, false);
         } else {
-
             eliminar();
             MySQL my = new MySQL();
             Connection con = my.getConnection();

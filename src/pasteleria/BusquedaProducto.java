@@ -197,7 +197,6 @@ public class BusquedaProducto extends javax.swing.JDialog {
     private void buscartxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_buscartxtKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
             tabla.requestFocus();
-
             tabla.changeSelection(0, 0, false, false);
         } else {
             eliminar();
@@ -208,7 +207,7 @@ public class BusquedaProducto extends javax.swing.JDialog {
             try {
                 sql = con.createStatement();
 
-                PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE codigo = ?");
+                PreparedStatement stmt = con.prepareStatement("SELECT * FROM productos WHERE nombre LIKE ?");
                 stmt.setString(1, "%" + buscartxt.getText() + "%");
                 ResultSet rs;
                 rs = stmt.executeQuery();
