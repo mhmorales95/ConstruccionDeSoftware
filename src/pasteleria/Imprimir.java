@@ -165,25 +165,25 @@ public class Imprimir extends javax.swing.JFrame {
                         
                         g2d.drawString("-----------------------------------------------------------------------------------------------------------------------------------", 10, y);
                         y += yShift;
-                        g2d.drawString("Cantidad      Código                   Producto                                        Unitario    Total      ", 10, y);
+                        g2d.drawString("Cantidad      Código                   Producto                                                 Unitario    Total      ", 10, y);
                         y += yShift;
                         g2d.drawString("------------------------------------------------------------------------------------------------------------------------------------", 10, y);
                         y += headerRectHeight;
 
                         for (int i = 0; i < datos.size(); i++) {
                             y += yShift;
-                        g2d.drawString(datos.get(2), 10, y);
+                        g2d.drawString(datos.get(i+2), 10, y);
                         
-                        g2d.drawString(datos.get(0), 100, y);
+                        g2d.drawString(datos.get(i+0), 100, y);
                         
-                        g2d.drawString(datos.get(1), 250, y);
+                        g2d.drawString(datos.get(i+1), 250, y);
                         
-                        g2d.drawString(datos.get(4), 600, y);
+                        g2d.drawString(datos.get(i+4), 600, y);
                         
-                        g2d.drawString(datos.get(5), 700, y);
+                        g2d.drawString(datos.get(i+5), 700, y);
                         
                         y += yShift;
-                        g2d.drawString("Comentario: "+datos.get(3), 10, y);
+                        g2d.drawString("Comentario: "+datos.get(i+3), 10, y);
                         y += yShift;
                              i += 5;
                         }
@@ -261,22 +261,22 @@ public class Imprimir extends javax.swing.JFrame {
                         
                         g2d.drawString("-----------------------------------------------------------------------------------------------------------------------------------", 10, y);
                         y += yShift;
-                        g2d.drawString("Cantidad      Código                   Producto                                                Unitario    Total      ", 10, y);
+                        g2d.drawString("Cantidad      Código                   Producto                                                        Unitario    Total      ", 10, y);
                         y += yShift;
                         g2d.drawString("------------------------------------------------------------------------------------------------------------------------------------", 10, y);
                         y += headerRectHeight;
 
                         for (int i = 0; i < datos.size(); i++) {
                             y += yShift;
-                        g2d.drawString(datos.get(2), 10, y);
+                        g2d.drawString(datos.get(i+2), 10, y);
                         
-                        g2d.drawString(datos.get(0), 100, y);
+                        g2d.drawString(datos.get(i+0), 100, y);
                         
-                        g2d.drawString(datos.get(1), 250, y);
+                        g2d.drawString(datos.get(i+1), 250, y);
                         
-                        g2d.drawString(datos.get(3), 600, y);
+                        g2d.drawString(datos.get(i+3), 600, y);
                         
-                        g2d.drawString(datos.get(4), 700, y);
+                        g2d.drawString(datos.get(i+4), 700, y);
                         
                      
                         y += yShift;

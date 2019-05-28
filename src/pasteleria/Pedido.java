@@ -834,8 +834,8 @@ public class Pedido extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
         eliminarFilaDeTabla(jTable1);
-        this.abono.setText("");
-        this.porPagar.setText("");
+        this.abono.setText("0");
+        this.porPagar.setText(totalPedido.getText());
 
     }//GEN-LAST:event_jButton5ActionPerformed
 
@@ -890,15 +890,15 @@ public class Pedido extends javax.swing.JFrame {
             ArrayList<String> datos = new ArrayList<>();
             for (int i = 0; i < filas; i++) {
                 String codigo = String.valueOf(tm.getValueAt(i, 0));
-                double cantidad = Double.parseDouble(String.valueOf(tm.getValueAt(i, 2)));
-                String comentario = String.valueOf(tm.getValueAt(i, 3));
+                double can = Double.parseDouble(String.valueOf(tm.getValueAt(i, 2)));
+                String com = String.valueOf(tm.getValueAt(i, 3));
                 int unitario = Integer.parseInt(String.valueOf(tm.getValueAt(i, 4)));
                 int total = Integer.parseInt(String.valueOf(tm.getValueAt(i, 5)));
-                insertarDetalle(codigo, cantidad, comentario, unitario, total);
+                insertarDetalle(codigo, can, com, unitario, total);
                 datos.add(codigo);
                 datos.add(String.valueOf(tm.getValueAt(i, 1)));
-                datos.add(cantidad + "");
-                datos.add(comentario);
+                datos.add(can + "");
+                datos.add(com);
                 datos.add(unitario + "");
                 datos.add(total + "");
             }
