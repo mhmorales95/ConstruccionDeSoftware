@@ -88,7 +88,7 @@ public class Usuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(contrasena);
-        contrasena.setBounds(150, 166, 130, 22);
+        contrasena.setBounds(140, 160, 130, 22);
 
         usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario..." }));
         usuario.setBorder(null);
@@ -106,7 +106,7 @@ public class Usuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(usuario);
-        usuario.setBounds(150, 112, 130, 22);
+        usuario.setBounds(140, 110, 130, 22);
 
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -115,7 +115,7 @@ public class Usuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(112, 208, 184, 40);
+        jButton1.setBounds(100, 200, 190, 50);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Login.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
