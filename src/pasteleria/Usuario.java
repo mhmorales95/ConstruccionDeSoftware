@@ -184,7 +184,8 @@ public class Usuario extends javax.swing.JDialog {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios WHERE codigo = ?");
             String s = String.valueOf(contrasena.getPassword());
             this.codigo = s;
-            stmt.setInt(1, codigos.get(usuario.getSelectedIndex()-1));
+            int cod =codigos.get(usuario.getSelectedIndex()-1) ;
+            stmt.setInt(1, cod);
             ResultSet rs;
             rs = stmt.executeQuery();
 
@@ -199,6 +200,7 @@ public class Usuario extends javax.swing.JDialog {
                     this.accesoPedido = rs.getInt("accesoPedido");
 
                     MenuPrincipal mp = new MenuPrincipal(nombre, accesoCaja, accesoTotal, accesoPedido);
+                    mp.usuario = cod;
                     mp.setVisible(true);
                     this.dispose();
                 } else {
