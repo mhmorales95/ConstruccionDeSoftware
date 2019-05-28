@@ -328,8 +328,8 @@ public class Configuracion extends javax.swing.JFrame {
             try {
                 System.out.println("aqui");
                 sql = con.createStatement();
-                PreparedStatement stmt = con.prepareStatement("UPDATE `usuarios` SET nombre = ?,accesoCaja = ?,accesoTotal = ?,"
-                    + "accesoPedido = ? WHERE usuario.codigo = ?;");
+                PreparedStatement stmt = con.prepareStatement("UPDATE usuarios SET nombre = ?,contrasena = ?,accesoCaja = ?,accesoTotal = ?,"
+                    + "accesoPedido = ? WHERE codigo = ?;");
 
                 stmt.setString(1, usunombre.getText());
                 stmt.setString(2, usucon.getText());

@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,6 +27,7 @@ public class Usuario extends javax.swing.JDialog {
     private int accesoCaja;
     private int accesoTotal;
     private int accesoPedido;
+    private ArrayList<Integer> codigos = new ArrayList<>();
 
     /**
      * Creates new form Usuario
@@ -179,7 +181,7 @@ public class Usuario extends javax.swing.JDialog {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios WHERE codigo = ?");
             String s = String.valueOf(contrasena.getPassword());
             this.codigo = s;
-            stmt.setString(1, (String) usuario.getSelectedItem());
+            stmt.setInt(1, codigos.get(usuario.getSelectedIndex()-1));
             ResultSet rs;
             rs = stmt.executeQuery();
 
@@ -220,16 +222,16 @@ public class Usuario extends javax.swing.JDialog {
             try {
                 sql = con.createStatement();
                 PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios");
-                String s = String.valueOf(contrasena.getPassword());
-
+                
                 ResultSet rs;
                 rs = stmt.executeQuery();
                 boolean r = rs.next();
 
                 while (r) {
-                    String n = rs.getString("codigo");
-                    usuario.addItem(n);
-
+                    String n = rs.getString("nombre");
+                    int i = rs.getInt("codigo");
+                    usuario.addItem(i+" - "+n);
+                    codigos.add(i);
                     r = rs.next();
 
                 }
