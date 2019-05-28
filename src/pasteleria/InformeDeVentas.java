@@ -16,16 +16,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Mauricio
  */
 public class InformeDeVentas extends javax.swing.JFrame {
 
-    
-    
-    
     /**
      * Creates new form InformeDeVentas
      */
@@ -201,7 +200,6 @@ public class InformeDeVentas extends javax.swing.JFrame {
         Connection con = my.getConnection();
         Statement sql;
         int total = 0;
-        
 
         try {
             sql = con.createStatement();
@@ -216,19 +214,13 @@ public class InformeDeVentas extends javax.swing.JFrame {
                     + "         between TIMESTAMP(?,?) "
                     + "                 and TIMESTAMP(?,?) and estado = '' ");
 
-       
-            
-            
-            
             if (!eleccion.getSelectedItem().equals("Todo")) {
                 stmt = con.prepareStatement("SELECT * FROM ventaresumen WHERE TIMESTAMP(fecha,hora)"
                         + "         between TIMESTAMP(?,?) "
                         + "                 and TIMESTAMP(?,?) and tipo = ? and estado = ''");
                 stmt.setString(5, (String) eleccion.getSelectedItem());
-                
 
             }
-            
 
             stmt.setDate(3, fechaCuadro2);
             stmt.setDate(1, fechaCuadro);
@@ -275,10 +267,10 @@ public class InformeDeVentas extends javax.swing.JFrame {
                 fila[6] = fechaActual;
                 fila[7] = rs.getInt("codigoUsuario");
                 fila[8] = rs.getInt("codigoCliente");
-                
+
                 modelo.addRow(fila);
                 total += rs.getInt("total");
-                
+
                 r = rs.next();
             }
 
@@ -289,9 +281,9 @@ public class InformeDeVentas extends javax.swing.JFrame {
         }
 
     }
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-      
+
         try {
             DefaultTableModel tb = (DefaultTableModel) tabla.getModel();
             int a = tabla.getRowCount() - 1;
@@ -306,12 +298,19 @@ public class InformeDeVentas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
-        String s = "" + dtm.getValueAt(tabla.getSelectedRow(), 0);
-        String tipo = "" + dtm.getValueAt(tabla.getSelectedRow(), 1);
-        DetalleVenta d = new DetalleVenta(Integer.parseInt(s), tipo);
 
-        d.setVisible(true);
+        if (tabla.getRowCount() <= 0) {
+            JOptionPane.showMessageDialog(this, "Tabla vacía", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (tabla.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "No ha seleccionado fila", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            DefaultTableModel dtm = (DefaultTableModel) tabla.getModel();
+            String s = "" + dtm.getValueAt(tabla.getSelectedRow(), 0);
+            String tipo = "" + dtm.getValueAt(tabla.getSelectedRow(), 1);
+            DetalleVenta d = new DetalleVenta(Integer.parseInt(s), tipo);
+
+            d.setVisible(true);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
