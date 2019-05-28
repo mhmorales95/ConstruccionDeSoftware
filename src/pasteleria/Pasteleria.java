@@ -18,8 +18,10 @@ public class Pasteleria {
         MySQL m = new MySQL();
         m.getConnection();
         
-        MenuPrincipal mp = new MenuPrincipal();
-        mp.setVisible(true);
+        Usuario usuario = new Usuario();
+        usuario.setVisible(true);
+        //MenuPrincipal mp = new MenuPrincipal();
+        //mp.setVisible(true);
         
     }
     

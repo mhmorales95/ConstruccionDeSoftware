@@ -5,6 +5,7 @@
  */
 package pasteleria;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +21,12 @@ import javax.swing.JOptionPane;
  */
 public class Usuario extends javax.swing.JDialog {
 
+    private String codigo;
+    private String nombre;
+    private int accesoCaja;
+    private int accesoTotal;
+    private int accesoPedido;
+
     /**
      * Creates new form Usuario
      */
@@ -27,6 +34,19 @@ public class Usuario extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         cargarUsuarios();
+    }
+
+    public Usuario() {
+        initComponents();
+        cargarUsuarios();
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     /**
@@ -48,6 +68,11 @@ public class Usuario extends javax.swing.JDialog {
         setMinimumSize(new java.awt.Dimension(400, 300));
         setPreferredSize(new java.awt.Dimension(400, 300));
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         contrasena.addActionListener(new java.awt.event.ActionListener() {
@@ -55,10 +80,15 @@ public class Usuario extends javax.swing.JDialog {
                 contrasenaActionPerformed(evt);
             }
         });
+        contrasena.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                contrasenaKeyPressed(evt);
+            }
+        });
         getContentPane().add(contrasena);
         contrasena.setBounds(150, 166, 130, 22);
 
-        usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione usuario..." }));
+        usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario..." }));
         usuario.setBorder(null);
         usuario.setMaximumSize(new java.awt.Dimension(130, 20));
         usuario.setName(""); // NOI18N
@@ -77,6 +107,11 @@ public class Usuario extends javax.swing.JDialog {
         usuario.setBounds(150, 112, 130, 22);
 
         jButton1.setText("Entrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
         jButton1.setBounds(112, 208, 184, 40);
 
@@ -94,12 +129,87 @@ public class Usuario extends javax.swing.JDialog {
     }//GEN-LAST:event_contrasenaActionPerformed
 
     private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
-        
+
     }//GEN-LAST:event_usuarioActionPerformed
 
     private void usuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usuarioKeyTyped
         contrasena.requestFocus();
     }//GEN-LAST:event_usuarioKeyTyped
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (usuario.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "No ha seleccionado usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (contrasena.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "No ha ingresado contraseña", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            //MenuPrincipal mp = new MenuPrincipal();
+            //mp.setVisible(true);
+            verificarContrasena();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+
+
+    }//GEN-LAST:event_formWindowClosed
+
+    private void contrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contrasenaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (usuario.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(this, "No ha seleccionado usuario", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (contrasena.getText().equals("")) {
+                JOptionPane.showMessageDialog(this, "No ha ingresado contraseña", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                //MenuPrincipal mp = new MenuPrincipal();
+                //mp.setVisible(true);
+                verificarContrasena();
+            }
+
+        }
+
+    }//GEN-LAST:event_contrasenaKeyPressed
+
+    private void verificarContrasena() {
+        MySQL my = new MySQL();
+        Connection con = my.getConnection();
+        Statement sql;
+
+        try {
+            sql = con.createStatement();
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios WHERE codigo = ?");
+            String s = String.valueOf(contrasena.getPassword());
+            this.codigo = s;
+            stmt.setString(1, (String) usuario.getSelectedItem());
+            ResultSet rs;
+            rs = stmt.executeQuery();
+
+            boolean r = rs.next();
+
+            while (r) {
+                String n = rs.getString("contrasena");
+                if (n.equals(s)) {
+                    this.nombre = rs.getString("nombre");
+                    this.accesoTotal = rs.getInt("accesoTotal");
+                    this.accesoCaja = rs.getInt("accesoCaja");
+                    this.accesoPedido = rs.getInt("accesoPedido");
+
+                    MenuPrincipal mp = new MenuPrincipal(nombre, accesoCaja, accesoTotal, accesoPedido);
+                    mp.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Contraseña incorrecta", "Aviso", JOptionPane.ERROR_MESSAGE);
+                    contrasena.setText("");
+                }
+
+                r = rs.next();
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     private void cargarUsuarios() {
         if (true) {
@@ -111,21 +221,18 @@ public class Usuario extends javax.swing.JDialog {
                 sql = con.createStatement();
                 PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuarios");
                 String s = String.valueOf(contrasena.getPassword());
-                
+
                 ResultSet rs;
                 rs = stmt.executeQuery();
                 boolean r = rs.next();
-                 
-                    while (r) {
-                        String n = rs.getString("nombre");
-                        usuario.addItem(n);
-                    
 
-                        r = rs.next();
+                while (r) {
+                    String n = rs.getString("codigo");
+                    usuario.addItem(n);
 
-                    }
+                    r = rs.next();
 
-                
+                }
 
             } catch (SQLException ex) {
                 Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
