@@ -5,6 +5,7 @@
  */
 package pasteleria;
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -97,6 +98,11 @@ public class Producto extends javax.swing.JFrame {
                 codigoActionPerformed(evt);
             }
         });
+        codigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                codigoKeyTyped(evt);
+            }
+        });
         getContentPane().add(codigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 311, -1));
 
         jButton1.setText("Cargar");
@@ -137,6 +143,12 @@ public class Producto extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nombre:");
 
+        nombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombreKeyTyped(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Familia:");
@@ -155,6 +167,11 @@ public class Producto extends javax.swing.JFrame {
                 netoActionPerformed(evt);
             }
         });
+        neto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                netoKeyTyped(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -165,10 +182,21 @@ public class Producto extends javax.swing.JFrame {
                 margenActionPerformed(evt);
             }
         });
+        margen.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                margenKeyTyped(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Bruto:");
+
+        bruto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                brutoKeyTyped(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -183,6 +211,11 @@ public class Producto extends javax.swing.JFrame {
                 totalActionPerformed(evt);
             }
         });
+        total.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                totalKeyTyped(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,6 +227,12 @@ public class Producto extends javax.swing.JFrame {
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Stock crítico:");
 
+        minimo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                minimoKeyTyped(evt);
+            }
+        });
+
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Stock actual:");
@@ -201,6 +240,11 @@ public class Producto extends javax.swing.JFrame {
         stock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stockActionPerformed(evt);
+            }
+        });
+        stock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                stockKeyTyped(evt);
             }
         });
 
@@ -219,6 +263,12 @@ public class Producto extends javax.swing.JFrame {
         });
 
         compuesto.setText("Receta");
+
+        iva.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ivaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -410,6 +460,70 @@ public class Producto extends javax.swing.JFrame {
         minimo.setText("");
         guardar.setEnabled(true);
         borrar.setEnabled(false);
+    }
+    
+    private void verificarCamposSinLetras(KeyEvent evt, String tipo, javax.swing.JTextField campoTexto) {
+        char c = evt.getKeyChar();
+        if (tipo.equals("numero")) {
+            if (Character.isLetter(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo numeros");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo numeros");
+                campoTexto.setCursor(null);
+            }
+        } else if (tipo.equals("rut")) {
+            if (Character.isLetter(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números, punto o guión");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() >= 32 && (int) evt.getKeyChar() <= 44 || (int) evt.getKeyChar() >= 45 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números, punto o guión");
+                campoTexto.setCursor(null);
+            }
+        } else if (tipo.equals("letras")) {
+            if (Character.isDigit(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo letras");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() > 32 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo letras");
+                campoTexto.setCursor(null);
+            }
+
+        } else if (tipo.endsWith("numero coma")) {
+            if (Character.isLetter(c)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+                campoTexto.setCursor(null);
+            } else if ((int) evt.getKeyChar() >= 32 && (int) evt.getKeyChar() <= 43 || (int) evt.getKeyChar() >= 45 && (int) evt.getKeyChar() <= 47 || (int) evt.getKeyChar() >= 58
+                    && (int) evt.getKeyChar() <= 64 || (int) evt.getKeyChar() >= 91 && (int) evt.getKeyChar() <= 96
+                    || (int) evt.getKeyChar() >= 123 && (int) evt.getKeyChar() <= 255) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Ingrese sólo números");
+                campoTexto.setCursor(null);
+            }
+
+        }
+
     }
 
     public void cargarFamilias() {
@@ -761,6 +875,51 @@ public class Producto extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void nombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombreKeyTyped
+         // TODO add your handling code here:
+         verificarCamposSinLetras(evt, "letras", nombre);
+    }//GEN-LAST:event_nombreKeyTyped
+
+    private void codigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_codigoKeyTyped
+         // TODO add your handling code here:
+         verificarCamposSinLetras(evt, "rut", codigo);
+    }//GEN-LAST:event_codigoKeyTyped
+
+    private void netoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_netoKeyTyped
+         // TODO add your handling code here:
+         verificarCamposSinLetras(evt, "numero", neto);
+    }//GEN-LAST:event_netoKeyTyped
+
+    private void margenKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_margenKeyTyped
+         // TODO add your handling code here:
+         verificarCamposSinLetras(evt, "numero", codigo);
+    }//GEN-LAST:event_margenKeyTyped
+
+    private void brutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_brutoKeyTyped
+         // TODO add your handling code here:
+         verificarCamposSinLetras(evt, "numero", bruto);
+    }//GEN-LAST:event_brutoKeyTyped
+
+    private void ivaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ivaKeyTyped
+         // TODO add your handling code here:
+         verificarCamposSinLetras(evt, "numero", iva);
+    }//GEN-LAST:event_ivaKeyTyped
+
+    private void totalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_totalKeyTyped
+         // TODO add your handling code here:
+         verificarCamposSinLetras(evt, "numero", total);
+    }//GEN-LAST:event_totalKeyTyped
+
+    private void minimoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_minimoKeyTyped
+         // TODO add your handling code here:
+         verificarCamposSinLetras(evt, "numero", minimo);
+    }//GEN-LAST:event_minimoKeyTyped
+
+    private void stockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_stockKeyTyped
+         // TODO add your handling code here:
+         verificarCamposSinLetras(evt, "numero", stock);
+    }//GEN-LAST:event_stockKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
