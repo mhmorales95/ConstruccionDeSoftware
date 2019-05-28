@@ -67,8 +67,8 @@ public class Usuario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Iniciar Sesión");
-        setMinimumSize(new java.awt.Dimension(400, 300));
-        setPreferredSize(new java.awt.Dimension(400, 300));
+        setMinimumSize(new java.awt.Dimension(400, 327));
+        setPreferredSize(new java.awt.Dimension(400, 327));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -88,7 +88,7 @@ public class Usuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(contrasena);
-        contrasena.setBounds(140, 160, 130, 22);
+        contrasena.setBounds(150, 150, 130, 22);
 
         usuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario..." }));
         usuario.setBorder(null);
@@ -106,8 +106,11 @@ public class Usuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(usuario);
-        usuario.setBounds(140, 110, 130, 22);
+        usuario.setBounds(150, 100, 130, 22);
 
+        jButton1.setBackground(new java.awt.Color(211, 80, 97));
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,7 +118,7 @@ public class Usuario extends javax.swing.JDialog {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(100, 200, 190, 50);
+        jButton1.setBounds(120, 190, 170, 40);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Login.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
